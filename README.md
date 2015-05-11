@@ -17,6 +17,8 @@ Basic installation:
 - `composer install`
 - `chmod -R 777 ./storage`
 
+Or, require the git repository as a composer dependency to the child library.
+
 There are a few sections of the library that must be populated, or overwritten for proper functionality.  
 Note: All references to an `$app` are directly linked to an instance of `Silex\Application`. This instance is returned from the `Expressly\Client`.
 
