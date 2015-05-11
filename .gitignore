@@ -1,0 +1,12 @@
+.idea
+vendor
+node_modules
+*.log
+.sass-cache
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
