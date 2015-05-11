@@ -1,0 +1,41 @@
+debug: true
+
+default_language: en
+languages: [en, de]
+
+database:
+    driver: pdo_mysql
+    host: 127.0.0.1
+    dbname: expressly
+    user: root
+    password: ''
+
+table:
+    merchant: expressly_preferences
+
+provider:
+    merchant: Expressly\Provider\MerchantProvider
+
+servlet:
+    url: https://buyexpressly.com/expresslymod
+    popup: http://buyexpressly.com/website/popup_demo_a_blue/index.php
+    popup_mobile: http://buyexpressly.com/website/popup_demo_a_blue/index.php
+
+controller:
+    customer: Expressly\Controller\DummyCustomerController
+
+external:
+    host: https://expresslyapp.com/api/v1
+    routes:
+        customer_migrate_show:
+            method: GET
+            uri: /migration/{uuid}
+        customer_migrate_confirm:
+            method: GET
+            uri: /migration/{uuid}/user
+        password_create:
+            method: POST
+            uri: /merchant/password/create
+        password_update:
+            method: POST
+            uri: /merchant/password/update
