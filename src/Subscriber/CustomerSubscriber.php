@@ -34,6 +34,12 @@ class CustomerSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * Flow:
+     *      call GET /migration/{uuid}
+     *      process migration object from response
+     *      call GET /migration/{uuid}/user
+     */
     public function onMigrate(CustomerMigrateEvent $event)
     {
         $route = $this->routeProvider->customer_migrate;
