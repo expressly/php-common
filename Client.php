@@ -4,14 +4,17 @@ namespace Expressly;
 
 use Silex\Application;
 
-class Client {
+class Client
+{
     private $app;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->app = require __DIR__ . '/bootstrap/bootstrap.php';
     }
 
-    public function getApp() {
+    public function getApp()
+    {
         return $this->app;
     }
 }
