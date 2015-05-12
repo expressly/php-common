@@ -14,9 +14,9 @@ class Order extends ArraySerializeable
         return $this->amount;
     }
 
-    public function setAmount(double $amount)
+    public function setAmount($amount)
     {
-        $this->amount = $amount;
+        $this->amount = (double)$amount;
 
         return $this;
     }
@@ -38,7 +38,7 @@ class Order extends ArraySerializeable
         return $this->lastOrder->getTimeStamp();
     }
 
-    public function setLastOrder(DateTime $lastOrder)
+    public function setLastOrder(\DateTime $lastOrder)
     {
         $this->lastOrder = $lastOrder;
 
@@ -50,9 +50,9 @@ class Order extends ArraySerializeable
         return $this->numberOrdered;
     }
 
-    public function setNumberOrdered(int $numberOrdered)
+    public function setNumberOrdered($numberOrdered)
     {
-        $this->numberOrdered = $numberOrdered;
+        $this->numberOrdered = (int)$numberOrdered;
 
         return $this;
     }
