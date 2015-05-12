@@ -103,9 +103,9 @@ class Address extends ArraySerializeable
         return $this;
     }
 
-    public function setPhonePosition(int $phone)
+    public function setPhonePosition($phone)
     {
-        $this->phone = $phone->type;
+        $this->phone = (int)$phone;
 
         return $this;
     }
