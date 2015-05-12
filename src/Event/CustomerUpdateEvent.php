@@ -2,14 +2,15 @@
 
 namespace Expressly\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Expressly\Entity\Merchant;
 
-class CustomerUpdateEvent extends Event
+class CustomerUpdateEvent extends PasswordedEvent
 {
     private $updated;
 
-    public function __construct(\DateTime $updated)
+    public function __construct(Merchant $merchant, \DateTime $updated)
     {
+        parent::__construct($merchant);
         $this->updated = $updated;
     }
 

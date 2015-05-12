@@ -2,16 +2,17 @@
 
 namespace Expressly\Event;
 
+use Expressly\Entity\Merchant;
 use Expressly\Entity\Order;
-use Symfony\Component\EventDispatcher\Event;
 
-class OrderUpdateEvent extends Event
+class OrderUpdateEvent extends PasswordedEvent
 {
     protected $email;
     protected $order;
 
-    public function __construct($email, Order $order)
+    public function __construct(Merchant $merchant, $email, Order $order)
     {
+        parent::__construct($merchant);
         $this->email = $email;
         $this->order = $order;
     }
