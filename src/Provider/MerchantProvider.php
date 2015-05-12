@@ -7,18 +7,52 @@ use Silex\Application;
 
 class MerchantProvider implements MerchantProviderInterface
 {
-    private $em;
+    private $db;
+    private $logger;
+    private $table;
     private $merchant;
 
     public function __construct(Application $app)
     {
-        $this->em = $app['orm.em'];
-        $meta = $this->em->getClassMetadata('Expressly\Entity\Merchant');
-        $meta->setTableName($app['config']['table']['merchant']);
+        $this->db = $app['db'];
+        $this->logger = $app['logger'];
+        $this->table = $app['config']['table']['merchant'];
+        $this->merchant = $this->firstOrCreate();
+    }
 
-        $merchant = $this->em->getRepository('Expressly\Entity\Merchant')->findOneBy(array());
+    private function firstOrCreate()
+    {
+        $merchant = new Merchant();
 
-        $this->merchant = $merchant ?: new Merchant();
+        try {
+            $getQuery = sprintf('SELECT * FROM %s LIMIT 1', $this->table);
+            $statement = $this->db->prepare($getQuery);
+            $statement->execute();
+
+            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+
+            if (empty($result)) {
+                $merchant->setPassword();
+                $password = $merchant->getPassword();
+
+                $insertQuery = sprintf('INSERT INTO %s (`password`) VALUES (:password)', $this->table);
+                $statement = $this->db->prepare($insertQuery);
+                $statement->bindParam(':password', $password);
+                $statement->execute();
+
+                $result = $statement->fetch(\PDO::FETCH_ASSOC);
+            }
+
+            $merchant->setId($result['id'])
+                ->setHost($result['host'])
+                ->setPassword($result['password'])
+                ->setOffer($result['offer'])
+                ->setDestination($result['destination']);
+        } catch (\PDOException $e) {
+            $this->logger->addError($e);
+        }
+
+        return $merchant;
     }
 
     public function getMerchant()
@@ -28,13 +62,35 @@ class MerchantProvider implements MerchantProviderInterface
 
     public function setMerchant(Merchant $merchant)
     {
-        if ($this->merchant->getId() != $merchant->getId()) {
-            $this->em->remove($this->merchant);
+        if (!Merchant::compare($this->merchant, $merchant)) {
+            $this->save($merchant);
         }
 
-        $this->em->persist($merchant);
-        $this->em->flush();
+        return $this;
+    }
 
-        $this->merchant = $merchant;
+    private function save(Merchant $new)
+    {
+        if (empty($this->merchant)) {
+            return;
+        }
+
+        try {
+            $saveQuery = sprintf(
+                'UPDATE %s SET `host`=:host, `password`=:password, `offer`=:offer, `destination`=:destination WHERE `id`=:id',
+                $this->table
+            );
+            $statement = $this->db->prepare($saveQuery);
+            $statement->bindParam('host', $new->getHost());
+            $statement->bindParam('password', $new->getPassword());
+            $statement->bindParam('offer', $new->getOffer());
+            $statement->bindParam('destination', $new->getDestination());
+            $statement->bindParam('id', $this->merchant->getId());
+            $statement->execute();
+
+            $this->merchant = $new;
+        } catch (\PDOException $e) {
+            $this->logger->addError($e);
+        }
     }
 }

@@ -9,12 +9,17 @@ class ExternalRouteProvider implements ConfigProviderInterface
 {
     private $routes;
 
-    public function __construct($host, $routes)
+    public function __construct($hosts, $routes)
     {
         $this->routes = new ArrayCollection();
 
-        foreach ($routes as $key => $route) {
-            $this->routes->set($key, new Route($host, $route['uri'], $route['method']));
+        foreach ($routes as $key => $definition) {
+            $route = new Route();
+            $route->setHost($hosts[$definition['host']])
+                ->setURI($definition['uri'])
+                ->setMethod($definition['method']);
+
+            $this->routes->set($key, $route);
         }
     }
 
