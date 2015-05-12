@@ -2,44 +2,34 @@
 
 namespace Expressly\Entity;
 
-use Doctrine\ORM\Mapping;
-
-/**
- * @Mapping\Entity
- */
 class Merchant
 {
     const PASSWORD_LENGTH = 16;
-    /**
-     * @Mapping\Column(type="integer")
-     * @Mapping\Id
-     * @Mapping\GeneratedValue(strategy="AUTO")
-     */
     protected $id;
-
-    /**
-     * @Mapping\Column(type="string", length=255)
-     */
     protected $host;
-
-    /**
-     * @Mapping\Column(type="string", length=255)
-     */
     protected $password;
-
-    /**
-     * @Mapping\Column(type="boolean")
-     */
     protected $offer = true;
-
-    /**
-     * @Mapping\Column(type="string", length=255, nullable=true)
-     */
     protected $destination;
 
-    public function getId()
+    public static function compare(Merchant $a, Merchant $b)
     {
-        return $this->id;
+        if ($a->getHost() != $b->getHost()) {
+            return false;
+        }
+
+        if ($a->getPassword() != $b->getPassword()) {
+            return false;
+        }
+
+        if ($a->getOffer() != $b->getOffer()) {
+            return false;
+        }
+
+        if ($a->getDestination() != $b->getDestination()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getHost()
@@ -86,6 +76,18 @@ class Merchant
     public function setDestination($destination)
     {
         $this->destination = $destination;
+
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

@@ -2,7 +2,8 @@
 
 namespace Expressly\Entity;
 
-use Buzz\Message\Request;
+use Buzz\Client\FileGetContents as BuzzClient;
+use Buzz\Message\Request as BuzzRequest;
 use Buzz\Message\RequestInterface;
 
 class Route
@@ -10,14 +11,40 @@ class Route
     private $host;
     private $uri;
     private $method;
-    private $password;
 
-    public function __construct($host, $uri, $method = null, $password = false)
+    public function setParameters($parameters)
     {
-        $this->host = $host;
-        $this->uri = $uri;
+        if (!empty($this->uri)) {
+            foreach ($parameters as $parameter => $value) {
+                $this->uri = str_replace("<$parameter>", $value, $this->uri);
+            }
+        }
+
+        return $this;
+    }
+
+    public function process(callable $callback)
+    {
+        $request = new BuzzRequest();
+        $response = new BuzzRequest($this->getMethod(), $this->getURI(), $this->getHost());
+        $client = new BuzzClient();
+
+        // Add any additions to the Response
+        $callback($response);
+
+        $client->send($request, $response);
+
+        return $response;
+    }
+
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    public function setMethod($method)
+    {
         $this->method = RequestInterface::METHOD_GET;
-        $this->password = $password;
 
         $methods = array(
             RequestInterface::METHOD_GET,
@@ -31,16 +58,8 @@ class Route
         if (in_array($method, $methods)) {
             $this->method = $method;
         }
-    }
 
-    public function getHost()
-    {
-        return $this->host;
-    }
-
-    public function getMethod()
-    {
-        return $this->method;
+        return $this;
     }
 
     public function getURI()
@@ -48,23 +67,32 @@ class Route
         return $this->uri;
     }
 
-    public function getPassword()
+    public function setURI($uri)
     {
-        return $this->password;
+        $this->uri = $uri;
+
+        return $this;
     }
 
-    public function getRequest()
+    public function getHost()
     {
-        return new Request($this->getMethod(), $this->getURI(), $this->getHost());
+        return $this->host;
     }
 
-    public function getURL()
+    public function setHost($host)
     {
-        return $this->host . $this->uri;
+        $this->host = $host;
+
+        return $this;
     }
 
     public function __toString()
     {
         return (string)$this->getURL();
+    }
+
+    public function getURL()
+    {
+        return $this->host . $this->uri;
     }
 }

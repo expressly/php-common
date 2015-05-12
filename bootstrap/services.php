@@ -6,5 +6,6 @@ $app->register(new Expressly\ServiceProvider\MerchantServiceProvider());
 
 // Register events
 $app['dispatcher']->addSubscriber(new Expressly\Subscriber\CustomerSubscriber($app));
+$app['dispatcher']->addSubscriber(new Expressly\Subscriber\CustomerMigrationSubscriber($app));
 $app['dispatcher']->addSubscriber(new Expressly\Subscriber\MerchantSubscriber($app));
-$app['dispatcher']->addSubscrbier(new Expressly\Subscriber\UtilitySubscriber($app));
+$app['dispatcher']->addSubscriber(new Expressly\Subscriber\UtilitySubscriber($app));

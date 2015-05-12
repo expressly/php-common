@@ -15,5 +15,3 @@ class Client {
         return $this->app;
     }
 }
-
-$client = new Client();
