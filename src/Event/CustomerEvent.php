@@ -3,14 +3,15 @@
 namespace Expressly\Event;
 
 use Expressly\Entity\Customer;
-use Symfony\Component\EventDispatcher\Event;
+use Expressly\Entity\Merchant;
 
-class CustomerEvent extends Event
+class CustomerEvent extends PasswordedEvent
 {
     protected $customer;
 
-    public function __construct(Customer $customer)
+    public function __construct(Merchant $merchant, Customer $customer)
     {
+        parent::__construct($merchant);
         $this->customer = $customer;
     }
 

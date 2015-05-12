@@ -2,10 +2,10 @@
 
 namespace Expressly\Subscriber;
 
-use Buzz\Client\FileGetContents as BuzzClient;
-use Buzz\Message\Response as BuzzResponse;
 use Expressly\Event\MerchantEvent;
 use Expressly\Event\MerchantHostEvent;
+use Expressly\Event\MerchantNewPasswordEvent;
+use Expressly\Event\PasswordedEvent;
 use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -29,57 +29,61 @@ class MerchantSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onHostSend(MerchantHostEvent $event)
+    public function onHostSend(MerchantLocationEvent $event)
     {
+        $route = $this->routeProvider->merchant_host_send;
 
+        return $route->process(function ($request) use ($event) {
+            $merchant = $event->getMerchant();
+
+            $request->addHeader($event->getPassword());
+            $request->setContent(array(
+                'referer' => array(
+                    'merchant' => $merchant->getHost()
+                ),
+                'query' => array(
+                    'location' => $event->getLocation()
+                )
+            ));
+        });
     }
 
-    public function onPasswordCreate(MerchantEvent $event)
+    public function onPasswordCreate(PasswordedEvent $event)
     {
-        $merchant = $event->getMerchant();
-        $password = $merchant->getPassword();
         $route = $this->routeProvider->merchant_password_update;
-        $request = $route->getRequest();
-        $response = new BuzzResponse();
 
-        $request->addHeader($password);
-        $request->setContent(array(
-            'referer' => array(
-                'merchant' => $merchant->getHost()
-            ),
-            'query' => array(
-                'newPass' => $password
-            )
-        ));
+        return $route->process(function ($request) use ($event) {
+            $merchant = $event->getMerchant();
 
-        $client = new BuzzClient();
-        $client->send($request, $response);
-
-        return $response;
+            $request->addHeader($event->getPassword());
+            $request->setContent(array(
+                'referer' => array(
+                    'merchant' => $merchant->getHost()
+                ),
+                'query' => array(
+                    'newPass' => $event->getPassword()
+                )
+            ));
+        });
     }
 
-    public function onPasswordUpdate(MerchantEvent $event)
+    public function onPasswordUpdate(MerchantNewPasswordEvent $event)
     {
-        $merchant = $event->getMerchant();
-        $oldPassword = $event->getOldPassword();
         $route = $this->routeProvider->merchant_password_create;
-        $request = $route->getRequest();
-        $response = new BuzzResponse();
 
-        $request->addHeader($oldPassword);
-        $request->setContent(array(
-            'referer' => array(
-                'merchant' => $merchant->getHost()
-            ),
-            'query' => array(
-                'oldPass' => $oldPassword,
-                'newPass' => $merchant->getPassword()
-            )
-        ));
+        return $route->process(function ($request) use ($event) {
+            $merchant = $event->getMerchant();
 
-        $client = new BuzzClient();
-        $client->send($request, $response);
-
-        return $response;
+            $request->addHeader($event->getOldPassword());
+            $request->setContent(array(
+                'referer' => array(
+                    'merchant' => $merchant->getHost()
+                ),
+                'query' => array(
+                    'oldPass' => $event->getOldPassword(),
+                    'newPass' => $merchant->getPassword()
+                )
+            ));
+        });
     }
 }

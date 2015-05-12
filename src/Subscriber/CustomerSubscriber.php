@@ -2,10 +2,8 @@
 
 namespace Expressly\Subscriber;
 
-use Buzz\Client\FileGetContents as BuzzClient;
-use Buzz\Message\Response as BuzzResponse;
+use Buzz\Message\Request as BuzzRequest;
 use Expressly\Event\AcknowledgeableEvent;
-use Expressly\Event\CustomerMigrateEvent;
 use Expressly\Event\CustomerUpdateEvent;
 use Expressly\Event\OrderUpdateEvent;
 use Silex\Application;
@@ -15,77 +13,65 @@ class CustomerSubscriber implements EventSubscriberInterface
 {
     private $app;
     private $routeProvider;
-    private $merchantProvider;
 
     public function __construct(Application $app)
     {
         $this->app = $app;
         $this->routeProvider = $this->app['external_route.provider'];
-        $this->merchantProvider = $this->app['merchant.provider'];
     }
 
     public static function getSubscribedEvents()
     {
         return array(
-            'customer.migrate' => array('onMigrate', 0),
             'customer.update' => array('onUpdate', 0),
             'customer.reset' => array('onReset', 0),
             'customer.order' => array('onOrderRequest', 0)
         );
     }
 
-    /**
-     * Flow:
-     *      call GET /migration/{uuid}
-     *      process migration object from response
-     *      call GET /migration/{uuid}/user
+    /*
+     * To be sent when requested for up to date user call
      */
-    public function onMigrate(CustomerMigrateEvent $event)
-    {
-        $route = $this->routeProvider->customer_migrate;
-        $merchant = $this->merchantProvider->getMerchant();
-        $request = $route->getRequest();
-        $response = new BuzzResponse();
-
-        $request->addHeader($merchant->getPassword());
-        $request->setContent(array(
-            'email' => $event->getEmail(),
-            'userReference' => $event->getReference(),
-            'customerData' => $event->getCustomer()->toArray()
-        ));
-
-        $client = new BuzzClient();
-        $client->send($request, $response);
-
-        return $response;
-    }
-
     public function onUpdate(CustomerUpdateEvent $event)
     {
+        $route = $this->routeProvider->customer_update;
 
+        return $route->process(function (BuzzRequest $request) use ($event) {
+            $request->addHeader($event->getPassword());
+            $request->setContent(array(
+                'updated' => $event->getLastUpdated()
+            ));
+        });
     }
 
+    /*
+     * Send acknowledgement to the master server regarding (un)successful deletion
+     */
     public function onReset(AcknowledgeableEvent $event)
     {
+        $route = $this->routeProvider->customer_reset;
 
+        return $route->process(function (BuzzRequest $request) use ($event) {
+            $request->addHeader($event->getPassword());
+            $request->setContent(array(
+                'acknowledged' => $event->getAcknowledge()
+            ));
+        });
     }
 
+    /*
+     * Dispatched on request of order updates for given user
+     */
     public function onOrderRequest(OrderUpdateEvent $event)
     {
         $route = $this->routeProvider->customer_order;
-        $merchant = $this->merchantProvider->getMerchant();
-        $request = $route->getRequest();
-        $response = new BuzzResponse();
 
-        $request->addHeader($merchant->getPassword());
-        $request->setContent(array(
-            'email' => $event->getEmail(),
-            'order' => $event->getOrder()->toArray()
-        ));
-
-        $client = new BuzzClient();
-        $client->send($request, $response);
-
-        return $response;
+        return $route->process(function (BuzzRequest $request) use ($event) {
+            $request->addHeader($event->getPassword());
+            $request->setContent(array(
+                'email' => $event->getEmail(),
+                'order' => $event->getOrder()->toArray()
+            ));
+        });
     }
 }
