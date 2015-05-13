@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9a712f8a5ddd8817ec062602b8057a3d",
+    "hash": "53688f71cd229d1b921babecea2c090a",
     "packages": [
         {
             "name": "deralex/yaml-config-service-provider",
-            "version": "dev-master",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deralex/YamlConfigServiceProvider.git",
-                "reference": "20857a6f34a6276429c548ab67be6fa138457f1a"
+                "reference": "5923f60e6fbb16432e47310cf9680fe658c8dc0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deralex/YamlConfigServiceProvider/zipball/20857a6f34a6276429c548ab67be6fa138457f1a",
-                "reference": "20857a6f34a6276429c548ab67be6fa138457f1a",
+                "url": "https://api.github.com/repos/deralex/YamlConfigServiceProvider/zipball/5923f60e6fbb16432e47310cf9680fe658c8dc0e",
+                "reference": "5923f60e6fbb16432e47310cf9680fe658c8dc0e",
                 "shasum": ""
             },
             "require": {
@@ -55,7 +55,7 @@
             "keywords": [
                 "silex"
             ],
-            "time": "2015-03-10 15:57:39"
+            "time": "2015-03-10 12:58:27"
         },
         {
             "name": "doctrine/collections",
@@ -1794,9 +1794,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "deralex/yaml-config-service-provider": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
