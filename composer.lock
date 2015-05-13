@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "556c3b28a33f09203b558b2ffcf6c6fe",
+    "hash": "9a712f8a5ddd8817ec062602b8057a3d",
     "packages": [
         {
             "name": "deralex/yaml-config-service-provider",
