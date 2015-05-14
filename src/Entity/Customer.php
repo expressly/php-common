@@ -111,11 +111,20 @@ class Customer extends ArraySerializeable
         return $this;
     }
 
+    public function getEmailIndex(Email $email) {
+        return $this->emails->indexOf($email);
+    }
+
     public function addPhone(Phone $phone)
     {
         $this->phones->add($phone);
 
         return $this;
+    }
+
+    public function getPhoneIndex(Phone $phone)
+    {
+        return $this->phones->indexOf($phone);
     }
 
     public function addAddress(Address $address, $primary = false, $type = null)
@@ -127,10 +136,10 @@ class Customer extends ArraySerializeable
         }
 
         $index = $this->addresses->indexOf($address);
-        if ($type == Address::ADDRESS_BILLING) {
+        if ($type == Address::ADDRESS_BILLING || $type == Address::ADDRESS_BOTH) {
             $this->billingAddress = $index;
         }
-        if ($type == Address::ADDRESS_SHIPPING) {
+        if ($type == Address::ADDRESS_SHIPPING || $type == Address::ADDRESS_BOTH) {
             $this->shippingAddress = $index;
         }
 
