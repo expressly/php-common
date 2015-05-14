@@ -6,6 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class Customer extends ArraySerializeable
 {
+    const GENDER_MALE = 'M';
+    const GENDER_FEMALE = 'F';
+    const GENDER_TRANS = 'T';
+
     protected $firstName;
     protected $lastName;
     protected $gender;
