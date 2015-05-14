@@ -36,12 +36,14 @@ class CustomerSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->customer_update;
 
-        return $route->process(function (BuzzRequest $request) use ($event) {
+        $response = $route->process(function (BuzzRequest $request) use ($event) {
             $request->addHeader($event->getPassword());
             $request->setContent(array(
                 'updated' => $event->getLastUpdated()
             ));
         });
+
+        $event->setResponse($response);
     }
 
     /*
@@ -51,12 +53,14 @@ class CustomerSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->customer_reset;
 
-        return $route->process(function (BuzzRequest $request) use ($event) {
+        $response = $route->process(function (BuzzRequest $request) use ($event) {
             $request->addHeader($event->getPassword());
             $request->setContent(array(
                 'acknowledged' => $event->getAcknowledge()
             ));
         });
+
+        $event->setResponse($response);
     }
 
     /*
@@ -66,12 +70,14 @@ class CustomerSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->customer_order;
 
-        return $route->process(function (BuzzRequest $request) use ($event) {
+        $response = $route->process(function (BuzzRequest $request) use ($event) {
             $request->addHeader($event->getPassword());
             $request->setContent(array(
                 'email' => $event->getEmail(),
                 'order' => $event->getOrder()->toArray()
             ));
         });
+
+        $event->setResponse($response);
     }
 }

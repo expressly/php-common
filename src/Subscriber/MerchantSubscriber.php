@@ -4,6 +4,7 @@ namespace Expressly\Subscriber;
 
 use Expressly\Event\MerchantEvent;
 use Expressly\Event\MerchantHostEvent;
+use Expressly\Event\MerchantLocationEvent;
 use Expressly\Event\MerchantNewPasswordEvent;
 use Expressly\Event\PasswordedEvent;
 use Silex\Application;
@@ -33,7 +34,7 @@ class MerchantSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->merchant_host_send;
 
-        return $route->process(function ($request) use ($event) {
+        $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
             $request->addHeader($event->getPassword());
@@ -46,13 +47,15 @@ class MerchantSubscriber implements EventSubscriberInterface
                 )
             ));
         });
+
+        $event->setResponse($response);
     }
 
     public function onPasswordCreate(PasswordedEvent $event)
     {
         $route = $this->routeProvider->merchant_password_update;
 
-        return $route->process(function ($request) use ($event) {
+        $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
             $request->addHeader($event->getPassword());
@@ -65,13 +68,15 @@ class MerchantSubscriber implements EventSubscriberInterface
                 )
             ));
         });
+
+        $event->setResponse($response);
     }
 
     public function onPasswordUpdate(MerchantNewPasswordEvent $event)
     {
         $route = $this->routeProvider->merchant_password_create;
 
-        return $route->process(function ($request) use ($event) {
+        $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
             $request->addHeader($event->getOldPassword());
@@ -85,5 +90,7 @@ class MerchantSubscriber implements EventSubscriberInterface
                 )
             ));
         });
+
+        $event->setResponse($response);
     }
 }

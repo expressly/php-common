@@ -3,9 +3,9 @@
 namespace Expressly\Event;
 
 use Expressly\Entity\Merchant;
-use Symfony\Component\EventDispatcher\Event;
+use Expressly\Event\ResponseEvent\ResponseEvent;
 
-class PasswordedEvent extends Event
+class PasswordedEvent extends ResponseEvent
 {
     private $merchant;
 

@@ -10,7 +10,7 @@ class Client
 
     public function __construct()
     {
-        $this->app = require __DIR__ . '/bootstrap/bootstrap.php';
+        $this->app = require __DIR__ . '/../bootstrap/bootstrap.php';
     }
 
     public function getApp()
