@@ -2,7 +2,7 @@
 
 namespace Expressly\Entity;
 
-class Merchant
+class Merchant extends ArraySerializeable
 {
     const PASSWORD_LENGTH = 16;
     protected $id;
