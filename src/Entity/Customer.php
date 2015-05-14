@@ -44,6 +44,55 @@ class Customer extends ArraySerializeable
         return $this;
     }
 
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function setBirthday($birthday)
+    {
+        $this->dob = $birthday;
+
+        return $this;
+    }
+
+    public function setTaxNumber($taxNumber)
+    {
+        $this->taxNumber = $taxNumber;
+
+        return $this;
+    }
+
+    public function setDateUpdated(\DateTime $date)
+    {
+        $this->dateUpdated = $date->getTimestamp();
+
+        return $this;
+    }
+
+    public function setDateLastOrder(\DateTime $date)
+    {
+        $this->dateLastOrder = $date->getTimestamp();
+
+        return $this;
+    }
+
+    public function setNumberOrdered($number)
+    {
+        $this->numberOrdered = $number;
+
+        return $this;
+    }
+
     public function addSocial(Social $social)
     {
         $this->onlinePresence->add($social);
