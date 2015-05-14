@@ -6,6 +6,7 @@ class Address extends ArraySerializeable
 {
     const ADDRESS_BILLING = 'billing';
     const ADDRESS_SHIPPING = 'shipping';
+    const ADDRESS_BOTH = 'both';
 
     protected $firstName;
     protected $lastName;
