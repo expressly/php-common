@@ -2,8 +2,15 @@
 
 use Silex\Provider\MonologServiceProvider;
 use Symfony\Component\Debug\ErrorHandler;
+use Symfony\Component\HttpFoundation\Response;
 
-$loader = require __DIR__ . '/../vendor/autoload.php';
+$package = __DIR__ . '/../../../../vendor/autoload.php';
+if (file_exists($package)) {
+    require $package;
+} else {
+    require __DIR__ . '/../vendor/autoload.php';
+}
+
 $app = new Silex\Application();
 
 // Monolog
@@ -19,10 +26,8 @@ require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/services.php';
 require_once __DIR__ . '/start.php';
 
-$app->get('/', function() {
-    return \Symfony\Component\HttpFoundation\JsonResponse::create(array(
-        'welcome' => 'Expressly'
-    ));
+$app->get('/', function () {
+    return new Response();
 });
 
 $app->run();
