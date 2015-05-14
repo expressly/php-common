@@ -41,10 +41,10 @@ external:
             host: default
             method: GET
             uri: /
-        merchant_password_create:
+        merchant_register:
             host: admin
             method: POST
-            uri: /merchant/password/create
+            uri: /merchant/register
         merchant_password_update:
             host: admin
             method: POST
