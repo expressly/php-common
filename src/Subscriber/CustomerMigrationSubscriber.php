@@ -36,9 +36,11 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->customer_migrate_start;
 
-        return $route->process(function (BuzzRequest $request) use ($event) {
+        $response = $route->process(function (BuzzRequest $request) use ($event) {
             $request->addHeader($event->getPassword());
         });
+
+        $event->setResponse($response);
     }
 
     /*
@@ -49,9 +51,11 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->customer_migrate_cart;
 
-        return $route->process(function (BuzzRequest $request) use ($event) {
+        $response = $route->process(function (BuzzRequest $request) use ($event) {
             $request->addHeader($event->getPassword());
         });
+
+        $event->setResponse($response);
     }
 
     /*
@@ -62,7 +66,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->customer_migrate_send;
 
-        return $route->process(function (BuzzRequest $request) use ($event) {
+        $response = $route->process(function (BuzzRequest $request) use ($event) {
             $request->addHeader($event->getPassword());
             $request->setContent(array(
                 'email' => $event->getEmail(),
@@ -70,5 +74,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
                 'customerData' => $event->getCustomer()->toArray()
             ));
         });
+
+        $event->setResponse($response);
     }
 }

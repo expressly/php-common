@@ -2,10 +2,9 @@
 
 namespace Expressly\Subscriber;
 
+use Expressly\Event\ResponseEvent\ResponseEvent;
 use Silex\Application;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UtilitySubscriber implements EventSubscriberInterface
 {
@@ -25,9 +24,9 @@ class UtilitySubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onPing(Event $event)
+    public function onPing(ResponseEvent $event)
     {
-        return new JsonResponse(array(
+        $event->setResponse(array(
             'expressly' => 'Stuff is happening!'
         ));
     }

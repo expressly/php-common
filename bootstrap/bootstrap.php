@@ -19,6 +19,12 @@ require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/services.php';
 require_once __DIR__ . '/start.php';
 
+$app->get('/', function() {
+    return \Symfony\Component\HttpFoundation\JsonResponse::create(array(
+        'welcome' => 'Expressly'
+    ));
+});
+
 $app->run();
 
 return $app;
