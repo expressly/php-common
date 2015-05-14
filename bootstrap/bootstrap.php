@@ -2,7 +2,6 @@
 
 use Silex\Provider\MonologServiceProvider;
 use Symfony\Component\Debug\ErrorHandler;
-use Symfony\Component\HttpFoundation\Response;
 
 $package = __DIR__ . '/../../../../vendor/autoload.php';
 if (file_exists($package)) {
