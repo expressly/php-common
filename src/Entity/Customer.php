@@ -62,9 +62,9 @@ class Customer extends ArraySerializeable
         return $this;
     }
 
-    public function setBirthday($birthday)
+    public function setBirthday(\DateTime $birthday)
     {
-        $this->dob = $birthday;
+        $this->dob = $birthday->getTimestamp();
 
         return $this;
     }
