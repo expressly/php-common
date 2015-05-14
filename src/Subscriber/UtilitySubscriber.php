@@ -2,7 +2,7 @@
 
 namespace Expressly\Subscriber;
 
-use Expressly\Event\ResponseEvent\ResponseEvent;
+use Expressly\Event\ResponseEvent;
 use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

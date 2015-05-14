@@ -3,7 +3,6 @@
 namespace Expressly\Event;
 
 use Expressly\Entity\Merchant;
-use Expressly\Event\ResponseEvent\ResponseEvent;
 
 class PasswordedEvent extends ResponseEvent
 {

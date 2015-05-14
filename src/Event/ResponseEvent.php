@@ -1,6 +1,6 @@
 <?php
 
-namespace Expressly\Event\ResponseEvent;
+namespace Expressly\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
