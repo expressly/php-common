@@ -10,6 +10,7 @@ class Merchant extends ArraySerializeable
     protected $password;
     protected $offer = true;
     protected $destination;
+    protected $path;
 
     public static function compare(Merchant $a, Merchant $b)
     {
@@ -76,6 +77,18 @@ class Merchant extends ArraySerializeable
     public function setDestination($destination)
     {
         $this->destination = $destination;
+
+        return $this;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
 
         return $this;
     }
