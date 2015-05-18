@@ -38,7 +38,9 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function (BuzzRequest $request) use ($event) {
-            $request->addHeader($event->getPassword());
+            $merchant = $event->getMerchant();
+
+            $request->addHeader(array('Referer' => $merchant->getHost()));
         });
 
         $event->setResponse($response);
@@ -56,7 +58,9 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function (BuzzRequest $request) use ($event) {
-            $request->addHeader($event->getPassword());
+            $merchant = $event->getMerchant();
+
+            $request->addHeader(array('Referer' => $merchant->getHost()));
         });
 
         $event->setResponse($response);

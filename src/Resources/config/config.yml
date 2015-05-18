@@ -18,8 +18,8 @@ servlet:
 
 external:
     hosts:
-        default: https://expresslyapp.com/api/v1
-        admin: https://expresslyapp.com/api/admin
+        default: http://expresslyapp.com:8081/api/v1
+        admin: http://expresslyapp.com:8081/api/admin
     routes:
         customer_migrate_start:
             host: default

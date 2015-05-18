@@ -22,7 +22,7 @@ class Route
     public function process($callback)
     {
         $request = new BuzzRequest();
-        $response = new BuzzRequest($this->getMethod(), $this->getURI(), $this->getHost());
+        $response = new BuzzRequest($this->getMethod(), '/', $this->getURL());
         $client = new BuzzClient();
 
         // Add any additions to the Response

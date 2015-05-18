@@ -37,7 +37,9 @@ class CustomerSubscriber implements EventSubscriberInterface
         $route = $this->routeProvider->customer_update;
 
         $response = $route->process(function (BuzzRequest $request) use ($event) {
-            $request->addHeader($event->getPassword());
+            $merchant = $event->getMerchant();
+
+            $request->addHeader(array('Referer' => $merchant->getHost()));
             $request->setContent(array(
                 'updated' => $event->getLastUpdated()
             ));
@@ -54,7 +56,9 @@ class CustomerSubscriber implements EventSubscriberInterface
         $route = $this->routeProvider->customer_reset;
 
         $response = $route->process(function (BuzzRequest $request) use ($event) {
-            $request->addHeader($event->getPassword());
+            $merchant = $event->getMerchant();
+
+            $request->addHeader(array('Referer' => $merchant->getHost()));
             $request->setContent(array(
                 'acknowledged' => $event->getAcknowledge()
             ));
@@ -71,7 +75,9 @@ class CustomerSubscriber implements EventSubscriberInterface
         $route = $this->routeProvider->customer_order;
 
         $response = $route->process(function (BuzzRequest $request) use ($event) {
-            $request->addHeader($event->getPassword());
+            $merchant = $event->getMerchant();
+
+            $request->addHeader(array('Referer' => $merchant->getHost()));
             $request->setContent(array(
                 'email' => $event->getEmail(),
                 'order' => $event->getOrder()->toArray()
