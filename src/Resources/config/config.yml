@@ -25,7 +25,7 @@ external:
             host: default
             method: GET
             uri: /migration/<uuid>
-        customer_migrate_cart:
+        customer_migrate_complete:
             host: default
             method: GET
             uri: /migration/<uuid>/user
