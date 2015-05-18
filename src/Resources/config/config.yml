@@ -45,6 +45,10 @@ external:
             host: admin
             method: POST
             uri: /merchant/register
+        merchant_delete:
+            host: admin
+            method: POST
+            uri: /merchant/destroy
         merchant_password_update:
             host: admin
             method: POST
