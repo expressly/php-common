@@ -2,9 +2,10 @@
 
 namespace Expressly\Entity;
 
-use Buzz\Client\Curl as BuzzClient;
-use Buzz\Message\Request as BuzzRequest;
+use Buzz\Client\Curl;
+use Buzz\Message\Request;
 use Buzz\Message\RequestInterface;
+use Buzz\Message\Response;
 
 class Route
 {
@@ -21,16 +22,16 @@ class Route
 
     public function process($callback)
     {
-        $request = new BuzzRequest();
-        $response = new BuzzRequest($this->getMethod(), '/', $this->getURL());
-        $client = new BuzzClient();
+        $request = new Response();
+        $response = new Request($this->getMethod(), '/', $this->getURL());
+        $client = new Curl();
 
         // Add any additions to the Response
         $callback($response);
 
         $client->send($request, $response);
 
-        return $response->getInfo();
+        return $response->getContent();
     }
 
     public function getMethod()
@@ -56,6 +57,11 @@ class Route
         }
 
         return $this;
+    }
+
+    public function getURL()
+    {
+        return $this->host . $this->uri;
     }
 
     public function getURI()
@@ -94,10 +100,5 @@ class Route
     public function __toString()
     {
         return (string)$this->getURL();
-    }
-
-    public function getURL()
-    {
-        return $this->host . $this->uri;
     }
 }
