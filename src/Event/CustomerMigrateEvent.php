@@ -2,36 +2,20 @@
 
 namespace Expressly\Event;
 
-use Expressly\Entity\Customer;
 use Expressly\Entity\Merchant;
-use Symfony\Component\EventDispatcher\Event;
 
 class CustomerMigrateEvent extends PasswordedEvent
 {
-    private $customer;
-    private $email;
-    private $reference;
+    private $uuid;
 
-    public function __construct(Merchant $merchant, Customer $customer, $email, $reference)
+    public function __construct(Merchant $merchant, $uuid)
     {
         parent::__construct($merchant);
-        $this->customer = $customer;
-        $this->email = $email;
-        $this->reference = $reference;
+        $this->uuid = $uuid;
     }
 
-    public function getCustomer()
+    public function getUuid()
     {
-        return $this->customer;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function getReference()
-    {
-        return $this->reference;
+        return $this->uuid;
     }
 }

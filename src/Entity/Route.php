@@ -14,11 +14,7 @@ class Route
 
     public function setParameters($parameters)
     {
-        if (!empty($this->uri)) {
-            foreach ($parameters as $parameter => $value) {
-                $this->uri = str_replace("<$parameter>", $value, $this->uri);
-            }
-        }
+        $this->parameters = $parameters;
 
         return $this;
     }
@@ -64,7 +60,16 @@ class Route
 
     public function getURI()
     {
-        return $this->uri;
+        if (empty($this->parameters)) {
+            return $this->uri;
+        }
+
+        $uri = $this->uri;
+        foreach ($this->parameters as $parameter => $value) {
+            $uri = str_replace("<$parameter>", $value, $uri);
+        }
+
+        return $uri;
     }
 
     public function setURI($uri)
