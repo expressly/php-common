@@ -19,7 +19,7 @@ class Route
         return $this;
     }
 
-    public function process(callable $callback)
+    public function process($callback)
     {
         $request = new BuzzRequest();
         $response = new BuzzRequest($this->getMethod(), $this->getURI(), $this->getHost());
