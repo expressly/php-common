@@ -76,7 +76,6 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader($event->getOldPassword());
             $request->setContent(array(
                 'referer' => array(
                     'merchant' => $merchant->getHost()
