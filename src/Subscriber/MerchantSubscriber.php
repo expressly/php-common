@@ -34,14 +34,10 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
+            $request->addHeader(array('Referer' => $merchant->getHost()));
             $request->setContent(array(
-                'referer' => array(
-                    'merchant' => $merchant->getHost()
-                ),
-                'query' => array(
-                    'newPass' => $merchant->getPassword(),
-                    'location' => $merchant->getPath()
-                )
+                'newPass' => $merchant->getPassword(),
+                'location' => $merchant->getPath()
             ));
         });
 
@@ -55,14 +51,10 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
+            $request->addHeader(array('Referer' => $merchant->getHost()));
             $request->setContent(array(
-                'referer' => array(
-                    'merchant' => $merchant->getHost()
-                ),
-                'query' => array(
-                    'pass' => $merchant->getPassword(),
-                    'location' => $merchant->getPath()
-                )
+                'pass' => $merchant->getPassword(),
+                'location' => $merchant->getPath()
             ));
         });
 
@@ -76,14 +68,10 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
+            $request->addHeader(array('Referer' => $merchant->getHost()));
             $request->setContent(array(
-                'referer' => array(
-                    'merchant' => $merchant->getHost()
-                ),
-                'query' => array(
-                    'oldPass' => $event->getOldPassword(),
-                    'newPass' => $merchant->getPassword()
-                )
+                'oldPass' => $event->getOldPassword(),
+                'newPass' => $merchant->getPassword()
             ));
         });
 
