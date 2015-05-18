@@ -39,8 +39,8 @@ class MerchantSubscriber implements EventSubscriberInterface
                     'merchant' => $merchant->getHost()
                 ),
                 'query' => array(
-                    'newPass' => $event->getPassword(),
-                    'location' => $event->getLocation()
+                    'newPass' => $merchant->getPassword(),
+                    'location' => $merchant->getPath()
                 )
             ));
         });
