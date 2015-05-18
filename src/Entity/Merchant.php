@@ -50,9 +50,9 @@ class Merchant extends ArraySerializeable
         return $this->password;
     }
 
-    public function setPassword($password = null)
+    public function setPassword($password)
     {
-        $this->password = !empty($password) ? $password : bin2hex(openssl_random_pseudo_bytes(self::PASSWORD_LENGTH));
+        $this->password = $password;
 
         return $this;
     }
@@ -79,6 +79,11 @@ class Merchant extends ArraySerializeable
         $this->destination = $destination;
 
         return $this;
+    }
+
+    public static function createPassword()
+    {
+        return bin2hex(openssl_random_pseudo_bytes(self::PASSWORD_LENGTH));
     }
 
     public function getPath()
