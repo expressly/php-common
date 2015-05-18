@@ -2,7 +2,7 @@
 
 namespace Expressly\Entity;
 
-use Buzz\Client\FileGetContents as BuzzClient;
+use Buzz\Client\Curl as BuzzClient;
 use Buzz\Message\Request as BuzzRequest;
 use Buzz\Message\RequestInterface;
 
@@ -30,7 +30,7 @@ class Route
 
         $client->send($request, $response);
 
-        return $response;
+        return $response->getInfo();
     }
 
     public function getMethod()
