@@ -34,7 +34,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
                 'newPass' => $merchant->getPassword(),
                 'location' => $merchant->getPath()
@@ -51,7 +51,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
                 'pass' => $merchant->getPassword(),
                 'location' => $merchant->getPath()
@@ -68,7 +68,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
                 'oldPass' => $event->getOldPassword(),
                 'newPass' => $merchant->getPassword()

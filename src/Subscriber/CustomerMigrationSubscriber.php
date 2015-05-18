@@ -40,7 +40,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         $response = $route->process(function (BuzzRequest $request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
         });
 
         $event->setResponse($response);
@@ -60,7 +60,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         $response = $route->process(function (BuzzRequest $request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
         });
 
         $event->setResponse($response);

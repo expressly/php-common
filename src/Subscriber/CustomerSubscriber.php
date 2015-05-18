@@ -39,7 +39,7 @@ class CustomerSubscriber implements EventSubscriberInterface
         $response = $route->process(function (BuzzRequest $request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
                 'updated' => $event->getLastUpdated()
             ));
@@ -58,7 +58,7 @@ class CustomerSubscriber implements EventSubscriberInterface
         $response = $route->process(function (BuzzRequest $request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
                 'acknowledged' => $event->getAcknowledge()
             ));
@@ -77,7 +77,7 @@ class CustomerSubscriber implements EventSubscriberInterface
         $response = $route->process(function (BuzzRequest $request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader(array('Referer' => $merchant->getHost()));
+            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
                 'email' => $event->getEmail(),
                 'order' => $event->getOrder()->toArray()
