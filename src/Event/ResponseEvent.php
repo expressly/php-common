@@ -10,7 +10,9 @@ class ResponseEvent extends Event
 
     public function getResponse()
     {
-        return $this->response;
+        $json = json_decode($this->response, true);
+
+        return is_array($json) ? $json : $this->response;
     }
 
     public function setResponse($response)
