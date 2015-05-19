@@ -61,7 +61,7 @@ class Route
 
     public function getURL()
     {
-        return $this->host . $this->uri;
+        return $this->host . $this->getURI();
     }
 
     public function getURI()
