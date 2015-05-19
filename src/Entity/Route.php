@@ -22,12 +22,12 @@ class Route
 
     public function process($callback)
     {
-        $request = new Response();
-        $response = new Request($this->getMethod(), '/', $this->getURL());
+        $response = new Response();
+        $request = new Request($this->getMethod(), '/', $this->getURL());
         $client = new Curl();
 
         // Add any additions to the Response
-        $callback($response);
+        $callback($request);
 
         $client->send($request, $response);
 
