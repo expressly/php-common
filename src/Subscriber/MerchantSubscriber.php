@@ -36,7 +36,7 @@ class MerchantSubscriber implements EventSubscriberInterface
 
             $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
-                'newPass' => $merchant->getPassword(),
+                'newPass' => base64_encode($merchant->getPassword()),
                 'location' => $merchant->getPath()
             ));
         });
@@ -70,8 +70,8 @@ class MerchantSubscriber implements EventSubscriberInterface
 
             $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
-                'oldPass' => $event->getOldPassword(),
-                'newPass' => $merchant->getPassword()
+                'oldPass' => base64_encode($event->getOldPassword()),
+                'newPass' => base64_encode($merchant->getPassword())
             ));
         });
 
