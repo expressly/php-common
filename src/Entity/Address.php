@@ -118,12 +118,12 @@ class Address extends ArraySerializeable
 
     public function getAlias()
     {
-        return $this->alias;
+        return $this->addressAlias;
     }
 
     public function setAlias($alias)
     {
-        $this->alias = $alias;
+        $this->addressAlias = $alias;
 
         return $this;
     }
