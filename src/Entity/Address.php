@@ -16,7 +16,7 @@ class Address extends ArraySerializeable
     protected $companyName;
     protected $zip;
     protected $phone;
-    protected $alias;
+    protected $addressAlias;
     protected $stateProvince;
     protected $country;
 
