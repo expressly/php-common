@@ -19,10 +19,10 @@ class Phone extends ArraySerializeable
     public function setType($type)
     {
         if ($type == self::PHONE_TYPE_HOME) {
-            $this->type == self::PHONE_TYPE_HOME;
+            $this->type = self::PHONE_TYPE_HOME;
         }
         if ($type == self::PHONE_TYPE_MOBILE) {
-            $this->type == self::PHONE_TYPE_HOME;
+            $this->type = self::PHONE_TYPE_HOME;
         }
 
         return $this;
