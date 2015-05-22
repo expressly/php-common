@@ -4,6 +4,7 @@
 $app->register(new Expressly\ServiceProvider\ExternalRouteServiceProvider());
 $app->register(new Expressly\ServiceProvider\MerchantServiceProvider());
 $app->register(new Expressly\ServiceProvider\JavaScriptServiceProvider());
+$app->register(new Expressly\ServiceProvider\CountryCodeServiceProvider());
 
 // Register events
 $app['dispatcher']->addSubscriber(new Expressly\Subscriber\CustomerSubscriber($app));
