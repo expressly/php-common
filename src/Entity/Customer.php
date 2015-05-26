@@ -111,7 +111,8 @@ class Customer extends ArraySerializeable
         return $this;
     }
 
-    public function getEmailIndex(Email $email) {
+    public function getEmailIndex(Email $email)
+    {
         return $this->emails->indexOf($email);
     }
 
