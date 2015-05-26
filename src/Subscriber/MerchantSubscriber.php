@@ -63,7 +63,7 @@ class MerchantSubscriber implements EventSubscriberInterface
 
     public function onPasswordUpdate(MerchantNewPasswordEvent $event)
     {
-        $route = $this->routeProvider->merchant_password_create;
+        $route = $this->routeProvider->merchant_password_update;
 
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
