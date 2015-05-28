@@ -32,7 +32,7 @@ class MerchantProvider implements MerchantProviderInterface
             $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
             if (empty($result)) {
-                $merchant->setPassword();
+                $merchant->setPassword(Merchant::createPassword());
                 $password = $merchant->getPassword();
 
                 $insertQuery = sprintf('INSERT INTO %s (`password`) VALUES (:password)', $this->table);
