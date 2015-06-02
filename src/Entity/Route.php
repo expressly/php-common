@@ -20,14 +20,16 @@ class Route
         return $this;
     }
 
-    public function process($callback)
+    public function process($callback = null)
     {
         $response = new Response();
         $request = new Request($this->getMethod(), '/', $this->getURL());
         $client = new Curl();
 
-        // Add any additions to the Response
-        $callback($request);
+        if (is_callable($callback)) {
+            // Add any additions to the Response
+            $callback($request);
+        }
 
         $client->send($request, $response);
 

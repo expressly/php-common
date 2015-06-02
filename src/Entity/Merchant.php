@@ -6,11 +6,15 @@ class Merchant extends ArraySerializeable
 {
     const PASSWORD_LENGTH = 16;
     protected $id;
+    protected $name;
     protected $host;
     protected $password;
     protected $offer = true;
     protected $destination;
     protected $path;
+    protected $image;
+    protected $terms;
+    protected $policy;
 
     public static function compare(Merchant $a, Merchant $b)
     {
@@ -86,14 +90,14 @@ class Merchant extends ArraySerializeable
         return bin2hex(openssl_random_pseudo_bytes(self::PASSWORD_LENGTH));
     }
 
-    public function getPath()
+    public function getName()
     {
-        return $this->path;
+        return $this->name;
     }
 
-    public function setPath($path)
+    public function setName($name)
     {
-        $this->path = $path;
+        $this->name = $name;
 
         return $this;
     }
@@ -106,6 +110,59 @@ class Merchant extends ArraySerializeable
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    public function getEndpoint()
+    {
+        return $this->host . $this->path;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getTerms()
+    {
+        return $this->terms;
+    }
+
+    public function setTerms($terms)
+    {
+        $this->terms = $terms;
+
+        return $this;
+    }
+
+    public function getPolicy()
+    {
+        return $this->policy;
+    }
+
+    public function setPolicy($policy)
+    {
+        $this->policy = $policy;
 
         return $this;
     }

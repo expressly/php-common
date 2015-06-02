@@ -1,3 +1,5 @@
+api_version: Api
+
 database:
     driver: mysql
     host: 127.0.0.1
@@ -18,8 +20,7 @@ servlet:
 
 external:
     hosts:
-        default: http://expresslyapp.com:8081/api/v1
-        admin: http://expresslyapp.com:8081/api/admin
+        default: https://dev.expresslyapp.com/api/v1
     routes:
         customer_migrate_start:
             host: default
@@ -29,28 +30,28 @@ external:
             host: default
             method: GET
             uri: /migration/<uuid>/user
-        customer_update:
+        customer_migrate_success:
             host: default
             method: GET
-            uri: /
-        customer_reset:
-            host: default
-            method: GET
-            uri: /
-        customer_order:
-            host: default
-            method: GET
-            uri: /
+            uri: /migration/<uuid>/success
         merchant_register:
-            host: admin
+            host: default
             method: POST
             uri: /merchant/register
+        merchant_update:
+            host: default
+            method: POST
+            uri: /merchant/update
         merchant_delete:
-            host: admin
+            host: default
             method: POST
             uri: /merchant/destroy
+        merchant_password_save:
+            host: default
+            method: POST
+            uri: /merchant/password/save
         merchant_password_update:
-            host: admin
+            host: default
             method: POST
             uri: /merchant/password/update
 
