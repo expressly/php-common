@@ -5,7 +5,7 @@ namespace Expressly\Presenter;
 use Expressly\Entity\Customer;
 use Expressly\Entity\Merchant;
 
-class CustomerMigratePresenter
+class CustomerMigratePresenter implements PresenterInterface
 {
     private $merchant;
     private $customer;

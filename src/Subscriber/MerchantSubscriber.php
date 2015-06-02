@@ -4,6 +4,7 @@ namespace Expressly\Subscriber;
 
 use Expressly\Event\MerchantEvent;
 use Expressly\Event\MerchantNewPasswordEvent;
+use Expressly\Event\MerchantUpdatePasswordEvent;
 use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,7 +23,9 @@ class MerchantSubscriber implements EventSubscriberInterface
     {
         return array(
             'merchant.register' => array('onRegister', 0),
+            'merchant.update' => array('onUpdate', 0),
             'merchant.delete' => array('onDelete', 0),
+            'merchant.password.save' => array('onPasswordSave', 0),
             'merchant.password.update' => array('onPasswordUpdate', 0)
         );
     }
@@ -34,10 +37,31 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
-                'newPass' => base64_encode($merchant->getPassword()),
-                'location' => $merchant->getPath()
+                'shopName' => $merchant->getName(),
+                'shopUrl' => $merchant->getEndpoint(),
+                'shopImageUrl' => $merchant->getImage(),
+                'termsAndConditionsUrl' => $merchant->getTerms(),
+                'policyUrl' => $merchant->getPolicy()
+            ));
+        });
+
+        $event->setResponse($response);
+    }
+
+    public function onUpdate(MerchantEvent $event)
+    {
+        $route = $this->routeProvider->merchant_update;
+
+        $response = $route->process(function ($request) use ($event) {
+            $merchant = $event->getMerchant();
+
+            $request->setContent(array(
+                'shopName' => $merchant->getName(),
+                'shopUrl' => $merchant->getEndpoint(),
+                'shopImageUrl' => $merchant->getImage(),
+                'termsAndConditionsUrl' => $merchant->getTerms(),
+                'policyUrl' => $merchant->getPolicy()
             ));
         });
 
@@ -51,27 +75,43 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
-                'pass' => $merchant->getPassword(),
-                'location' => $merchant->getPath()
+                'pass' => base64_encode($merchant->getPassword()),
+                'url' => $merchant->getEndpoint()
             ));
         });
 
         $event->setResponse($response);
     }
 
-    public function onPasswordUpdate(MerchantNewPasswordEvent $event)
+    public function onPasswordSave(MerchantEvent $event)
+    {
+        $route = $this->routeProvider->merchant_password_save;
+
+        $response = $route->process(function ($request) use ($event) {
+            $merchant = $event->getMerchant();
+
+            $request->setContent(array(
+                'secretKey' => base64_encode($merchant->getPassword()),
+                'webshopSystem' => $this->app['api_version'],
+                'url' => $merchant->getEndpoint()
+            ));
+        });
+
+        $event->setResponse($response);
+    }
+
+    public function onPasswordUpdate(MerchantUpdatePasswordEvent $event)
     {
         $route = $this->routeProvider->merchant_password_update;
 
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader("Referer: {$merchant->getHost()}");
             $request->setContent(array(
-                'oldPass' => base64_encode($event->getOldPassword()),
-                'newPass' => base64_encode($merchant->getPassword())
+                'oldSecretKey' => base64_encode($event->getOldPassword()),
+                'newSecretKey' => base64_encode($merchant->getPassword()),
+                'url' => $merchant->getEndpoint()
             ));
         });
 

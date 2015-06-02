@@ -12,11 +12,11 @@ class MerchantProvider implements MerchantProviderInterface
     private $table;
     private $merchant;
 
-    public function __construct(Application $app)
+    public function __construct(Application $app, $config = array(), $table = null)
     {
         $this->db = $app['db'];
         $this->logger = $app['logger'];
-        $this->table = $app['config']['table']['merchant'];
+        $this->table = !is_null($table) ? $table : $app['config']['table']['merchant'];
         $this->merchant = $this->firstOrCreate();
     }
 
