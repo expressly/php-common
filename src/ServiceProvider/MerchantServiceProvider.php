@@ -2,6 +2,7 @@
 
 namespace Expressly\ServiceProvider;
 
+use Expressly\Provider\MerchantProvider;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -10,9 +11,7 @@ class MerchantServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['merchant.provider'] = $app->share(function ($app) {
-            $name = $app['config']['provider']['merchant'];
-
-            return new $name($app);
+            return new MerchantProvider($app);
         });
     }
 

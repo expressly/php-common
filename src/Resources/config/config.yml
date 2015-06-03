@@ -10,14 +10,6 @@ database:
 table:
     merchant: expressly_preferences
 
-provider:
-    merchant: Expressly\Provider\MerchantProvider
-
-servlet:
-    url: https://buyexpressly.com/expresslymod
-    popup: http://buyexpressly.com/website/popup_demo_a_blue/index.php
-    popup_mobile: http://buyexpressly.com/website/popup_demo_a_blue/index.php
-
 external:
     hosts:
         default: http://dev.expresslyapp.com:8081/api/v1
