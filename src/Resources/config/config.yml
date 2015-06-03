@@ -29,7 +29,7 @@ external:
         merchant_register:
             host: default
             method: POST
-            uri: /merchant/register
+            uri: /merchant/create
         merchant_update:
             host: default
             method: POST
