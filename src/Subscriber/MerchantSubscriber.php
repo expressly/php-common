@@ -86,13 +86,14 @@ class MerchantSubscriber implements EventSubscriberInterface
     public function onPasswordSave(MerchantEvent $event)
     {
         $route = $this->routeProvider->merchant_password_save;
+        $version = $this->app['api_version'];
 
-        $response = $route->process(function ($request) use ($event) {
+        $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
 
             $request->setContent(array(
                 'secretKey' => base64_encode($merchant->getPassword()),
-                'webshopSystem' => $this->app['api_version'],
+                'webshopSystem' => $version,
                 'url' => $merchant->getEndpoint()
             ));
         });
