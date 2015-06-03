@@ -10,11 +10,7 @@ class ResponseEvent extends Event
 
     public function getResponse()
     {
-        if (is_array($this->response)) {
-            return $this->response;
-        }
-
-        return (json_last_error() == JSON_ERROR_NONE) ? json_decode($this->response, true) : $this->response;
+        return $this->isSuccessful();
     }
 
     public function setResponse($response)
@@ -22,5 +18,32 @@ class ResponseEvent extends Event
         $this->response = $response;
 
         return $this;
+    }
+
+    private function isSuccessful()
+    {
+        $response = $this->decode();
+
+        // TODO: Autocast to an exception instead of matching keys
+        $errorKeys = array(
+            'id',
+            'message',
+            'description'
+        );
+
+        if (is_array($response) && count(array_diff($response, $errorKeys)) == 0) {
+            return array();
+        }
+
+        return $response;
+    }
+
+    private function decode()
+    {
+        if (is_array($this->response)) {
+            return $this->response;
+        }
+
+        return (json_last_error() == JSON_ERROR_NONE) ? json_decode($this->response, true) : $this->response;
     }
 }
