@@ -3,7 +3,6 @@
 namespace Expressly\Subscriber;
 
 use Expressly\Event\MerchantEvent;
-use Expressly\Event\MerchantNewPasswordEvent;
 use Expressly\Event\MerchantUpdatePasswordEvent;
 use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
