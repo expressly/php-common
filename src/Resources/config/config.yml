@@ -20,7 +20,7 @@ servlet:
 
 external:
     hosts:
-        default: https://dev.expresslyapp.com/api/v1
+        default: http://dev.expresslyapp.com:8081/api/v1
     routes:
         customer_migrate_start:
             host: default
