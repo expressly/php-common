@@ -44,6 +44,8 @@ class ResponseEvent extends Event
             return $this->response;
         }
 
-        return (json_last_error() == JSON_ERROR_NONE) ? json_decode($this->response, true) : $this->response;
+        $json = json_decode($this->response, true);
+
+        return (json_last_error() == JSON_ERROR_NONE) ? $json : $this->response;
     }
 }
