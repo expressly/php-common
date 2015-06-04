@@ -1,7 +1,9 @@
 <?php
 
+use Monolog\Handler\RedisHandler;
+use Monolog\Logger;
+use Predis\Client;
 use Silex\Provider\MonologServiceProvider;
-use Symfony\Component\Debug\ErrorHandler;
 
 $package = __DIR__ . '/../../../../vendor/autoload.php';
 if (file_exists($package)) {
@@ -13,11 +15,12 @@ if (file_exists($package)) {
 $app = new Silex\Application();
 
 // Monolog
-ErrorHandler::register();
 $app->register(new MonologServiceProvider(), array(
-    'monolog.logfile' => sprintf('%s/../storage/logs/xly-%s.log', __DIR__, date('Y-m-d')),
     'monolog.level' => Monolog\Logger::WARNING,
-    'monolog.name' => 'xly'
+    'monolog.name' => $merchantType,
+    'monolog.handler' => $app->share(function ($app) {
+        return new RedisHandler(new Client($app['config']['redis']), $_SERVER['HTTP_HOST'], Logger::WARNING, true);
+    })
 ));
 
 require_once __DIR__ . '/config.php';
