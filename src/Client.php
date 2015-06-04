@@ -8,7 +8,7 @@ class Client
 {
     private $app;
 
-    public function __construct($config = array())
+    public function __construct($merchantType, $config = array())
     {
         $this->app = require __DIR__ . '/../bootstrap/bootstrap.php';
     }

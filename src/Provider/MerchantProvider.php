@@ -17,43 +17,43 @@ class MerchantProvider implements MerchantProviderInterface
         $this->db = $app['db'];
         $this->logger = $app['logger'];
         $this->table = !is_null($table) ? $table : $app['config']['table']['merchant'];
-        $this->merchant = $this->firstOrCreate();
+        $this->merchant = new Merchant();
     }
 
-    private function firstOrCreate()
-    {
-        $merchant = new Merchant();
-
-        try {
-            $getQuery = sprintf('SELECT * FROM %s LIMIT 1', $this->table);
-            $statement = $this->db->prepare($getQuery);
-            $statement->execute();
-
-            $result = $statement->fetch(\PDO::FETCH_ASSOC);
-
-            if (empty($result)) {
-                $merchant->setPassword(Merchant::createPassword());
-                $password = $merchant->getPassword();
-
-                $insertQuery = sprintf('INSERT INTO %s (`password`) VALUES (:password)', $this->table);
-                $statement = $this->db->prepare($insertQuery);
-                $statement->bindParam(':password', $password);
-                $statement->execute();
-
-                $result = $statement->fetch(\PDO::FETCH_ASSOC);
-            }
-
-            $merchant->setId($result['id'])
-                ->setHost($result['host'])
-                ->setPassword($result['password'])
-                ->setOffer($result['offer'])
-                ->setDestination($result['destination']);
-        } catch (\PDOException $e) {
-            $this->logger->addError($e);
-        }
-
-        return $merchant;
-    }
+//    private function firstOrCreate()
+//    {
+//        $merchant = new Merchant();
+//
+//        try {
+//            $getQuery = sprintf('SELECT * FROM %s LIMIT 1', $this->table);
+//            $statement = $this->db->prepare($getQuery);
+//            $statement->execute();
+//
+//            $result = $statement->fetch(\PDO::FETCH_ASSOC);
+//
+//            if (empty($result)) {
+//                $merchant->setPassword(Merchant::createPassword());
+//                $password = $merchant->getPassword();
+//
+//                $insertQuery = sprintf('INSERT INTO %s (`password`) VALUES (:password)', $this->table);
+//                $statement = $this->db->prepare($insertQuery);
+//                $statement->bindParam(':password', $password);
+//                $statement->execute();
+//
+//                $result = $statement->fetch(\PDO::FETCH_ASSOC);
+//            }
+//
+//            $merchant->setId($result['id'])
+//                ->setHost($result['host'])
+//                ->setPassword($result['password'])
+//                ->setOffer($result['offer'])
+//                ->setDestination($result['destination']);
+//        } catch (\PDOException $e) {
+//            $this->logger->addError($e);
+//        }
+//
+//        return $merchant;
+//    }
 
     public function getMerchant()
     {

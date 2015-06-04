@@ -4,7 +4,6 @@ namespace Expressly\Entity;
 
 class Merchant extends ArraySerializeable
 {
-    const PASSWORD_LENGTH = 16;
     protected $id;
     protected $name;
     protected $host;
@@ -83,11 +82,6 @@ class Merchant extends ArraySerializeable
         $this->destination = $destination;
 
         return $this;
-    }
-
-    public static function createPassword()
-    {
-        return bin2hex(openssl_random_pseudo_bytes(self::PASSWORD_LENGTH));
     }
 
     public function getName()

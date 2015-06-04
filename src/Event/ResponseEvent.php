@@ -2,6 +2,7 @@
 
 namespace Expressly\Event;
 
+use Buzz\Message\Response;
 use Symfony\Component\EventDispatcher\Event;
 
 class ResponseEvent extends Event
@@ -10,42 +11,38 @@ class ResponseEvent extends Event
 
     public function getResponse()
     {
-        return $this->isSuccessful();
+        return $this->response;
     }
 
-    public function setResponse($response)
+    public function setResponse(Response $response)
     {
         $this->response = $response;
 
         return $this;
     }
 
-    private function isSuccessful()
+    public function isSuccessful()
     {
-        $response = $this->decode();
-
-        // TODO: Autocast to an exception instead of matching keys
-        $errorKeys = array(
-            'id',
-            'message',
-            'description'
-        );
-
-        if (is_array($response) && count(array_diff($response, $errorKeys)) == 0) {
-            return array();
+        if (!$this->response instanceof Response) {
+            return false;
         }
 
-        return $response;
+        return $this->response->isSuccessful();
     }
 
-    private function decode()
+    public function getContent()
     {
-        if (is_array($this->response)) {
-            return $this->response;
+        if (!$this->response instanceof Response) {
+            return null;
         }
 
-        $json = json_decode($this->response, true);
+        $content = $this->response->getContent();
+        if (is_array($content)) {
+            return $content;
+        }
 
-        return (json_last_error() == JSON_ERROR_NONE) ? $json : $this->response;
+        $json = json_decode($content, true);
+
+        return (json_last_error() == JSON_ERROR_NONE) ? $json : $content;
     }
 }
