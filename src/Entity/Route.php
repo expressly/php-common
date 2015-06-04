@@ -24,6 +24,7 @@ class Route
     {
         $response = new Response();
         $request = new Request($this->getMethod(), '/', $this->getURL());
+        $request->addHeader('Content-Type: application/json');
         $client = new Curl();
 
         if (is_callable($callback)) {
@@ -31,6 +32,7 @@ class Route
             $callback($request);
         }
 
+        $request->setContent(json_encode($request->getContent()));
         $client->send($request, $response);
 
         return $response->getContent();
