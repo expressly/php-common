@@ -9,9 +9,12 @@ use Buzz\Message\Response;
 
 class Route
 {
+    const MAX_RETRIES = 3;
+
     private $host;
     private $uri;
     private $method;
+    private $retries = 1;
 
     public function setParameters($parameters)
     {
@@ -26,6 +29,8 @@ class Route
         $request = new Request($this->getMethod(), '/', $this->getURL());
         $request->addHeader('Content-Type: application/json');
         $client = new Curl();
+        $client->setTimeout(2);
+        $client->setIgnoreErrors(true);
 
         if (is_callable($callback)) {
             // Add any additions to the Response
@@ -35,7 +40,14 @@ class Route
         $request->setContent(json_encode($request->getContent()));
         $client->send($request, $response);
 
-        return $response->getContent();
+        // To account for timeouts, retry up to MAX_RETRIES
+        $content = $response->getContent();
+        if ($response->isEmpty() && empty($content) && $this->retries <= self::MAX_RETRIES) {
+            $this->retries++;
+            $this->process($callback);
+        }
+
+        return $response;
     }
 
     public function getMethod()
