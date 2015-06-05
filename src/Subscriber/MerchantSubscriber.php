@@ -40,11 +40,11 @@ class MerchantSubscriber implements EventSubscriberInterface
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
                 'shopUrl' => $merchant->getHost(),
-                'xlyEndpoint' => $merchant->getEndpoint(),
+                'apiBaseUrl' => $merchant->getEndpoint(),
                 'shopImageUrl' => $merchant->getImage(),
                 'termsAndConditionsUrl' => $merchant->getTerms(),
                 'policyUrl' => $merchant->getPolicy(),
-                'webshopSystem' => $version
+                'pluginVersion' => $version
             ));
         });
 
@@ -53,8 +53,11 @@ class MerchantSubscriber implements EventSubscriberInterface
 
     public function onUpdate(PasswordedEvent $event)
     {
-        $route = $this->routeProvider->merchant_update;
         $version = $this->app['version'];
+        $route = $this->routeProvider->merchant_update;
+        $route->setParameters(array(
+            'uuid' => $event->getUuid()
+        ));
 
         $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
@@ -64,11 +67,12 @@ class MerchantSubscriber implements EventSubscriberInterface
             ));
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
-                'shopUrl' => $merchant->getEndpoint(),
+                'shopUrl' => $merchant->getHost(),
+                'apiBaseUrl' => $merchant->getEndpoint(),
                 'shopImageUrl' => $merchant->getImage(),
                 'termsAndConditionsUrl' => $merchant->getTerms(),
                 'policyUrl' => $merchant->getPolicy(),
-                'webshopSystem' => $version
+                'pluginVersion' => $version
             ));
         });
 
@@ -78,6 +82,9 @@ class MerchantSubscriber implements EventSubscriberInterface
     public function onDelete(PasswordedEvent $event)
     {
         $route = $this->routeProvider->merchant_delete;
+        $route->setParameters(array(
+            'uuid' => $event->getUuid()
+        ));
 
         $response = $route->process(function ($request) use ($event) {
             $request->setHeaders(array(
@@ -91,6 +98,9 @@ class MerchantSubscriber implements EventSubscriberInterface
     public function onPasswordUpdate(MerchantUpdatePasswordEvent $event)
     {
         $route = $this->routeProvider->merchant_password_update;
+        $route->setParameters(array(
+            'uuid' => $event->getUuid()
+        ));
 
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();

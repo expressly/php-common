@@ -11,6 +11,11 @@ class PasswordedEvent extends MerchantEvent
         parent::__construct($merchant);
     }
 
+    public function getUuid()
+    {
+        return $this->merchant->getUuid();
+    }
+
     public function getToken()
     {
         return base64_encode(sprintf('%s:%s', $this->merchant->getUuid(), $this->merchant->getPassword()));
