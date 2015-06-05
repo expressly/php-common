@@ -38,11 +38,8 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $merchant = $event->getMerchant();
-
             $request->setHeaders(array(
-                "Referer: {$merchant->getUuid()}",
-                "Authorizsation: Basic {$merchant->getPassword()}"
+                "Authorization: Basic {$event->getToken()}"
             ));
         });
 
@@ -61,11 +58,8 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $merchant = $event->getMerchant();
-
             $request->setHeaders(array(
-                "Referer: {$merchant->getUuid()}",
-                "Authorizsation: Basic {$merchant->getPassword()}"
+                "Authorization: Basic {$event->getToken()}"
             ));
         });
 
@@ -83,11 +77,8 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $merchant = $event->getMerchant();
-
             $request->setHeaders(array(
-                "Referer: {$merchant->getUuid()}",
-                "Authorizsation: Basic {$merchant->getPassword()}"
+                "Authorization: Basic {$event->getToken()}"
             ));
         });
 

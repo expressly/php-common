@@ -4,13 +4,16 @@ namespace Expressly\Event;
 
 use Expressly\Entity\Merchant;
 
-class PasswordedEvent extends ResponseEvent
+class PasswordedEvent extends MerchantEvent
 {
-    private $merchant;
-
     public function __construct(Merchant $merchant)
     {
-        $this->merchant = $merchant;
+        parent::__construct($merchant);
+    }
+
+    public function getToken()
+    {
+        return base64_encode(sprintf('%s:%s', $this->merchant->getUuid(), $this->merchant->getPassword()));
     }
 
     public function getPassword()

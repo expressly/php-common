@@ -4,6 +4,7 @@ namespace Expressly\Subscriber;
 
 use Expressly\Event\MerchantEvent;
 use Expressly\Event\MerchantUpdatePasswordEvent;
+use Expressly\Event\PasswordedEvent;
 use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -50,7 +51,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    public function onUpdate(MerchantEvent $event)
+    public function onUpdate(PasswordedEvent $event)
     {
         $route = $this->routeProvider->merchant_update;
         $version = $this->app['version'];
@@ -59,8 +60,7 @@ class MerchantSubscriber implements EventSubscriberInterface
             $merchant = $event->getMerchant();
 
             $request->setHeaders(array(
-                "Referer: {$merchant->getUuid()}",
-                "Authorizsation: Basic {$merchant->getPassword()}"
+                "Authorization: Basic {$event->getToken()}"
             ));
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
@@ -75,16 +75,13 @@ class MerchantSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    public function onDelete(MerchantEvent $event)
+    public function onDelete(PasswordedEvent $event)
     {
         $route = $this->routeProvider->merchant_delete;
 
         $response = $route->process(function ($request) use ($event) {
-            $merchant = $event->getMerchant();
-
             $request->setHeaders(array(
-                "Referer: {$merchant->getUuid()}",
-                "Authorizsation: Basic {$merchant->getPassword()}"
+                "Authorization: Basic {$event->getToken()}"
             ));
         });
 
@@ -99,8 +96,7 @@ class MerchantSubscriber implements EventSubscriberInterface
             $merchant = $event->getMerchant();
 
             $request->setHeaders(array(
-                "Referer: {$merchant->getUuid()}",
-                "Authorizsation: Basic {$merchant->getPassword()}"
+                "Authorization: Basic {$event->getToken()}"
             ));
             $request->setContent(array(
                 'newSecretKey' => base64_encode($merchant->getPassword())

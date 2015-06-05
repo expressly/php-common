@@ -3,7 +3,6 @@
 namespace Expressly\Event;
 
 use Expressly\Entity\Merchant;
-use Symfony\Component\EventDispatcher\Event;
 
 class AcknowledgeableEvent extends PasswordedEvent
 {

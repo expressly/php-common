@@ -6,7 +6,7 @@ use Expressly\Entity\Merchant;
 
 class MerchantEvent extends ResponseEvent
 {
-    private $merchant;
+    protected $merchant;
 
     public function __construct(Merchant $merchant)
     {
