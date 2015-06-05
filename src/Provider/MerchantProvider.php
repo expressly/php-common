@@ -69,7 +69,7 @@ class MerchantProvider implements MerchantProviderInterface
         return $this;
     }
 
-    private function save(Merchant $new)
+    private function save(Merchant $merchant)
     {
         if (empty($this->merchant)) {
             return;
@@ -77,18 +77,28 @@ class MerchantProvider implements MerchantProviderInterface
 
         try {
             $saveQuery = sprintf(
-                'UPDATE %s SET `host`=:host, `password`=:password, `offer`=:offer, `destination`=:destination WHERE `id`=:id',
+                'INSERT INTO %s (`id`, `uuid`, `shop_name`, `host`, `path`, `password`, `offer`, `destination`, `policy`, `terms`, `image`)
+                VALUES (:id, :uuid, :shop_name, :host, :path, :password, :offer, :destination, :policy, :terms, :image)
+                ON DUPLICATE KEY UPDATE `uuid`=VALUES(`uuid`), `name`=VALUES(`name`), `host`=VALUES(`host`), `path`=VALUES(`path`),
+                `password`=VALUES(`password`), `offer`=VALUES(`offer`), `destination`=VALUES(`destination`), `policy`=VALUES(`policy`),
+                `terms`=VALUES(`terms`), `image`=VALUES(`image`);',
                 $this->table
             );
             $statement = $this->db->prepare($saveQuery);
-            $statement->bindParam('host', $new->getHost());
-            $statement->bindParam('password', $new->getPassword());
-            $statement->bindParam('offer', $new->getOffer());
-            $statement->bindParam('destination', $new->getDestination());
-            $statement->bindParam('id', $this->merchant->getId());
+            $statement->bindParam('id', $merchant->getId());
+            $statement->bindParam('uuid', $merchant->getUuid());
+            $statement->bindParam('shop_name', $merchant->getName());
+            $statement->bindParam('host', $merchant->getHost());
+            $statement->bindParam('path', $merchant->getPath());
+            $statement->bindParam('password', $merchant->getPassword());
+            $statement->bindParam('offer', $merchant->getOffer());
+            $statement->bindParam('destination', $merchant->getDestination());
+            $statement->bindParam('policy', $merchant->getPolicy());
+            $statement->bindParam('terms', $merchant->getTerms());
+            $statement->bindParam('image', $merchant->getImage());
             $statement->execute();
 
-            $this->merchant = $new;
+            $this->merchant = $merchant;
         } catch (\PDOException $e) {
             $this->logger->addError($e);
         }

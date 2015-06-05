@@ -24,7 +24,6 @@ class MerchantSubscriber implements EventSubscriberInterface
             'merchant.register' => array('onRegister', 0),
             'merchant.update' => array('onUpdate', 0),
             'merchant.delete' => array('onDelete', 0),
-            'merchant.password.save' => array('onPasswordSave', 0),
             'merchant.password.update' => array('onPasswordUpdate', 0)
         );
     }
@@ -32,16 +31,19 @@ class MerchantSubscriber implements EventSubscriberInterface
     public function onRegister(MerchantEvent $event)
     {
         $route = $this->routeProvider->merchant_register;
+        $version = $this->app['version'];
 
-        $response = $route->process(function ($request) use ($event) {
+        $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
 
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
-                'shopUrl' => $merchant->getEndpoint(),
+                'shopUrl' => $merchant->getHost(),
+                'xlyEndpoint' => $merchant->getEndpoint(),
                 'shopImageUrl' => $merchant->getImage(),
                 'termsAndConditionsUrl' => $merchant->getTerms(),
-                'policyUrl' => $merchant->getPolicy()
+                'policyUrl' => $merchant->getPolicy(),
+                'webshopSystem' => $version
             ));
         });
 
@@ -51,16 +53,22 @@ class MerchantSubscriber implements EventSubscriberInterface
     public function onUpdate(MerchantEvent $event)
     {
         $route = $this->routeProvider->merchant_update;
+        $version = $this->app['version'];
 
-        $response = $route->process(function ($request) use ($event) {
+        $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
 
+            $request->setHeaders(array(
+                "Referer: {$merchant->getUuid()}",
+                "Authorizsation: Basic {$merchant->getPassword()}"
+            ));
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
                 'shopUrl' => $merchant->getEndpoint(),
                 'shopImageUrl' => $merchant->getImage(),
                 'termsAndConditionsUrl' => $merchant->getTerms(),
-                'policyUrl' => $merchant->getPolicy()
+                'policyUrl' => $merchant->getPolicy(),
+                'webshopSystem' => $version
             ));
         });
 
@@ -74,27 +82,9 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->setContent(array(
-                'pass' => base64_encode($merchant->getPassword()),
-                'url' => $merchant->getEndpoint()
-            ));
-        });
-
-        $event->setResponse($response);
-    }
-
-    public function onPasswordSave(MerchantEvent $event)
-    {
-        $route = $this->routeProvider->merchant_password_save;
-        $version = $this->app['api_version'];
-
-        $response = $route->process(function ($request) use ($event, $version) {
-            $merchant = $event->getMerchant();
-
-            $request->setContent(array(
-                'secretKey' => base64_encode($merchant->getPassword()),
-                'webshopSystem' => $version,
-                'url' => $merchant->getEndpoint()
+            $request->setHeaders(array(
+                "Referer: {$merchant->getUuid()}",
+                "Authorizsation: Basic {$merchant->getPassword()}"
             ));
         });
 
@@ -108,10 +98,12 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
+            $request->setHeaders(array(
+                "Referer: {$merchant->getUuid()}",
+                "Authorizsation: Basic {$merchant->getPassword()}"
+            ));
             $request->setContent(array(
-                'oldSecretKey' => base64_encode($event->getOldPassword()),
-                'newSecretKey' => base64_encode($merchant->getPassword()),
-                'url' => $merchant->getEndpoint()
+                'newSecretKey' => base64_encode($merchant->getPassword())
             ));
         });
 
