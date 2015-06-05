@@ -93,6 +93,8 @@ class Merchant extends ArraySerializeable
     public function setUuid($uuid)
     {
         $this->uuid = $uuid;
+
+        return $this;
     }
 
     public function getName()
