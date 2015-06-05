@@ -1,4 +1,4 @@
-version: Api
+version: v1
 
 database:
     driver: mysql
@@ -7,8 +7,7 @@ database:
     user: root
     password: ''
 
-#redis: tcp://dev.expresslyapp.com:6379
-redis: tcp://127.0.0.1:6379
+redis: tcp://dev.expresslyapp.com:6379
 
 table:
     merchant: expressly_preferences
@@ -40,15 +39,15 @@ external:
         merchant_update:
             host: default
             method: POST
-            uri: /merchant/update
+            uri: /merchant/<uuid>/update
         merchant_delete:
             host: default
             method: POST
-            uri: /merchant/destroy
+            uri: /merchant/<uuid>/destroy
         merchant_password_update:
             host: default
             method: POST
-            uri: /merchant/password/update
+            uri: /merchant/<uuid>/password/update
 
 country_code:
     - { iso2: 'AF', iso3: 'AFG', m49: '004' }
