@@ -16,7 +16,7 @@ class Address extends ArraySerializeable
     protected $companyName;
     protected $zip;
     protected $phone;
-    protected $addressAlias;
+    protected $alias;
     protected $stateProvince;
     protected $country;
 
@@ -118,12 +118,12 @@ class Address extends ArraySerializeable
 
     public function getAlias()
     {
-        return $this->addressAlias;
+        return $this->alias;
     }
 
     public function setAlias($alias)
     {
-        $this->addressAlias = $alias;
+        $this->alias = $alias;
 
         return $this;
     }

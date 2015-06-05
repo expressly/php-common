@@ -5,6 +5,7 @@ namespace Expressly\Entity;
 class Merchant extends ArraySerializeable
 {
     protected $id;
+    protected $uuid;
     protected $name;
     protected $host;
     protected $password;
@@ -82,6 +83,16 @@ class Merchant extends ArraySerializeable
         $this->destination = $destination;
 
         return $this;
+    }
+
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
     }
 
     public function getName()

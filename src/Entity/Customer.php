@@ -64,7 +64,8 @@ class Customer extends ArraySerializeable
 
     public function setBirthday(\DateTime $birthday)
     {
-        $this->dob = $birthday->getTimestamp();
+        // Formated as ddmmyyyy
+        $this->dob = $birthday->format('dmY');
 
         return $this;
     }

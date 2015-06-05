@@ -26,8 +26,10 @@ class UtilitySubscriber implements EventSubscriberInterface
 
     public function onPing(ResponseEvent $event)
     {
-        $event->setResponse(array(
-            'expressly' => 'Stuff is happening!'
-        ));
+        $route = $this->routeProvider->ping;
+
+        $response = $route->process();
+
+        $event->setResponse($response);
     }
 }
