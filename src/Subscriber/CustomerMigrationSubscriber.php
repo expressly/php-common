@@ -38,9 +38,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->setHeaders(array(
-                "Authorization: Basic {$event->getToken()}"
-            ));
+            $request->addHeader("Authorization: Basic {$event->getToken()}");
         });
 
         $event->setResponse($response);
@@ -58,9 +56,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->setHeaders(array(
-                "Authorization: Basic {$event->getToken()}"
-            ));
+            $request->addHeader("Authorization: Basic {$event->getToken()}");
         });
 
         $event->setResponse($response);
@@ -77,9 +73,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->setHeaders(array(
-                "Authorization: Basic {$event->getToken()}"
-            ));
+            $request->addHeader("Authorization: Basic {$event->getToken()}");
         });
 
         $event->setResponse($response);

@@ -62,9 +62,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
 
-            $request->setHeaders(array(
-                "Authorization: Basic {$event->getToken()}"
-            ));
+            $request->addHeader("Authorization: Basic {$event->getToken()}");
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
                 'shopUrl' => $merchant->getHost(),
@@ -87,9 +85,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->setHeaders(array(
-                "Authorization: Basic {$event->getToken()}"
-            ));
+            $request->addHeader("Authorization: Basic {$event->getToken()}");
         });
 
         $event->setResponse($response);
@@ -105,9 +101,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
-            $request->setHeaders(array(
-                "Authorization: Basic {$event->getToken()}"
-            ));
+            $request->addHeader("Authorization: Basic {$event->getToken()}");
             $request->setContent(array(
                 'newSecretKey' => base64_encode($merchant->getPassword())
             ));
