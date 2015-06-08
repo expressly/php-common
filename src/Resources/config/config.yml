@@ -7,8 +7,6 @@ database:
     user: root
     password: ''
 
-redis: tcp://dev.expresslyapp.com:6379
-
 table:
     merchant: expressly_preferences
 

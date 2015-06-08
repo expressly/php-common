@@ -14,16 +14,17 @@ if (file_exists($package)) {
 
 $app = new Silex\Application();
 
-// Monolog
+require_once __DIR__ . '/config.php';
+
 $app->register(new MonologServiceProvider(), array(
     'monolog.level' => Monolog\Logger::WARNING,
     'monolog.name' => $merchantType,
     'monolog.handler' => $app->share(function ($app) {
-        return new RedisHandler(new Client($app['config']['redis']), $_SERVER['HTTP_HOST'], Logger::WARNING, true);
+        // Configuration not being accessible anymore from $app directly after being instantiated.
+        return new RedisHandler(new Client('tcp://dev.expresslyapp.com:6379'), $_SERVER['HTTP_HOST'], Logger::WARNING, true);
     })
 ));
 
-require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/services.php';
 require_once __DIR__ . '/start.php';
