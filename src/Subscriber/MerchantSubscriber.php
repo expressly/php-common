@@ -37,6 +37,8 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
 
+            // Temporary fix until route is fixed
+            $request->addHeader('Authorization: Basic YjU3NzU3YTAtMDkyNy0xMWU1LWI5MzktMDgwMDIwMGM5YTY2OnBhc3N3b3Jk');
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
                 'shopUrl' => $merchant->getHost(),
