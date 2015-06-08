@@ -27,6 +27,7 @@ class Route
     {
         $response = new Response();
         $request = new Request($this->getMethod(), '/', $this->getURL());
+        $request->setProtocolVersion(1.1);
         $request->addHeader('Content-Type: application/json');
         $client = new Curl();
         $client->setTimeout(2);
