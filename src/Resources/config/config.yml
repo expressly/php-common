@@ -41,11 +41,7 @@ external:
         merchant_delete:
             host: default
             method: POST
-            uri: /merchant/<uuid>/destroy
-        merchant_password_update:
-            host: default
-            method: POST
-            uri: /merchant/<uuid>/password/update
+            uri: /merchant/<uuid>/uninstall
 
 country_code:
     - { iso2: 'AF', iso3: 'AFG', m49: '004' }

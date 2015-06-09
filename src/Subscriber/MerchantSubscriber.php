@@ -3,7 +3,6 @@
 namespace Expressly\Subscriber;
 
 use Expressly\Event\MerchantEvent;
-use Expressly\Event\MerchantUpdatePasswordEvent;
 use Expressly\Event\PasswordedEvent;
 use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,8 +23,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         return array(
             'merchant.register' => array('onRegister', 0),
             'merchant.update' => array('onUpdate', 0),
-            'merchant.delete' => array('onDelete', 0),
-            'merchant.password.update' => array('onPasswordUpdate', 0)
+            'merchant.delete' => array('onDelete', 0)
         );
     }
 
@@ -88,25 +86,6 @@ class MerchantSubscriber implements EventSubscriberInterface
 
         $response = $route->process(function ($request) use ($event) {
             $request->addHeader("Authorization: Basic {$event->getToken()}");
-        });
-
-        $event->setResponse($response);
-    }
-
-    public function onPasswordUpdate(MerchantUpdatePasswordEvent $event)
-    {
-        $route = $this->routeProvider->merchant_password_update;
-        $route->setParameters(array(
-            'uuid' => $event->getUuid()
-        ));
-
-        $response = $route->process(function ($request) use ($event) {
-            $merchant = $event->getMerchant();
-
-            $request->addHeader("Authorization: Basic {$event->getToken()}");
-            $request->setContent(array(
-                'newSecretKey' => base64_encode($merchant->getPassword())
-            ));
         });
 
         $event->setResponse($response);
