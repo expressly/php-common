@@ -10,6 +10,9 @@ database:
 table:
     merchant: expressly_preferences
 
+validators:
+    - { class: Expressly\Validator\UuidValidator, message: Plugin not registered; please register first. }
+
 external:
     hosts:
         default: http://dev.expresslyapp.com:8082/api/v1
@@ -22,14 +25,20 @@ external:
             host: default
             method: GET
             uri: /migration/<uuid>
+            validation:
+                uuid: uuid_string
         customer_migrate_data:
             host: default
             method: GET
             uri: /migration/<uuid>/user
+            validation:
+                uuid: uuid_string
         customer_migrate_success:
             host: default
             method: GET
             uri: /migration/<uuid>/success
+            validation:
+                uuid: uuid_string
         merchant_register:
             host: default
             method: POST
@@ -38,10 +47,14 @@ external:
             host: default
             method: POST
             uri: /merchant/<uuid>/update
+            validation:
+                uuid: uuid_string
         merchant_delete:
             host: default
             method: POST
             uri: /merchant/<uuid>/uninstall
+            validation:
+                uuid: uuid_string
 
 country_code:
     - { iso2: 'AF', iso3: 'AFG', m49: '004' }
