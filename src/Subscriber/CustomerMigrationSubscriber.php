@@ -74,6 +74,10 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
 
         $response = $route->process(function ($request) use ($event) {
             $request->addHeader("Authorization: Basic {$event->getToken()}");
+
+            $request->setContent(array(
+                'status' => $event->getStatus()
+            ));
         });
 
         $event->setResponse($response);
