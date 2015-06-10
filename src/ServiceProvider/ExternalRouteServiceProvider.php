@@ -12,6 +12,7 @@ class ExternalRouteServiceProvider implements ServiceProviderInterface
     {
         $app['external_route.provider'] = $app->share(function ($app) {
             return new ExternalRouteProvider(
+                $app,
                 $app['config']['external']['hosts'],
                 $app['config']['external']['routes']
             );

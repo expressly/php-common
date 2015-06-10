@@ -14,9 +14,11 @@ class Route
     private $host;
     private $uri;
     private $method;
+    private $parameters = array();
+    private $rules = array();
     private $retries = 1;
 
-    public function setParameters($parameters)
+    public function setParameters(Array $parameters)
     {
         $this->parameters = $parameters;
 
@@ -30,7 +32,7 @@ class Route
         $request->setProtocolVersion(1.1);
         $request->addHeader('Content-Type: application/json');
         $client = new Curl();
-        $client->setTimeout(2);
+        $client->setTimeout(3);
         $client->setIgnoreErrors(true);
 
         if (is_callable($callback)) {
@@ -84,11 +86,19 @@ class Route
     public function getURI()
     {
         if (empty($this->parameters)) {
+            if (!empty($this->rules)) {
+                throw new \Exception(reset($this->rules)->getMessage());
+            }
+
             return $this->uri;
         }
 
         $uri = $this->uri;
         foreach ($this->parameters as $parameter => $value) {
+            if (isset($this->rules[$parameter]) && !$this->rules[$parameter]->validate($value)) {
+                throw new \Exception($this->rules[$parameter]->getMessage());
+            }
+
             $uri = str_replace("<$parameter>", $value, $uri);
         }
 
@@ -98,6 +108,13 @@ class Route
     public function setURI($uri)
     {
         $this->uri = $uri;
+
+        return $this;
+    }
+
+    public function setRules(Array $rules)
+    {
+        $this->rules = $rules;
 
         return $this;
     }
