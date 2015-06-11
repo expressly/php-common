@@ -2,7 +2,7 @@
 
 namespace Expressly\Exception;
 
-class GenericExpresslyException extends \Exception
+class GenericException extends \Exception
 {
     public function __toString()
     {
