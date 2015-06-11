@@ -6,6 +6,7 @@ use Buzz\Client\Curl;
 use Buzz\Message\Request;
 use Buzz\Message\RequestInterface;
 use Buzz\Message\Response;
+use Expressly\Exception\InvalidURIException;
 
 class Route
 {
@@ -87,7 +88,7 @@ class Route
     {
         if (empty($this->parameters)) {
             if (!empty($this->rules)) {
-                throw new \Exception(reset($this->rules)->getMessage());
+                throw new InvalidURIException(reset($this->rules)->getMessage());
             }
 
             return $this->uri;
@@ -96,7 +97,7 @@ class Route
         $uri = $this->uri;
         foreach ($this->parameters as $parameter => $value) {
             if (isset($this->rules[$parameter]) && !$this->rules[$parameter]->validate($value)) {
-                throw new \Exception($this->rules[$parameter]->getMessage());
+                throw new InvalidURIException($this->rules[$parameter]->getMessage());
             }
 
             $uri = str_replace("<$parameter>", $value, $uri);
