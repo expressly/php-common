@@ -16,14 +16,23 @@ $app = new Silex\Application();
 
 require_once __DIR__ . '/config.php';
 
-$app->register(new MonologServiceProvider(), array(
-    'monolog.level' => Monolog\Logger::WARNING,
-    'monolog.name' => $merchantType,
-    'monolog.handler' => $app->share(function ($app) {
-        // Configuration not being accessible anymore from $app directly after being instantiated.
-        return new RedisHandler(new Client('tcp://dev.expresslyapp.com:6379'), $_SERVER['HTTP_HOST'], Logger::WARNING, true);
-    })
-));
+try {
+    $app->register(new MonologServiceProvider(), array(
+        'monolog.level' => Logger::WARNING,
+        'monolog.name' => $merchantType,
+        'monolog.handler' => $app->share(function () {
+            // Configuration not being accessible anymore from $app directly after being instantiated.
+            return new RedisHandler(
+                new Client('tcp://dev.expresslyapp.com:6379'),
+                $_SERVER['HTTP_HOST'],
+                Logger::WARNING,
+                true
+            );
+        })
+    ));
+} catch (\Exception $e) {
+    // In case redis is down, die silently
+}
 
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/services.php';
