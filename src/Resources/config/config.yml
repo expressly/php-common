@@ -35,7 +35,7 @@ external:
                 uuid: uuid_string
         customer_migrate_success:
             host: default
-            method: GET
+            method: POST
             uri: /migration/<uuid>/success
             validation:
                 uuid: uuid_string
