@@ -34,7 +34,7 @@ class MerchantSubscriber implements EventSubscriberInterface
 
         $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
-            
+
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
                 'shopUrl' => $merchant->getHost(),
