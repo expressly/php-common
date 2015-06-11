@@ -33,7 +33,7 @@ class Route
         $request->setProtocolVersion(1.1);
         $request->addHeader('Content-Type: application/json');
         $client = new Curl();
-        $client->setTimeout(3);
+        $client->setTimeout(5);
         $client->setIgnoreErrors(true);
 
         if (is_callable($callback)) {
