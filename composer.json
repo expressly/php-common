@@ -1,6 +1,6 @@
 {
     "name": "expressly/php-common",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "type": "library",
     "description": "Expressly common PHP library",
     "require": {
