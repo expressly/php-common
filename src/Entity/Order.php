@@ -40,7 +40,8 @@ class Order extends ArraySerializeable
 
     public function setLastOrder(\DateTime $lastOrder)
     {
-        $this->lastOrder = $lastOrder;
+        $lastOrder->setTimezone(new \DateTimeZone('UTC'));
+        $this->lastOrder = $lastOrder->format(\DateTime::ISO8601);
 
         return $this;
     }

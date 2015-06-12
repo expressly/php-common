@@ -64,8 +64,7 @@ class Customer extends ArraySerializeable
 
     public function setBirthday(\DateTime $birthday)
     {
-        // Formated as ddmmyyyy
-        $this->dob = $birthday->format('dmY');
+        $this->dob = $birthday->format('Y-m-d');
 
         return $this;
     }
@@ -79,14 +78,16 @@ class Customer extends ArraySerializeable
 
     public function setDateUpdated(\DateTime $date)
     {
-        $this->dateUpdated = $date->getTimestamp();
+        $date->setTimezone(new \DateTimeZone('UTC'));
+        $this->dateUpdated = $date->format(\DateTime::ISO8601);
 
         return $this;
     }
 
     public function setDateLastOrder(\DateTime $date)
     {
-        $this->dateLastOrder = $date->getTimestamp();
+        $date->setTimezone(new \DateTimeZone('UTC'));
+        $this->dateLastOrder = $date->format(\DateTime::ISO8601);
 
         return $this;
     }
