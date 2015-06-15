@@ -4,26 +4,42 @@ namespace Expressly\Entity;
 
 class Order extends ArraySerializeable
 {
-    protected $amount;
+    protected $id;
+    protected $date;
+    protected $itemCount;
+    protected $coupon;
     protected $currency;
-    protected $lastOrder;
-    protected $numberOrdered;
+    protected $preTaxTotal;
+    protected $postTaxTotal;
+    protected $tax;
 
-    public function getAmount()
+    public function setId($id)
     {
-        return $this->amount;
-    }
-
-    public function setAmount($amount)
-    {
-        $this->amount = (double)$amount;
+        $this->id = $id;
 
         return $this;
     }
 
-    public function getCurrency()
+    public function setDate(\DateTime $date)
     {
-        return $this->currency;
+        $date->setTimezone(new \DateTimeZone('UTC'));
+        $this->$date = $date->format(\DateTime::ISO8601);
+
+        return $this;
+    }
+
+    public function setItemCount($itemCount)
+    {
+        $this->itemCount = (int)$itemCount;
+
+        return $this;
+    }
+
+    public function setCoupon($coupon)
+    {
+        $this->coupon = $coupon;
+
+        return $this;
     }
 
     public function setCurrency($currency)
@@ -33,28 +49,27 @@ class Order extends ArraySerializeable
         return $this;
     }
 
-    public function getLastOrder()
+    public function setTotal($total, $tax = 0.0)
     {
-        return $this->lastOrder->getTimeStamp();
-    }
-
-    public function setLastOrder(\DateTime $lastOrder)
-    {
-        $lastOrder->setTimezone(new \DateTimeZone('UTC'));
-        $this->lastOrder = $lastOrder->format(\DateTime::ISO8601);
+        $this->preTaxTotal = (double)$total;
+        $this->tax = (double)$tax;
+        $this->postTaxTotal = (double)$total + (double)$tax;
 
         return $this;
     }
 
-    public function getNumberOrdered()
+    public function getPreTaxTotal()
     {
-        return $this->numberOrdered;
+        return (double)$this->preTaxTotal;
     }
 
-    public function setNumberOrdered($numberOrdered)
+    public function getPostTaxTotal()
     {
-        $this->numberOrdered = (int)$numberOrdered;
+        return (double)$this->postTaxTotal;
+    }
 
-        return $this;
+    public function getTax()
+    {
+        return (double)$this->tax;
     }
 }
