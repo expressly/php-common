@@ -22,7 +22,7 @@ class Phone extends ArraySerializeable
             $this->type = self::PHONE_TYPE_HOME;
         }
         if ($type == self::PHONE_TYPE_MOBILE) {
-            $this->type = self::PHONE_TYPE_HOME;
+            $this->type = self::PHONE_TYPE_MOBILE;
         }
 
         return $this;
