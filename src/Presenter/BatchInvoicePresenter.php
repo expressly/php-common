@@ -4,7 +4,7 @@ namespace Expressly\Presenter;
 
 use Expressly\Entity\Invoice;
 
-class BatchOrderPresenter implements PresenterInterface
+class BatchInvoicePresenter implements PresenterInterface
 {
     private $invoices;
 
@@ -20,7 +20,7 @@ class BatchOrderPresenter implements PresenterInterface
     public function toArray()
     {
         return array(
-            'orders' => $this->invoices
+            'invoices' => $this->invoices
         );
     }
 }
