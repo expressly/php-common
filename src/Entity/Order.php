@@ -23,7 +23,7 @@ class Order extends ArraySerializeable
     public function setDate(\DateTime $date)
     {
         $date->setTimezone(new \DateTimeZone('UTC'));
-        $this->$date = $date->format(\DateTime::ISO8601);
+        $this->date = $date->format(\DateTime::ISO8601);
 
         return $this;
     }

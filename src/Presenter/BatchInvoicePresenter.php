@@ -6,7 +6,7 @@ use Expressly\Entity\Invoice;
 
 class BatchInvoicePresenter implements PresenterInterface
 {
-    private $invoices;
+    private $invoices = array();
 
     public function __construct(Array $invoices)
     {
