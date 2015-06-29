@@ -15,7 +15,7 @@ validators:
 
 external:
     hosts:
-        default: http://dev.expresslyapp.com:8082/api/v1
+        default: http://prod.expresslyapp.com/api/v1
     routes:
         ping:
             host: default
