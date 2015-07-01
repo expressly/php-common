@@ -1,5 +1,6 @@
 <?php
 
+use Expressly\Logger\DummyLogger\DummyLogger;
 use Monolog\Handler\RedisHandler;
 use Monolog\Logger;
 use Predis\Client;
@@ -23,7 +24,7 @@ try {
         'monolog.handler' => $app->share(function () {
             // Configuration not being accessible anymore from $app directly after being instantiated.
             return new RedisHandler(
-                new Client('tcp://dev.expresslyapp.com:6379'),
+                new Client('tcp://prod.expresslyapp.com:6379'),
                 $_SERVER['HTTP_HOST'],
                 Logger::WARNING,
                 true
@@ -31,7 +32,9 @@ try {
         })
     ));
 } catch (\Exception $e) {
-    // In case redis is down, die silently
+    $app['logger'] = $app->share(function () {
+        return new DummyLogger();
+    });
 }
 
 require_once __DIR__ . '/database.php';
