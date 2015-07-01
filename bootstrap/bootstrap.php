@@ -24,7 +24,7 @@ try {
         'monolog.handler' => $app->share(function () {
             // Configuration not being accessible anymore from $app directly after being instantiated.
             return new RedisHandler(
-                new Client('tcp://prod.expresslyapp.com:6379'),
+                new Client('tcp://internal.expresslyapp.com:6379'),
                 $_SERVER['HTTP_HOST'],
                 Logger::WARNING,
                 true
