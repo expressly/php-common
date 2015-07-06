@@ -39,6 +39,5 @@ try {
 
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/services.php';
-require_once __DIR__ . '/start.php';
 
 return $app;
