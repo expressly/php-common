@@ -20,6 +20,15 @@ class Address extends ArraySerializeable
     protected $stateProvince;
     protected $country;
 
+    public static function compare(Address $a, Address $b)
+    {
+        if ($a->toArray() == $b->toArray()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function getFirstName()
     {
         return $this->firstName;

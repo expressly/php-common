@@ -108,26 +108,68 @@ class Customer extends ArraySerializeable
 
     public function addEmail(Email $email)
     {
-        $this->emails->add($email);
+        $emails = $this->emails;
+        $exists = function ($index, $el) use ($emails, $email) {
+            if ($el->toArray() == $email->toArray()) {
+                return true;
+            }
+
+            return false;
+        };
+
+        if (!$this->emails->exists($exists)) {
+            $this->emails->add($email);
+        }
 
         return $this;
     }
 
     public function getEmailIndex(Email $email)
     {
-        return $this->emails->indexOf($email);
+        $index = $this->emails->indexOf($email);
+
+        if (is_null($index)) {
+            $this->emails->map(function ($key, $el) use ($email, &$index) {
+                if ($el->toArray() == $email->toArray()) {
+                    $index = $key;
+                }
+            });
+        }
+
+        return $index;
     }
 
     public function addPhone(Phone $phone)
     {
-        $this->phones->add($phone);
+        $phones = $this->phones;
+        $exists = function ($index, $el) use ($phones, $phone) {
+            if ($el->toArray() == $phone->toArray()) {
+                return true;
+            }
+
+            return false;
+        };
+
+        if (!$this->phones->exists($exists)) {
+            $this->phones->add($phone);
+        }
 
         return $this;
     }
 
     public function getPhoneIndex(Phone $phone)
     {
-        return $this->phones->indexOf($phone);
+        $index = $this->phones->indexOf($phone);
+
+        if (is_null($index)) {
+            $this->phones->map(function ($key, $el) use ($phone, &$index) {
+                if ($el->toArray() == $phone->toArray()) {
+                    $index = $key;
+                }
+            });
+        }
+
+        return $index;
     }
 
     public function addAddress(Address $address, $primary = false, $type = null)
