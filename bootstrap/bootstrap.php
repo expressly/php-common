@@ -1,17 +1,17 @@
 <?php
 
-use Expressly\Logger\DummyLogger\DummyLogger;
-use Monolog\Handler\RedisHandler;
-use Monolog\Logger;
-use Predis\Client;
-use Silex\Provider\MonologServiceProvider;
-
 $package = __DIR__ . '/../../../../vendor/autoload.php';
 if (file_exists($package)) {
     require $package;
 } else {
     require __DIR__ . '/../vendor/autoload.php';
 }
+
+use Expressly\Logger\DummyLogger;
+use Monolog\Handler\RedisHandler;
+use Monolog\Logger;
+use Predis\Client;
+use Silex\Provider\MonologServiceProvider;
 
 $app = new Silex\Application();
 

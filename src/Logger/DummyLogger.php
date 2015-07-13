@@ -1,6 +1,6 @@
 <?php
 
-namespace Expressly\Logger\DummyLogger;
+namespace Expressly\Logger;
 
 use Psr\Log\LoggerInterface;
 
