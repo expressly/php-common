@@ -2,7 +2,7 @@
 
 namespace Expressly\Validator;
 
-class UuidValidator implements ValidatorInterface
+class EmailValidator implements ValidatorInterface
 {
     private $message;
 

@@ -30,18 +30,13 @@ class BannerSubscriber implements EventSubscriberInterface
     {
         $route = $this->routeProvider->banner_request;
         $route->setParameters(array(
-            'uuid' => $event->getUuid()
+            'uuid' => $event->getUuid(),
+            'email' => $event->getEmail()
         ));
         $version = $this->app['version'];
 
         $response = $route->process(function ($request) use ($event, $version) {
-            $merchant = $event->getMerchant();
-
             $request->addHeader($event->getBasicHeader());
-            $request->setContent(array(
-                'uuid' => $merchant->getUuid(),
-                'email' => $event->getEmail()
-            ));
         });
 
         $event->setResponse($response);
