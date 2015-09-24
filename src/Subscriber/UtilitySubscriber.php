@@ -11,6 +11,8 @@ class UtilitySubscriber implements EventSubscriberInterface
     private $app;
     private $routeProvider;
 
+    const UTILITY_PING = 'utility.ping';
+
     public function __construct(Application $app)
     {
         $this->app = $app;
@@ -20,7 +22,7 @@ class UtilitySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'utility.ping' => array('onPing', 0)
+            self::UTILITY_PING => array('onPing', 0)
         );
     }
 

@@ -11,6 +11,10 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
     private $app;
     private $routeProvider;
 
+    const CUSTOMER_MIGRATE_POPUP = 'customer.migrate.popup';
+    const CUSTOMER_MIGRATE_DATA = 'customer.migrate.data';
+    const CUSTOMER_MIGRATE_SUCCESS = 'customer.migrate.success';
+
     public function __construct(Application $app)
     {
         $this->app = $app;
@@ -20,9 +24,9 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'customer.migrate.popup' => array('getPopup', 0),
-            'customer.migrate.data' => array('getData', 0),
-            'customer.migrate.success' => array('onSuccess', 0)
+            self::CUSTOMER_MIGRATE_POPUP => array('getPopup', 0),
+            self::CUSTOMER_MIGRATE_DATA => array('getData', 0),
+            self::CUSTOMER_MIGRATE_SUCCESS => array('onSuccess', 0)
         );
     }
 
@@ -38,7 +42,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->addHeader("Authorization: Basic {$event->getToken()}");
+            $request->addHeader($event->getBasicHeader());
         });
 
         $event->setResponse($response);
@@ -56,7 +60,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->addHeader("Authorization: Basic {$event->getToken()}");
+            $request->addHeader($event->getBasicHeader());
         });
 
         $event->setResponse($response);
@@ -73,7 +77,7 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->addHeader("Authorization: Basic {$event->getToken()}");
+            $request->addHeader($event->getBasicHeader());
 
             $request->setContent(array(
                 'status' => $event->getStatus()

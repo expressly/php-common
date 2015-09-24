@@ -10,14 +10,14 @@ use Expressly\Exception\InvalidURIException;
 
 class Route
 {
-    const MAX_RETRIES = 3;
-
     private $host;
     private $uri;
     private $method;
     private $parameters = array();
     private $rules = array();
     private $retries = 1;
+
+    const MAX_RETRIES = 3;
 
     public function setParameters(Array $parameters)
     {

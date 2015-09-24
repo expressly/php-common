@@ -16,6 +16,11 @@ class PasswordedEvent extends MerchantEvent
         return $this->merchant->getUuid();
     }
 
+    public function getBasicHeader()
+    {
+        return "Authorization: Basic {$this->getToken()}";
+    }
+
     public function getToken()
     {
         return base64_encode(sprintf('%s:%s', $this->merchant->getUuid(), $this->merchant->getPassword()));

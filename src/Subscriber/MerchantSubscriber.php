@@ -12,6 +12,10 @@ class MerchantSubscriber implements EventSubscriberInterface
     private $app;
     private $routeProvider;
 
+    const MERCHANT_REGISTER = 'merchant.register';
+    const MERCHANT_UPDATE = 'merchant.update';
+    const MERCHANT_DELETE = 'merchant.delete';
+
     public function __construct(Application $app)
     {
         $this->app = $app;
@@ -21,9 +25,9 @@ class MerchantSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'merchant.register' => array('onRegister', 0),
-            'merchant.update' => array('onUpdate', 0),
-            'merchant.delete' => array('onDelete', 0)
+            self::MERCHANT_REGISTER => array('onRegister', 0),
+            self::MERCHANT_UPDATE => array('onUpdate', 0),
+            self::MERCHANT_DELETE => array('onDelete', 0)
         );
     }
 
@@ -60,7 +64,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         $response = $route->process(function ($request) use ($event, $version) {
             $merchant = $event->getMerchant();
 
-            $request->addHeader("Authorization: Basic {$event->getToken()}");
+            $request->addHeader($event->getBasicHeader());
             $request->setContent(array(
                 'shopName' => $merchant->getName(),
                 'shopUrl' => $merchant->getHost(),
@@ -83,7 +87,7 @@ class MerchantSubscriber implements EventSubscriberInterface
         ));
 
         $response = $route->process(function ($request) use ($event) {
-            $request->addHeader("Authorization: Basic {$event->getToken()}");
+            $request->addHeader($event->getBasicHeader());
         });
 
         $event->setResponse($response);

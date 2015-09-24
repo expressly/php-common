@@ -55,6 +55,10 @@ external:
             uri: /merchant/<uuid>/uninstall
             validation:
                 uuid: uuid_string
+        banner_request:
+            host: default
+            method: GET
+            uri: /banner/<uuid>
 
 country_code:
     - { iso2: 'AF', iso3: 'AFG', m49: '004' }
