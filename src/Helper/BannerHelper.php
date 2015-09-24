@@ -10,6 +10,10 @@ class BannerHelper
     {
         $content = $event->getContent();
 
+        if (!is_array($content)) {
+            return '';
+        }
+
         if (!array_key_exists('migrationLink', $content) || !array_key_exists('bannerImageUrl', $content)) {
             return '';
         }
