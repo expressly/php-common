@@ -16,9 +16,10 @@ validators:
 external:
     hosts:
         default: http://prod.expresslyapp.com/api/v1
+        admin: http://prod.expresslyapp.com/api/admin
     routes:
         ping:
-            host: default
+            host: admin
             method: GET
             uri: /ping
         customer_migrate_popup:
@@ -59,6 +60,8 @@ external:
             host: default
             method: GET
             uri: /banner/<uuid>
+            validation:
+                uuid: uuid_string
 
 country_code:
     - { iso2: 'AF', iso3: 'AFG', m49: '004' }
