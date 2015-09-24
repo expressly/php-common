@@ -11,4 +11,5 @@ $app->register(new Expressly\ServiceProvider\CountryCodeServiceProvider());
 // Register events
 $app['dispatcher']->addSubscriber(new Expressly\Subscriber\CustomerMigrationSubscriber($app));
 $app['dispatcher']->addSubscriber(new Expressly\Subscriber\MerchantSubscriber($app));
+$app['dispatcher']->addSubscriber(new Expressly\Subscriber\BannerSubscriber($app));
 $app['dispatcher']->addSubscriber(new Expressly\Subscriber\UtilitySubscriber($app));
