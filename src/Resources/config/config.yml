@@ -12,6 +12,7 @@ table:
 
 validators:
     - { class: Expressly\Validator\UuidValidator, message: Plugin not registered; please register first. }
+    - { class: Expressly\Validator\EmailValidator, message: Invalid email address provided. }
 
 external:
     hosts:
@@ -59,9 +60,10 @@ external:
         banner_request:
             host: default
             method: GET
-            uri: /banner/<uuid>
+            uri: /banner/<uuid>?email=<email>
             validation:
                 uuid: uuid_string
+                email: email
 
 country_code:
     - { iso2: 'AF', iso3: 'AFG', m49: '004' }
