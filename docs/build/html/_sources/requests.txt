@@ -33,6 +33,8 @@ Ping
 
     :reqheader Content-Type: application/json
     :resheader Content-Type: application/json
+    :resjson string Server: If server is running, or not.
+    :resjson string DB Status: Status of the current state of the database.
 
 .. _request-merchant-register:
 
@@ -62,6 +64,9 @@ Register Merchant
     :reqjson string policyUrl: url to privacy policy page
     :reqjson string pluginVersion: plugin version (current: v1)
     :reqheader Content-Type: application/json
+    :resheader Content-Type: application/json
+    :resjson string merchantUuid: the unique identifier for your installation
+    :resjson string secretKey: the token associated with your installation
     :status 200:
     :status 400:
 
@@ -95,6 +100,18 @@ Update Merchant
     :reqjson string pluginVersion: plugin version (current: v1)
     :reqheader Content-Type: application/json
     :reqheader Authorization: Basic token
+    :resheader Content-Type: application/json
+    :resjson string merchantUuid: unique identifier for your installation
+    :resjson string shopName: shop name
+    :resjson string shopUrl: shop url (https://www.example.com)
+    :resjson string apiBaseUrl: see merchant_url_; if there isn't any special base routing the value should be the exact same as the shop url
+    :resjson string shopImageUrl: logo url
+    :resjson string termsAndConditionsUrl: url to terms, and conditions page
+    :resjson string policyUrl: url to privacy policy page
+    :resjson string pluginVersion: plugin version (current: v1)
+    :resjson string lastPingTime: ISO 8601 timestamp of last time the server tried to ping the store
+    :resjson string lastSuccessPingTime: ISO 8601 timestamp of last time the server pinged the store successfully
+    :resjson boolean lastPingSuccessful: If the above (lastPingTime) was successful, or not
     :status 200:
     :status 400:
 
@@ -121,6 +138,8 @@ Remove Merchant
     :param uuid: Unique merchant uuid
     :reqheader Content-Type: application/json
     :reqheader Authorization: Basic token
+    :resjson boolean success:
+    :resjson string msg: Associated message
     :status 200:
     :status 400:
 
@@ -171,6 +190,90 @@ Get Campaign Migration Data
 
         }
 
+    **Example Response:**
+
+    .. sourcecode:: http
+
+        HTTP/1.1 200 OK
+        Content-Type: application/json
+
+        {
+            "meta": {
+                "locale": "UKR",
+                "sender": "https://expresslyapp.com/api/v1/migration/{uuid}"
+            },
+            "data": {
+                "email": "john.smith@gmail.com",
+                "customerData": {
+                    "firstName": "John",
+                    "lastName": "Smith",
+                    "gender": "M",
+                    "billingAddress": 0,
+                    "shippingAddress": 1,
+                    "company": "Expressly",
+                    "dob": "1987-08-07",
+                    "taxNumber": "GB0249894821",
+                    "onlinePresence": [
+                        {
+                            "field": "website",
+                            "value": "http://www.myblog.com"
+                        }
+                    ],
+                    "dateUpdated": "2015-07-10T11:42:00+01:00",
+                    "emails": [
+                        {
+                            "email": "john.smith@gmail.com",
+                            "alias": "default"
+                        },
+                        {
+                            "email": "john@smithcorp.com",
+                            "alias": "work"
+                        }
+                    ],
+                    "phones": [
+                        {
+                            "type": "M",
+                            "number": "020734581250",
+                            "countryCode": 44
+                        },
+                        {
+                            "type": "L",
+                            "number": "020731443250",
+                            "countryCode": 44
+                        }
+                    ],
+                    "addresses": [
+                        {
+                            "firstName": "John",
+                            "lastName": "Smith",
+                            "address1": "12 Piccadilly",
+                            "address2": "Room 14",
+                            "city": "London",
+                            "companyName": "WorkHard Ltd",
+                            "zip": "W1C 34U",
+                            "phone": 1,
+                            "addressAlias": "Work address",
+                            "stateProvinceID": "LND",
+                            "countryID": "GBR"
+                        },
+                        {
+                            "firstName": "John C.",
+                            "lastName": "Smith",
+                            "address1": "23 Sallsberry Ave",
+                            "address2": "Flat 3",
+                            "city": "London",
+                            "companyName": "",
+                            "zip": "NW3 4HG",
+                            "phone": 0,
+                            "alias": "Home address",
+                            "stateProvinceID": "LND",
+                            "countryID": "GBR"
+                        }
+                    ]
+                }
+            }
+        }
+
     :param uuid: Unique campaign migration uuid
     :reqheader Content-Type: application/json
     :reqheader Authorization: Basic token
@@ -202,6 +305,9 @@ Migration Success
     :reqjson enum status: enum to tell server is migration was successful; can be: 'migrated', 'existing_customer'
     :reqheader Content-Type: application/json
     :reqheader Authorization: Basic token
+    :resheader Content-Type: application/json
+    :resjson boolean success:
+    :resjson string msg: Associated message
     :status 200:
     :status 400:
 
@@ -229,10 +335,13 @@ Get Campaign Banner
     :param email: Email for the currently logged in user
     :reqheader Content-Type: application/json
     :reqheader Authorization: Basic token
+    :resheader Content-Type: application/json
+    :resjson string bannerImageUrl: url of the image; set in the Portal_
+    :resjson string migrationLink: url to populate the banner
     :status 200:
     :status 400:
 
 .. [config.yml] src/Resources/config/config.yml
-
 .. [merchant_url] the location to execute/catch our paths;
     example: https://www.example.com/route?action=/expressly/api/ping
+.. [Portal] Expressly Portal: https://buyexpressly.com/#/portal/login

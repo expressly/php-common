@@ -85,7 +85,10 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Exceptions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#genericexception">GenericException</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
@@ -137,12 +140,16 @@
   <div class="section" id="exceptions">
 <h1>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h1>
 <p>All exceptions caught within our code are logged to a <a class="reference internal" href="#redis">redis</a> server hosted by us.</p>
+<div class="section" id="genericexception">
+<h2>GenericException<a class="headerlink" href="#genericexception" title="Permalink to this headline">¶</a></h2>
+<p>src/Exception/GenericException.php (ExpresslyExceptionGenericException)</p>
 <table class="docutils citation" frame="void" id="redis" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[redis]</td><td>NoSQL data store: <a class="reference external" href="http://redis.io/">http://redis.io/</a></td></tr>
 </tbody>
 </table>
+</div>
 </div>
 
 

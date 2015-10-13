@@ -97,7 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
@@ -182,8 +182,15 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><strong>Server</strong> (<em>string</em>) &#8211; If server is running, or not.</li>
+<li><strong>DB Status</strong> (<em>string</em>) &#8211; Status of the current state of the database.</li>
 </ul>
 </td>
 </tr>
@@ -228,6 +235,19 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <tr class="field-even field"><th class="field-name" colspan="2">Request Headers:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>merchantUuid</strong> (<em>string</em>) &#8211; the unique identifier for your installation</li>
+<li><strong>secretKey</strong> (<em>string</em>) &#8211; the token associated with your installation</li>
 </ul>
 </td>
 </tr>
@@ -287,6 +307,28 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>merchantUuid</strong> (<em>string</em>) &#8211; unique identifier for your installation</li>
+<li><strong>shopName</strong> (<em>string</em>) &#8211; shop name</li>
+<li><strong>shopUrl</strong> (<em>string</em>) &#8211; shop url (<a class="reference external" href="https://www.example.com">https://www.example.com</a>)</li>
+<li><strong>apiBaseUrl</strong> (<em>string</em>) &#8211; see <a class="reference internal" href="#merchant-url">merchant_url</a>; if there isn&#8217;t any special base routing the value should be the exact same as the shop url</li>
+<li><strong>shopImageUrl</strong> (<em>string</em>) &#8211; logo url</li>
+<li><strong>termsAndConditionsUrl</strong> (<em>string</em>) &#8211; url to terms, and conditions page</li>
+<li><strong>policyUrl</strong> (<em>string</em>) &#8211; url to privacy policy page</li>
+<li><strong>pluginVersion</strong> (<em>string</em>) &#8211; plugin version (current: v1)</li>
+<li><strong>lastPingTime</strong> (<em>string</em>) &#8211; ISO 8601 timestamp of last time the server tried to ping the store</li>
+<li><strong>lastSuccessPingTime</strong> (<em>string</em>) &#8211; ISO 8601 timestamp of last time the server pinged the store successfully</li>
+<li><strong>lastPingSuccessful</strong> (<em>boolean</em>) &#8211; If the above (lastPingTime) was successful, or not</li>
+</ul>
+</td>
+</tr>
 <tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
@@ -331,7 +373,14 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>success</strong> (<em>boolean</em>) &#8211; </li>
+<li><strong>msg</strong> (<em>string</em>) &#8211; Associated message</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
 </ul>
@@ -409,6 +458,88 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <span class="x">}</span>
 </pre></div>
 </div>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;locale&quot;</span><span class="p">:</span> <span class="s2">&quot;UKR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sender&quot;</span><span class="p">:</span> <span class="s2">&quot;https://expresslyapp.com/api/v1/migration/{uuid}&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.smith@gmail.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;customerData&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;gender&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;billingAddress&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;shippingAddress&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;company&quot;</span><span class="p">:</span> <span class="s2">&quot;Expressly&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;dob&quot;</span><span class="p">:</span> <span class="s2">&quot;1987-08-07&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;taxNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;GB0249894821&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;onlinePresence&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;website&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;http://www.myblog.com&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;dateUpdated&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-07-10T11:42:00+01:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;emails&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.smith@gmail.com&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;alias&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john@smithcorp.com&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;alias&quot;</span><span class="p">:</span> <span class="s2">&quot;work&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;phones&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;number&quot;</span><span class="p">:</span> <span class="s2">&quot;020734581250&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;countryCode&quot;</span><span class="p">:</span> <span class="mi">44</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;number&quot;</span><span class="p">:</span> <span class="s2">&quot;020731443250&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;countryCode&quot;</span><span class="p">:</span> <span class="mi">44</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address1&quot;</span><span class="p">:</span> <span class="s2">&quot;12 Piccadilly&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address2&quot;</span><span class="p">:</span> <span class="s2">&quot;Room 14&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;London&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;companyName&quot;</span><span class="p">:</span> <span class="s2">&quot;WorkHard Ltd&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;W1C 34U&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;phone&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="nt">&quot;addressAlias&quot;</span><span class="p">:</span> <span class="s2">&quot;Work address&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;stateProvinceID&quot;</span><span class="p">:</span> <span class="s2">&quot;LND&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;countryID&quot;</span><span class="p">:</span> <span class="s2">&quot;GBR&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;John C.&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address1&quot;</span><span class="p">:</span> <span class="s2">&quot;23 Sallsberry Ave&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address2&quot;</span><span class="p">:</span> <span class="s2">&quot;Flat 3&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;London&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;companyName&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;NW3 4HG&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;phone&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nt">&quot;alias&quot;</span><span class="p">:</span> <span class="s2">&quot;Home address&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;stateProvinceID&quot;</span><span class="p">:</span> <span class="s2">&quot;LND&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;countryID&quot;</span><span class="p">:</span> <span class="s2">&quot;GBR&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -481,6 +612,19 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>success</strong> (<em>boolean</em>) &#8211; </li>
+<li><strong>msg</strong> (<em>string</em>) &#8211; Associated message</li>
+</ul>
+</td>
+</tr>
 <tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
@@ -526,6 +670,19 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </ul>
 </td>
 </tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>bannerImageUrl</strong> (<em>string</em>) &#8211; url of the image; set in the <a class="reference internal" href="#portal">Portal</a></li>
+<li><strong>migrationLink</strong> (<em>string</em>) &#8211; url to populate the banner</li>
+</ul>
+</td>
+</tr>
 <tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
@@ -547,6 +704,12 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <tbody valign="top">
 <tr><td class="label">[merchant_url]</td><td>the location to execute/catch our paths;
 example: <a class="reference external" href="https://www.example.com/route?action=/expressly/api/ping">https://www.example.com/route?action=/expressly/api/ping</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="portal" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Portal]</td><td>Expressly Portal: <a class="reference external" href="https://buyexpressly.com/#/portal/login">https://buyexpressly.com/#/portal/login</a></td></tr>
 </tbody>
 </table>
 </div>

@@ -92,15 +92,9 @@ For a working Expressly integration, using this library, the following need to b
         return new MyMerchantProvider();
     });
 
-
 .. [composer] PHP package manager: https://getcomposer.org/
-
 .. [config.yml] src/Resources/config/config.yml
-
 .. [Silex] Silex PHP Microframework: http://silex.sensiolabs.org/
-
 .. [Pimple] DI_ implementation: http://pimple.sensiolabs.org/
-
 .. [DI] Dependency Injection
-
 .. [MerchantProviderInterface] src/Provider/MerchantProviderInterface.php (Expressly\Provider\MerchantProviderInterface)

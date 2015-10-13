@@ -89,13 +89,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#show-popup">Show Popup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#migrate-user">Migrate User</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-user">Get User</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#get-invoices-for-customer-purchases">Get Invoices for Customer Purchases</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#get-customers-on-store">Get Customers on Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#invoices-for-customer-purchases">Invoices for Customer Purchases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customers-on-store">Customers on Store</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
@@ -156,14 +156,20 @@ All Endpoints that must have hooks created in the mother system have a correspon
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
 <li><strong>expressly</strong> &#8211; Stuff is happening!</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
 </ul>
 </td>
@@ -180,6 +186,24 @@ All Endpoints that must have hooks created in the mother system have a correspon
 <code class="descname">GET </code><code class="descname">/expressly/api/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#get--expressly-api-(string-uuid)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-popup"><span>Get Campaign Migration Popup</span></a> request.
 The Popup can be shown over any page you wish, we recommend appending the html to your homepage.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; text/html</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -191,6 +215,24 @@ The Popup can be shown over any page you wish, we recommend appending the html t
 <dd><p>End of the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-data"><span>Get Campaign Migration Data</span></a> request.
 The method should add all data for the provided user to the store, and if provided, add a product and/or coupon to the users&#8217; cart.
 The user should be logged in directly after this migration, and a welcome email (if not part of your stores&#8217; initial flow) should be dispatched.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; text/html</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -212,36 +254,104 @@ The user should be logged in directly after this migration, and a welcome email 
 <span class="x">echo json_encode($response-&gt;toArray());</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 
-</div>
-<div class="section" id="get-invoices-for-customer-purchases">
-<span id="response-batch-invoice"></span><h2>Get Invoices for Customer Purchases<a class="headerlink" href="#get-invoices-for-customer-purchases" title="Permalink to this headline">¶</a></h2>
-<dl class="get">
-<dt id="get--expressly-api-batch-invoice">
-<code class="descname">GET </code><code class="descname">/expressly/api/batch/invoice</code><a class="headerlink" href="#get--expressly-api-batch-invoice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$response</span>
+<span class="p">{</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;locale&quot;</span><span class="p">:</span> <span class="s2">&quot;UKR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;sender&quot;</span><span class="p">:</span> <span class="s2">&quot;https://yourstore.com/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;issuerData&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.smith@gmail.com&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;customerData&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;gender&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;billingAddress&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;shippingAddress&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;company&quot;</span><span class="p">:</span> <span class="s2">&quot;Expressly&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;dob&quot;</span><span class="p">:</span> <span class="s2">&quot;1987-08-07&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;taxNumber&quot;</span><span class="p">:</span> <span class="s2">&quot;GB0249894821&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;onlinePresence&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;website&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;www.myblog.com&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;dateUpdated&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-07-10T11:42:00+01:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;dateLastOrder&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-07-10T11:42:00+01:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;numberOrdered&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="nt">&quot;emails&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.smith@gmail.com&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;alias&quot;</span><span class="p">:</span> <span class="s2">&quot;default&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john@smithcorp.com&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;alias&quot;</span><span class="p">:</span> <span class="s2">&quot;work&quot;</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;phones&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;number&quot;</span><span class="p">:</span> <span class="s2">&quot;020734581250&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;countryCode&quot;</span><span class="p">:</span> <span class="mi">44</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;number&quot;</span><span class="p">:</span> <span class="s2">&quot;020731443250&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;countryCode&quot;</span><span class="p">:</span> <span class="mi">44</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;addresses&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address1&quot;</span><span class="p">:</span> <span class="s2">&quot;12 Piccadilly&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address2&quot;</span><span class="p">:</span> <span class="s2">&quot;Room 14&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;London&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;companyName&quot;</span><span class="p">:</span> <span class="s2">&quot;WorkHard Ltd&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;W1C 34U&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;phone&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="nt">&quot;alias&quot;</span><span class="p">:</span> <span class="s2">&quot;Work address&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;stateProvince&quot;</span><span class="p">:</span> <span class="s2">&quot;LND&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;GBR&quot;</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;firstName&quot;</span><span class="p">:</span> <span class="s2">&quot;John C.&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;lastName&quot;</span><span class="p">:</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address1&quot;</span><span class="p">:</span> <span class="s2">&quot;23 Sallsberry Ave&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;address2&quot;</span><span class="p">:</span> <span class="s2">&quot;Flat 3&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;city&quot;</span><span class="p">:</span> <span class="s2">&quot;London&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;companyName&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;zip&quot;</span><span class="p">:</span> <span class="s2">&quot;NW3 4HG&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;phone&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nt">&quot;alias&quot;</span><span class="p">:</span> <span class="s2">&quot;Home address&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;stateProvince&quot;</span><span class="p">:</span> <span class="s2">&quot;LND&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;GBR&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
 </ul>
 </td>
@@ -251,18 +361,169 @@ The user should be logged in directly after this migration, and a welcome email 
 </dd></dl>
 
 </div>
-<div class="section" id="get-customers-on-store">
-<span id="response-batch-customer"></span><h2>Get Customers on Store<a class="headerlink" href="#get-customers-on-store" title="Permalink to this headline">¶</a></h2>
-<dl class="get">
-<dt id="get--expressly-api-batch-customer">
-<code class="descname">GET </code><code class="descname">/expressly/api/batch/customer</code><a class="headerlink" href="#get--expressly-api-batch-customer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a list of emails, checks to see if a user has completed the migration process.</p>
+<div class="section" id="invoices-for-customer-purchases">
+<span id="response-batch-invoice"></span><h2>Invoices for Customer Purchases<a class="headerlink" href="#invoices-for-customer-purchases" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--expressly-api-batch-invoice">
+<code class="descname">POST </code><code class="descname">/expressly/api/batch/invoice</code><a class="headerlink" href="#post--expressly-api-batch-invoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Entity\Invoice;</span>
+<span class="x">use Expressly\Entity\Order;</span>
+<span class="x">use Expressly\Presenter\BatchInvoicePresenter;</span>
+
+<span class="x">$invoices = array();</span>
+
+<span class="x">foreach ($json-&gt;customers as $customer) {</span>
+<span class="x">    $invoice = new Invoice();</span>
+<span class="x">    $invoice-&gt;setEmail($customer-&gt;email);</span>
+
+<span class="x">    foreach ($userOrders as $userOrder) {</span>
+<span class="x">        $order = new Order();</span>
+<span class="x">        $order</span>
+<span class="x">            -&gt;setId($userOrder-&gt;getId())</span>
+<span class="x">            -&gt;setDate(new \DateTime($userOrder-&gt;getOrderDate())</span>
+<span class="x">            -&gt;setItemCount($userOrder-&gt;getQuantity())</span>
+<span class="x">            -&gt;setTotal($userOrder-&gt;getTotalPreTax(), $userOrder-&gt;getTax())</span>
+<span class="x">            -&gt;setCoupon($userOrder-&gt;getCoupon());</span>
+
+<span class="x">        $invoice-&gt;addOrder($order);</span>
+<span class="x">    }</span>
+
+<span class="x">    $invoices[] = $invoice;</span>
+<span class="x">}</span>
+
+<span class="x">$presenter = new BatchInvoicePresenter($invoices);</span>
+<span class="x">// display content however your application prefers</span>
+<span class="x">echo json_encode($presenter-&gt;toArray());</span>
+</pre></div>
+</div>
+<p><strong>Example Request:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre>POST /expressly/api/batch/invoice
+Host: prod.expresslyapp.com
+Authorization: Basic token
+
+{
+    &quot;customers&quot;: [
+        {
+            &quot;email&quot;: &quot;john.smith@gmail.com&quot;,
+            &quot;from&quot;: &quot;2015-07-01T00:00:00+00:00&quot;,
+            &quot;to&quot;: &quot;2015-08-01T00:00:00+00:00&quot;
+        }
+    ]
+}
+</pre></div>
+</div>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;invoices&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;john.smith@gmail.com&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;orderCount&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;preTaxTotal&quot;</span><span class="p">:</span> <span class="mf">100.00</span><span class="p">,</span>
+            <span class="nt">&quot;tax&quot;</span><span class="p">:</span> <span class="mf">10.00</span><span class="p">,</span>
+            <span class="nt">&quot;orders&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;ORDER-5321311&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-07-10T11:42:00+01:00&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;itemCount&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="nt">&quot;coupon&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;currency&quot;</span><span class="p">:</span> <span class="s2">&quot;GBP&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;preTaxTotal&quot;</span><span class="p">:</span> <span class="mf">100.00</span><span class="p">,</span>
+                    <span class="nt">&quot;postTaxTotal&quot;</span><span class="p">:</span> <span class="mf">110.00</span><span class="p">,</span>
+                    <span class="nt">&quot;tax&quot;</span><span class="p">:</span> <span class="mf">10.00</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="customers-on-store">
+<span id="response-batch-customer"></span><h2>Customers on Store<a class="headerlink" href="#customers-on-store" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--expressly-api-batch-customer">
+<code class="descname">POST </code><code class="descname">/expressly/api/batch/customer</code><a class="headerlink" href="#post--expressly-api-batch-customer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of emails, checks to see if a user has completed the migration process.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Presenter\BatchCustomerPresenter;</span>
+
+<span class="x">$users = array(</span>
+<span class="x">    &#39;existing&#39; =&gt; array(),</span>
+<span class="x">    &#39;deleted&#39; =&gt; array(),</span>
+<span class="x">    &#39;pending&#39; =&gt; array()</span>
+<span class="x">);</span>
+
+<span class="x">foreach ($json-&gt;emails as $email) {</span>
+<span class="x">    // add user to certain sector of array, depending on state</span>
+<span class="x">}</span>
+
+<span class="x">$presenter = new BatchCustomerPresenter($users);</span>
+<span class="x">// display content however your application prefers</span>
+<span class="x">echo json_encode($presenter-&gt;toArray());</span>
+</pre></div>
+</div>
+<p><strong>Example Request:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre>POST /expressly/api/batch/customer
+Host: prod.expresslyapp.com
+Authorization: Basic token
+
+{
+    &quot;emails&quot;: [
+        &quot;john.smith@gmail.com&quot;
+    ]
+}
+</pre></div>
+</div>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;existing&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;john.smith@gmail.com&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;deleted&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;pending&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
 </ul>
 </td>

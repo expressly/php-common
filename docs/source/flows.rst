@@ -124,6 +124,7 @@ Campaign Banner
 1. STORE requests banner from SERVER (:ref:`request-banner-get`).
 2. SERVER returns image, and url.
 3. STORE displays banner on page (in the location it was called from) on page render.
+4. Banner clicked on, redirecting to associated route starting :ref:`flow-migration` off-site.
 
 
 .. [Portal] Expressly management Portal: https://buyexpressly.com/#/portal/login
