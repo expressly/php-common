@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Flows &mdash; php-common 1.1.6 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="php-common 1.1.6 documentation" href="index.html"/>
+        <link rel="next" title="Integrations" href="integrations.html"/>
+        <link rel="prev" title="Exceptions" href="exceptions.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> php-common
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Flows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#merchant-registration">Merchant Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#merchant-update">Merchant Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-campaign-migration">User Campaign Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-purchases">Check Purchases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-customer-migration">Check Customer Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#campaign-banner">Campaign Banner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">php-common</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Flows</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/flows.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="flows">
+<h1>Flows<a class="headerlink" href="#flows" title="Permalink to this headline">¶</a></h1>
+<p>For all flows, the following Actors have been used:</p>
+<dl class="docutils">
+<dt>SERVER</dt>
+<dd>Expressly API server;</dd>
+<dt>STORE</dt>
+<dd>The store Expressly is being configured with;</dd>
+<dt>CUSTOMER</dt>
+<dd>The customer interacting with the store.</dd>
+</dl>
+<div class="section" id="merchant-registration">
+<span id="flow-merchant-registration"></span><h2>Merchant Registration<a class="headerlink" href="#merchant-registration" title="Permalink to this headline">¶</a></h2>
+<p><strong>IMPORTANT: Registration is due to change next version release; there will still be backwards compatibility.</strong></p>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li>Expressly plugin has been integrated, ticking all boxes of <a class="reference internal" href="overview.html#overview-checklist"><span>Checklist</span></a>.</li>
+</ul>
+<p><strong>Main Flow:</strong></p>
+<ol class="arabic simple">
+<li>STORE calls <a class="reference internal" href="requests.html#request-merchant-register"><span>Register Merchant</span></a> with appropriate body.</li>
+<li>SERVER pings store to make sure you have the plugin installed correctly.</li>
+<li>SERVER returns uuid, and token.</li>
+<li>STORE saves uuid, and token.</li>
+</ol>
+<p><strong>Alternate Flows:</strong></p>
+<p>3-1. SERVER cannot ping STORE, returns error message.</p>
+</div>
+<div class="section" id="merchant-update">
+<span id="flow-merchant-update"></span><h2>Merchant Update<a class="headerlink" href="#merchant-update" title="Permalink to this headline">¶</a></h2>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#flow-merchant-registration"><span>Merchant Registration</span></a>.</li>
+</ul>
+<p><strong>Main Flow:</strong></p>
+<ol class="arabic simple">
+<li>STORE calls <a class="reference internal" href="requests.html#request-merchant-update"><span>Update Merchant</span></a> with appropriate body.</li>
+<li>SERVER stores updated values, and returns success body.</li>
+</ol>
+<p><strong>Alternate Flows:</strong></p>
+<p>2-1. Data does not conform to validation, SERVER returns appropriate error body.</p>
+</div>
+<div class="section" id="user-campaign-migration">
+<span id="flow-migration"></span><h2>User Campaign Migration<a class="headerlink" href="#user-campaign-migration" title="Permalink to this headline">¶</a></h2>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#flow-merchant-registration"><span>Merchant Registration</span></a>.</li>
+<li>Campaign has been created on the <a class="reference internal" href="#portal">Portal</a>.</li>
+</ul>
+<p><strong>Main Flow:</strong></p>
+<ol class="arabic simple">
+<li>CUSTOMER navigates to provided link with unique uuid attached (<a class="reference internal" href="responses.html#response-popup"><span>Show Popup</span></a>).</li>
+<li>STORE requests popup for unique uuid (<a class="reference internal" href="requests.html#request-migration-popup"><span>Get Campaign Migration Popup</span></a>).</li>
+<li>SERVER returns popup html rendered for the given campaign, and CUSTOMER.</li>
+<li>STORE renders html atop any given store page (e.g. homepage).</li>
+<li>CUSTOMER accepts terms &amp; conditions, and privacy policy provided by pressing &#8216;ok&#8217;.</li>
+<li>STORE navigates to <a class="reference internal" href="responses.html#response-migrate"><span>Migrate User</span></a>, and requests information.</li>
+<li>SERVER returns information associated with CUSTOMER.</li>
+<li>STORE adds customer to their store; adds product, and coupon (if provided, and supported) to cart.</li>
+<li>STORE tells SERVER that CUSTOMER has been migrated correctly (<a class="reference internal" href="requests.html#request-migration-success"><span>Migration Success</span></a>).</li>
+<li>STORE logs user in, and navigates to homepage.</li>
+</ol>
+<p><strong>Alternate Flows:</strong></p>
+<p>7-1. CUSTOMER already exists, STORE tells SERVER that customer has been migrated previously (<a class="reference internal" href="requests.html#request-migration-success"><span>Migration Success</span></a>).
+8-1. STORE adds product, and coupon (if provided, and supported) to cart.
+9-1. STORE shows CUSTOMER message that they already exist, asking if they want to go to the login page.</p>
+</div>
+<div class="section" id="check-purchases">
+<span id="flow-bulk-invoice"></span><h2>Check Purchases<a class="headerlink" href="#check-purchases" title="Permalink to this headline">¶</a></h2>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#flow-merchant-registration"><span>Merchant Registration</span></a>.</li>
+</ul>
+<p><strong>Main Flow:</strong></p>
+<ol class="arabic simple">
+<li>SERVER requests endpoint (<a class="reference internal" href="responses.html#response-batch-invoice"><span>Get Invoices for Customer Purchases</span></a>) with JSON of emails, and date period to STORE.</li>
+<li>STORE compares emails, and period to gather purchase information for given CUSTOMERs&#8217;.</li>
+<li>STORE returns compiled data to SERVER.</li>
+</ol>
+</div>
+<div class="section" id="check-customer-migration">
+<span id="flow-bulk-customers"></span><h2>Check Customer Migration<a class="headerlink" href="#check-customer-migration" title="Permalink to this headline">¶</a></h2>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#flow-merchant-registration"><span>Merchant Registration</span></a>.</li>
+</ul>
+<p><strong>Main Flow:</strong></p>
+<ol class="arabic simple">
+<li>SERVER requests endpoint (<a class="reference internal" href="responses.html#response-batch-customer"><span>Get Customers on Store</span></a>) with JSON of emails to STORE.</li>
+<li>STORE compares emails to determine whether CUSTOMER has been migrated.</li>
+<li>STORE returns compiled data to SERVER.</li>
+</ol>
+</div>
+<div class="section" id="campaign-banner">
+<span id="flow-banner"></span><h2>Campaign Banner<a class="headerlink" href="#campaign-banner" title="Permalink to this headline">¶</a></h2>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#flow-merchant-registration"><span>Merchant Registration</span></a>.</li>
+<li>Campaign for serving banners has been created on the <a class="reference internal" href="#portal">Portal</a>.</li>
+<li>CUSTOMER is logged in.</li>
+</ul>
+<p><strong>Main Flow:</strong></p>
+<ol class="arabic simple">
+<li>STORE requests banner from SERVER (<a class="reference internal" href="requests.html#request-banner-get"><span>Get Campaign Banner</span></a>).</li>
+<li>SERVER returns image, and url.</li>
+<li>STORE displays banner on page (in the location it was called from) on page render.</li>
+</ol>
+<table class="docutils citation" frame="void" id="portal" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Portal]</td><td>Expressly management Portal: <a class="reference external" href="https://buyexpressly.com/#/portal/login">https://buyexpressly.com/#/portal/login</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="integrations.html" class="btn btn-neutral float-right" title="Integrations" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="exceptions.html" class="btn btn-neutral" title="Exceptions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Sam Pratt.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.1.6',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

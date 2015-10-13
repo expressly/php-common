@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview &mdash; php-common 1.1.6 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="php-common 1.1.6 documentation" href="index.html"/>
+        <link rel="next" title="Requests" href="requests.html"/>
+        <link rel="prev" title="Expressly PHP Common documentation:" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> php-common
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#include">Include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-client">Create a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checklist">Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">php-common</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Overview</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/overview.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<span id="overview-requirements"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>PHP 5.3+</li>
+<li><a class="reference internal" href="#composer">composer</a></li>
+</ul>
+<p>All composer dependencies are included in the Expressly provided integration releases on GitHub.</p>
+</div>
+<div class="section" id="include">
+<span id="overview-include"></span><h2>Include<a class="headerlink" href="#include" title="Permalink to this headline">¶</a></h2>
+<p>Inside your composer.json, you need to include:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;require&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;expressly/php-common&quot;</span><span class="o">:</span> <span class="s2">&quot;1.1.6&quot;</span>
+<span class="p">},</span>
+<span class="s2">&quot;repositories&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;vcs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://github.com/expressly/php-common&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<span id="overview-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>All configuration values associated with the repository are contained within <a class="reference internal" href="#config-yml">config.yml</a>.</p>
+<p>To act in development mode, the following block inside the <a class="reference internal" href="#config-yml">config.yml</a> should be changed from:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">external</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://prod.expresslyapp.com/api/v1</span>
+        <span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://prod.expresslyapp.com/api/admin</span>
+</pre></div>
+</div>
+<p>to</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">external</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://dev.expresslyapp.com/api/v1</span>
+        <span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://dev.expresslyapp.com/api/admin</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-client">
+<span id="overview-client"></span><h2>Create a Client<a class="headerlink" href="#create-a-client" title="Permalink to this headline">¶</a></h2>
+<p>In order to make use of the <a class="reference internal" href="#di">DI</a> container, to include, override, or extend any code we provide, a new instance of the Expressly Client is required.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly;</span>
+
+<span class="x">/*</span>
+<span class="x"> * $merchantType is a string to help us identify your system type in logs.</span>
+<span class="x"> * Example constants in: Expressly\Entity\MerchantType</span>
+<span class="x"> */</span>
+<span class="x">$client = new Client($merchantType, array());</span>
+<span class="x">$app = $client-&gt;getApp();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="checklist">
+<span id="overview-checklist"></span><h2>Checklist<a class="headerlink" href="#checklist" title="Permalink to this headline">¶</a></h2>
+<p>For a working Expressly integration, using this library, the following need to be checked off:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview-include"><span>Include</span></a> the project via composer (or alternative).</li>
+<li>Change <a class="reference internal" href="#overview-configuration"><span>Configuration</span></a> if needed (for development purposes).</li>
+<li><a class="reference internal" href="#overview-client"><span>Create a Client</span></a>.</li>
+<li>Create a localized MerchantProvider: must extend <a class="reference internal" href="#merchantproviderinterface">MerchantProviderInterface</a>, and register it with the application:</li>
+</ul>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Provider\MerchantProviderInterface;</span>
+
+<span class="x">class MyMerchantProvider implements MerchantProviderInterface {</span>
+<span class="x">    // your implementation</span>
+<span class="x">}</span>
+
+<span class="x">$app[&#39;merchant.provider&#39;] = $app-&gt;share(function ($app) {</span>
+<span class="x">    return new MyMerchantProvider();</span>
+<span class="x">});</span>
+</pre></div>
+</div>
+<table class="docutils citation" frame="void" id="composer" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[composer]</td><td>PHP package manager: <a class="reference external" href="https://getcomposer.org/">https://getcomposer.org/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="config-yml" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[config.yml]</td><td>src/Resources/config/config.yml</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="silex" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Silex]</td><td>Silex PHP Microframework: <a class="reference external" href="http://silex.sensiolabs.org/">http://silex.sensiolabs.org/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="pimple" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Pimple]</td><td><a class="reference internal" href="#di">DI</a> implementation: <a class="reference external" href="http://pimple.sensiolabs.org/">http://pimple.sensiolabs.org/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="di" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[DI]</td><td>Dependency Injection</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="merchantproviderinterface" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[MerchantProviderInterface]</td><td>src/Provider/MerchantProviderInterface.php (ExpresslyProviderMerchantProviderInterface)</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="requests.html" class="btn btn-neutral float-right" title="Requests" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Expressly PHP Common documentation:" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Sam Pratt.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.1.6',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

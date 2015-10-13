@@ -1,0 +1,48 @@
+=====
+Setup
+=====
+
+Requirements
+------------
+* PHP 5.3+
+* composer
+
+Include
+-------
+Inside your composer.json, you need to include:
+
+.. code-block:: javascript
+
+    "require": {
+        "expressly/php-common": "1.1.6"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/expressly/php-common"
+        }
+    ]
+
+Configuration
+-------------
+All configuration values associated with the repository are contained within config.yml_.
+
+To act in development mode, the following block inside the config.yml_ should be changed from:
+
+.. code-block:: yaml
+
+    external:
+        hosts:
+            default: http://prod.expresslyapp.com/api/v1
+            admin: http://prod.expresslyapp.com/api/admin
+
+to
+
+.. code-block:: yaml
+
+    external:
+        hosts:
+            default: http://dev.expresslyapp.com/api/v1
+            admin: http://dev.expresslyapp.com/api/admin
+
+.. [config.yml] src/Resources/config/config.yml

@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="php-common 1.1.6 documentation" href="#"/>
-        <link rel="next" title="License" href="license.html"/> 
+        <link rel="next" title="Overview" href="overview.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -81,8 +81,14 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
             
@@ -132,18 +138,57 @@
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#include">Include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#create-a-client">Create a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#checklist">Checklist</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#ping">Ping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#register-merchant">Register Merchant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#update-merchant">Update Merchant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#remove-merchant">Remove Merchant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#get-campaign-migration-popup">Get Campaign Migration Popup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#get-campaign-migration-data">Get Campaign Migration Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#migration-success">Migration Success</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requests.html#get-campaign-banner">Get Campaign Banner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="responses.html#ping-store">Ping Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="responses.html#show-popup">Show Popup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="responses.html#migrate-user">Migrate User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="responses.html#get-user">Get User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="responses.html#get-invoices-for-customer-purchases">Get Invoices for Customer Purchases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="responses.html#get-customers-on-store">Get Customers on Store</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flows.html#merchant-registration">Merchant Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows.html#merchant-update">Merchant Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows.html#user-campaign-migration">User Campaign Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows.html#check-purchases">Check Purchases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows.html#check-customer-migration">Check Customer Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flows.html#campaign-banner">Campaign Banner</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integrations.html#woocommerce">WooCommerce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations.html#prestashop">PrestaShop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations.html#magento">Magento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations.html#opencart-1-5">OpenCart 1.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations.html#oscommerce-2-3">osCommerce 2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations.html#virtuemart">VirtueMart</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
-</ul>
 </div>
 
 
@@ -153,7 +198,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

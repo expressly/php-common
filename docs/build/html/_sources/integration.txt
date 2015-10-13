@@ -1,0 +1,29 @@
+Integrations
+============
+
+How to integrate
+----------------
+
+WooCommerce
+-----------
+`WooCommerce repository <https://github.com/expressly/woocommerce>`_
+
+PrestaShop
+----------
+`PrestaShop repository <https://github.com/expressly/prestashop16>`_
+
+Magento
+-------
+`Magento repository <https://github.com/expressly/magento>`_
+
+OpenCart 1.5
+------------
+`OpenCart 1.5 repository <https://github.com/expressly/opencart15>`_
+
+osCommerce 2.3
+--------------
+`osCommerce 2.3 repository <https://github.com/expressly/oscommerce>`_
+
+VirtueMart
+----------
+`VirtueMart repository <https://github.com/expressly/virtuemart>`_

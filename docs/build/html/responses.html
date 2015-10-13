@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Responses/Endpoints &mdash; php-common 1.1.6 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="php-common 1.1.6 documentation" href="index.html"/>
+        <link rel="next" title="Exceptions" href="exceptions.html"/>
+        <link rel="prev" title="Requests" href="requests.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> php-common
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Responses/Endpoints</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ping-store">Ping Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#show-popup">Show Popup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#migrate-user">Migrate User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-user">Get User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-invoices-for-customer-purchases">Get Invoices for Customer Purchases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-customers-on-store">Get Customers on Store</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">Need Help?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">php-common</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Responses/Endpoints</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/responses.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="responses-endpoints">
+<h1>Responses/Endpoints<a class="headerlink" href="#responses-endpoints" title="Permalink to this headline">¶</a></h1>
+<p>Every single expected endpoint will be prefixed with the registered <a class="reference internal" href="#merchant-url">merchant_url</a>.
+All Endpoints that must have hooks created in the mother system have a corresponding <a class="reference internal" href="#presenter">Presenter</a>.</p>
+<div class="section" id="ping-store">
+<span id="response-ping"></span><h2>Ping Store<a class="headerlink" href="#ping-store" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--expressly-api-ping">
+<code class="descname">GET </code><code class="descname">/expressly/api/ping</code><a class="headerlink" href="#get--expressly-api-ping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple response message to note that the plugin has been installed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><strong>expressly</strong> &#8211; Stuff is happening!</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="show-popup">
+<span id="response-popup"></span><h2>Show Popup<a class="headerlink" href="#show-popup" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--expressly-api-(string-uuid)">
+<code class="descname">GET </code><code class="descname">/expressly/api/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#get--expressly-api-(string-uuid)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-popup"><span>Get Campaign Migration Popup</span></a> request.
+The Popup can be shown over any page you wish, we recommend appending the html to your homepage.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="migrate-user">
+<span id="response-migrate"></span><h2>Migrate User<a class="headerlink" href="#migrate-user" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--expressly-api-(string-uuid)-migrate">
+<code class="descname">GET </code><code class="descname">/expressly/api/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/migrate</code><a class="headerlink" href="#get--expressly-api-(string-uuid)-migrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>End of the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-data"><span>Get Campaign Migration Data</span></a> request.
+The method should add all data for the provided user to the store, and if provided, add a product and/or coupon to the users&#8217; cart.
+The user should be logged in directly after this migration, and a welcome email (if not part of your stores&#8217; initial flow) should be dispatched.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="get-user">
+<span id="response-user"></span><h2>Get User<a class="headerlink" href="#get-user" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--expressly-api-user-(string-email)">
+<code class="descname">GET </code><code class="descname">/expressly/api/user/</code><span class="sig-paren">(</span><em class="property">string: </em><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#get--expressly-api-user-(string-email)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns user, via your application facilities, conforming to our defined <a class="reference internal" href="#entities">entities</a>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$customer = new Customer();</span>
+<span class="x">/*</span>
+<span class="x"> * fill in as many applicable setters as possible</span>
+<span class="x"> * $customer</span>
+<span class="x"> *      -&gt;setFirstName(&#39;John&#39;)</span>
+<span class="x"> *      -&gt;setLastName(&#39;Smith&#39;);</span>
+<span class="x"> */</span>
+<span class="x">$response = new CustomerMigratePresenter($merchant, $customer, $email, $id);</span>
+<span class="x">// display content however your application prefers</span>
+<span class="x">echo json_encode($response-&gt;toArray());</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-invoices-for-customer-purchases">
+<span id="response-batch-invoice"></span><h2>Get Invoices for Customer Purchases<a class="headerlink" href="#get-invoices-for-customer-purchases" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--expressly-api-batch-invoice">
+<code class="descname">GET </code><code class="descname">/expressly/api/batch/invoice</code><a class="headerlink" href="#get--expressly-api-batch-invoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$response</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-customers-on-store">
+<span id="response-batch-customer"></span><h2>Get Customers on Store<a class="headerlink" href="#get-customers-on-store" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--expressly-api-batch-customer">
+<code class="descname">GET </code><code class="descname">/expressly/api/batch/customer</code><a class="headerlink" href="#get--expressly-api-batch-customer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of emails, checks to see if a user has completed the migration process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<table class="docutils citation" frame="void" id="merchant-url" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[merchant_url]</td><td>the location to execute/catch our paths;
+example: <a class="reference external" href="https://www.example.com/route?action=/expressly/api/ping">https://www.example.com/route?action=/expressly/api/ping</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="presenter" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Presenter]</td><td>src/Presenter (namespace ExpresslyPresenter)</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="entities" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[entities]</td><td>src/Entity (namespace ExpresslyEntity)</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="requests.html" class="btn btn-neutral" title="Requests" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Sam Pratt.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.1.6',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

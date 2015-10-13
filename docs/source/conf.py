@@ -16,6 +16,7 @@ import sys
 import os
 import shlex
 import sphinx_rtd_theme
+import sphinxcontrib.httpdomain
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -290,3 +291,5 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+extensions = ['sphinxcontrib.httpdomain']
