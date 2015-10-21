@@ -32,7 +32,10 @@ class Merchant extends ArraySerializeable
     {
         $this->apiKey = $apiKey;
 
-        list($this->username, $this->password) = explode(':', base64_decode($this->apiKey));
+        $userPassword = explode(':', base64_decode($this->apiKey));
+        if (count($userPassword) === 2) {
+            list($this->username, $this->password) = $userPassword;
+        }
 
         return $this;
     }
