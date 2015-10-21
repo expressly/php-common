@@ -1,22 +1,10 @@
-version: v1
-
-database:
-    driver: mysql
-    host: 127.0.0.1
-    dbname: expressly
-    user: root
-    password: ''
-
-table:
-    merchant: expressly_preferences
-
 validators:
     - { class: Expressly\Validator\UuidValidator, message: Plugin not registered; please register first. }
     - { class: Expressly\Validator\EmailValidator, message: Invalid email address provided. }
 
 external:
     hosts:
-        default: http://prod.expresslyapp.com/api/v1
+        default: http://prod.expresslyapp.com/api/v2
         admin: http://prod.expresslyapp.com/api/admin
     routes:
         ping:
@@ -44,17 +32,11 @@ external:
         merchant_register:
             host: default
             method: POST
-            uri: /merchant/register
-        merchant_update:
-            host: default
-            method: POST
-            uri: /merchant/<uuid>/update
-            validation:
-                uuid: uuid_string
+            uri: /merchant
         merchant_delete:
             host: default
-            method: POST
-            uri: /merchant/<uuid>/uninstall
+            method: DELETE
+            uri: /merchant/<uuid>
             validation:
                 uuid: uuid_string
         banner_request:
