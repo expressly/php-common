@@ -34,7 +34,7 @@ class Merchant extends ArraySerializeable
 
         $userPassword = explode(':', base64_decode($this->apiKey));
         if (count($userPassword) === 2) {
-            list($this->username, $this->password) = $userPassword;
+            list($this->uuid, $this->password) = $userPassword;
         }
 
         return $this;

@@ -18,21 +18,21 @@ class PasswordedEvent extends MerchantEvent
 
     public function getBasicHeader()
     {
-        return "Authorization: Basic {$this->getToken()}";
+        return "Authorization: Basic {$this->getApiKey()}";
     }
 
-    public function getToken()
+    public function getApiKey()
     {
-        return base64_encode(sprintf('%s:%s', $this->merchant->getUuid(), $this->merchant->getPassword()));
-    }
-
-    public function getPassword()
-    {
-        return $this->getMerchant()->getPassword();
+        return $this->getMerchant()->getApiKey();
     }
 
     public function getMerchant()
     {
         return $this->merchant;
+    }
+
+    public function getPassword()
+    {
+        return $this->getMerchant()->getPassword();
     }
 }

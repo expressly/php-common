@@ -29,15 +29,16 @@ class MerchantSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function onRegister(MerchantEvent $event)
+    public function onRegister(PasswordedEvent $event)
     {
         $route = $this->routeProvider->merchant_register;
 
         $response = $route->process(function ($request) use ($event) {
             $merchant = $event->getMerchant();
 
+            $request->addHeader($event->getBasicHeader());
             $request->setContent(array(
-                'apiKey' => $merchant->getApiKey(),
+                'apiKey' => $event->getApiKey(),
                 'apiBaseUrl' => $merchant->getEndpoint()
             ));
         });

@@ -32,11 +32,11 @@ external:
         merchant_register:
             host: default
             method: POST
-            uri: /merchant
+            uri: /plugin/merchant
         merchant_delete:
             host: default
             method: DELETE
-            uri: /merchant/<uuid>
+            uri: /plugin/merchant/<uuid>
             validation:
                 uuid: uuid_string
         banner_request:
