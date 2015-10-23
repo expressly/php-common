@@ -2,7 +2,7 @@
 
 namespace Expressly\Presenter;
 
-class PingPresenter
+class PingPresenter implements PresenterInterface
 {
     public function toArray()
     {
