@@ -2,6 +2,14 @@ validators:
     - { class: Expressly\Validator\UuidValidator, message: Plugin not registered; please register first. }
     - { class: Expressly\Validator\EmailValidator, message: Invalid email address provided. }
 
+routes:
+    - Expressly\Route\Ping
+    - Expressly\Route\UserData
+    - Expressly\Route\BatchCustomer
+    - Expressly\Route\BatchInvoice
+    - Expressly\Route\CampaignMigration
+    - Expressly\Route\CampaignPopup
+
 external:
     hosts:
         default: http://prod.expresslyapp.com/api/v2

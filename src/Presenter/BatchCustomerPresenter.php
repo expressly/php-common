@@ -2,26 +2,21 @@
 
 namespace Expressly\Presenter;
 
-use Expressly\Entity\Merchant;
-
-class BatchCustomerPresenter extends AbstractPresenter
+class BatchCustomerPresenter implements PresenterInterface
 {
-    protected $public = false;
+    private $emails = array();
 
-    public function __construct(Merchant $merchant, Array $emails)
+    public function __construct(Array $existing = array(), Array $deleted = array(), Array $pending = array())
     {
-        parent::__construct($merchant);
+        $this->emails = array(
+            'existing' => $existing,
+            'deleted' => $deleted,
+            'pending' => $pending
+        );
+    }
 
-        if (empty($emails['existing'])) {
-            $emails['existing'] = array();
-        }
-        if (empty($emails['deleted'])) {
-            $emails['deleted'] = array();
-        }
-        if (empty($emails['pending'])) {
-            $emails['pending'] = array();
-        }
-
-        $this->data = $emails;
+    public function toArray()
+    {
+        return $this->emails;
     }
 }

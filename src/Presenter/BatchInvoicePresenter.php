@@ -3,20 +3,24 @@
 namespace Expressly\Presenter;
 
 use Expressly\Entity\Invoice;
-use Expressly\Entity\Merchant;
 
-class BatchInvoicePresenter extends AbstractPresenter
+class BatchInvoicePresenter implements PresenterInterface
 {
-    protected $public = false;
+    private $invoices = array();
 
-    public function __construct(Merchant $merchant, Array $invoices)
+    public function __construct(Array $invoices)
     {
-        parent::__construct($merchant);
-
         foreach ($invoices as $invoice) {
             if ($invoice instanceof Invoice) {
-                $this->data['invoices'][] = $invoice->toArray();
+                $this->invoices[] = $invoice->toArray();
             }
         }
+    }
+
+    public function toArray()
+    {
+        return array(
+            'invoices' => $this->invoices
+        );
     }
 }

@@ -3,7 +3,7 @@
 namespace Expressly\Provider;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Expressly\Entity\Route;
+use Expressly\Entity\ExternalRoute;
 use Silex\Application;
 
 class ExternalRouteProvider implements ConfigProviderInterface
@@ -14,9 +14,8 @@ class ExternalRouteProvider implements ConfigProviderInterface
     {
         $this->routes = new ArrayCollection();
 
-
         foreach ($routes as $key => $definition) {
-            $route = new Route();
+            $route = new ExternalRoute();
             $route->setHost($hosts[$definition['host']])
                 ->setURI($definition['uri'])
                 ->setMethod($definition['method']);
