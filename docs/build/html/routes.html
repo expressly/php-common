@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Resolver &mdash; php-common 1.1.6 documentation</title>
+  <title>Routes &mdash; php-common 1.1.6 documentation</title>
   
 
   
@@ -30,7 +30,9 @@
   
 
   
-    <link rel="top" title="php-common 1.1.6 documentation" href="index.html"/> 
+    <link rel="top" title="php-common 1.1.6 documentation" href="index.html"/>
+        <link rel="next" title="Exceptions" href="exceptions.html"/>
+        <link rel="prev" title="Requests" href="requests.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,9 +81,18 @@
           
             
             
-                <ul>
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Routes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ping-store">Ping Store</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#show-popup">Show Popup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#migrate-user">Migrate User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-user">Get User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#invoices-for-customer-purchases">Invoices for Customer Purchases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customers-on-store">Customers on Store</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
@@ -117,11 +128,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Resolver</li>
+    <li>Routes</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/responses.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/routes.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -131,8 +142,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="resolver">
-<h1>Resolver<a class="headerlink" href="#resolver" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="routes">
+<h1>Routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h1>
+<p>All routes are dispatched using the included <a class="reference internal" href="#routeresolver">RouteResolver</a>. If you platform has a built in parser, the associated regex is attached (statically) to each route in the Expressly\Routes namespace.
+The <a class="reference internal" href="#routeresolver">RouteResolver</a> will check if the required header(s), method, and route were passed through, and return the valid data (if any) inside a matched <a class="reference internal" href="#route">Route</a> object, or null.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$query = &#39;/expressly/api/*&#39;;</span>
+<span class="x">$route = $app[&#39;route.resolver&#39;]-&gt;process($query);</span>
+</pre></div>
+</div>
 <p>Every single expected endpoint will be prefixed with the registered <a class="reference internal" href="#merchant-url">merchant_url</a>.
 All Endpoints that must have hooks created in the mother system have a corresponding <a class="reference internal" href="#presenter">Presenter</a>.</p>
 <div class="section" id="ping-store">
@@ -140,7 +157,15 @@ All Endpoints that must have hooks created in the mother system have a correspon
 <dl class="get">
 <dt id="get--expressly-api-ping">
 <code class="descname">GET </code><code class="descname">/expressly/api/ping</code><a class="headerlink" href="#get--expressly-api-ping" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simple response message to note that the plugin has been installed.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\Ping</td>
+</tr>
+</tbody>
+</table>
+<p>Simple response message to note that the plugin has been installed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -173,7 +198,15 @@ All Endpoints that must have hooks created in the mother system have a correspon
 <dl class="get">
 <dt id="get--expressly-api-(string-uuid)">
 <code class="descname">GET </code><code class="descname">/expressly/api/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#get--expressly-api-(string-uuid)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-popup"><span>Get Campaign Migration Popup</span></a> request.
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\CampaignPopup</td>
+</tr>
+</tbody>
+</table>
+<p>Start the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-popup"><span>Get Campaign Migration Popup</span></a> request.
 The Popup can be shown over any page you wish, we recommend appending the html to your homepage.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -201,7 +234,15 @@ The Popup can be shown over any page you wish, we recommend appending the html t
 <dl class="get">
 <dt id="get--expressly-api-(string-uuid)-migrate">
 <code class="descname">GET </code><code class="descname">/expressly/api/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/migrate</code><a class="headerlink" href="#get--expressly-api-(string-uuid)-migrate" title="Permalink to this definition">¶</a></dt>
-<dd><p>End of the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-data"><span>Get Campaign Migration Data</span></a> request.
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\CampaignMigration</td>
+</tr>
+</tbody>
+</table>
+<p>End of the user migration process. This uri should invoke the <a class="reference internal" href="requests.html#request-migration-data"><span>Get Campaign Migration Data</span></a> request.
 The method should add all data for the provided user to the store, and if provided, add a product and/or coupon to the users&#8217; cart.
 The user should be logged in directly after this migration, and a welcome email (if not part of your stores&#8217; initial flow) should be dispatched.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -230,7 +271,15 @@ The user should be logged in directly after this migration, and a welcome email 
 <dl class="get">
 <dt id="get--expressly-api-user-(string-email)">
 <code class="descname">GET </code><code class="descname">/expressly/api/user/</code><span class="sig-paren">(</span><em class="property">string: </em><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#get--expressly-api-user-(string-email)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns user, via your application facilities, conforming to our defined <a class="reference internal" href="#entities">entities</a>.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\UserData</td>
+</tr>
+</tbody>
+</table>
+<p>Returns user, via your application facilities, conforming to our defined <a class="reference internal" href="#entities">entities</a>.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">$customer = new Customer();</span>
 <span class="x">/*</span>
 <span class="x"> * fill in as many applicable setters as possible</span>
@@ -355,7 +404,15 @@ The user should be logged in directly after this migration, and a welcome email 
 <dl class="post">
 <dt id="post--expressly-api-batch-invoice">
 <code class="descname">POST </code><code class="descname">/expressly/api/batch/invoice</code><a class="headerlink" href="#post--expressly-api-batch-invoice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\BatchInvoice</td>
+</tr>
+</tbody>
+</table>
+<p>Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Entity\Invoice;</span>
 <span class="x">use Expressly\Entity\Order;</span>
 <span class="x">use Expressly\Presenter\BatchInvoicePresenter;</span>
@@ -457,7 +514,15 @@ Authorization: Basic token
 <dl class="post">
 <dt id="post--expressly-api-batch-customer">
 <code class="descname">POST </code><code class="descname">/expressly/api/batch/customer</code><a class="headerlink" href="#post--expressly-api-batch-customer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a list of emails, checks to see if a user has completed the migration process.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\BatchCustomer</td>
+</tr>
+</tbody>
+</table>
+<p>Given a list of emails, checks to see if a user has completed the migration process.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Presenter\BatchCustomerPresenter;</span>
 
 <span class="x">$users = array(</span>
@@ -521,11 +586,23 @@ Authorization: Basic token
 </table>
 </dd></dl>
 
+<table class="docutils citation" frame="void" id="routeresolver" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[RouteResolver]</td><td>src/Resolver/RouteResolver (namespace ExpresslyResolverRouteResolver)</td></tr>
+</tbody>
+</table>
 <table class="docutils citation" frame="void" id="merchant-url" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[merchant_url]</td><td>the location to execute/catch our paths;
 example: <a class="reference external" href="https://www.example.com/route?action=/expressly/api/ping">https://www.example.com/route?action=/expressly/api/ping</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="route" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[Route]</td><td>src/Entity/Route (namespace ExpresslyEntityRoute)</td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="presenter" rules="none">
@@ -547,6 +624,15 @@ example: <a class="reference external" href="https://www.example.com/route?actio
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="requests.html" class="btn btn-neutral" title="Requests" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -14,18 +14,17 @@ CUSTOMER
 
 Merchant Registration
 ---------------------
-**IMPORTANT: Registration is due to change next version release; there will still be backwards compatibility.**
 
 **Pre-conditions:**
 
 - Expressly plugin has been integrated, ticking all boxes of :ref:`overview-checklist`.
+- API key exists, and has been created on the Portal_ (see <https://buyexpressly.com/#/install>).
 
 **Main Flow:**
 
-1. STORE calls :ref:`request-merchant-register` with appropriate body.
+1. STORE calls :ref:`request-merchant-register` with appropriate body, and header.
 2. SERVER pings store to make sure you have the plugin installed correctly.
-3. SERVER returns uuid, and token.
-4. STORE saves uuid, and token.
+3. SERVER returns successfully to STORE
 
 **Alternate Flows:**
 

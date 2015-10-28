@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="php-common 1.1.6 documentation" href="index.html"/>
-        <link rel="next" title="Responses/Endpoints" href="responses.html"/>
+        <link rel="next" title="Routes" href="routes.html"/>
         <link rel="prev" title="Overview" href="overview.html"/> 
 
   
@@ -86,7 +86,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Requests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#ping">Ping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#register-merchant">Register Merchant</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#update-merchant">Update Merchant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#remove-merchant">Remove Merchant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-campaign-migration-popup">Get Campaign Migration Popup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-campaign-migration-data">Get Campaign Migration Data</a></li>
@@ -94,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#get-campaign-banner">Get Campaign Banner</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flows.html">Flows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
@@ -202,8 +201,8 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <div class="section" id="register-merchant">
 <span id="request-merchant-register"></span><h2>Register Merchant<a class="headerlink" href="#register-merchant" title="Permalink to this headline">¶</a></h2>
 <dl class="post">
-<dt id="post--api-v1-register">
-<code class="descname">POST </code><code class="descname">/api/v1/register</code><a class="headerlink" href="#post--api-v1-register" title="Permalink to this definition">¶</a></dt>
+<dt id="post--api-v2-plugin-merchant">
+<code class="descname">POST </code><code class="descname">/api/v2/plugin/merchant</code><a class="headerlink" href="#post--api-v2-plugin-merchant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a store with the server.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\MerchantEvent;</span>
 <span class="x">use Expressly\Subscriber\MerchantSubscriber;</span>
@@ -222,13 +221,8 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">Request JSON Object:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>shopName</strong> (<em>string</em>) &#8211; shop name</li>
-<li><strong>shopUrl</strong> (<em>string</em>) &#8211; shop url (<a class="reference external" href="https://www.example.com">https://www.example.com</a>)</li>
 <li><strong>apiBaseUrl</strong> (<em>string</em>) &#8211; see <a class="reference internal" href="#merchant-url">merchant_url</a>; if there isn&#8217;t any special base routing the value should be the exact same as the shop url</li>
-<li><strong>shopImageUrl</strong> (<em>string</em>) &#8211; logo url</li>
-<li><strong>termsAndConditionsUrl</strong> (<em>string</em>) &#8211; url to terms, and conditions page</li>
-<li><strong>policyUrl</strong> (<em>string</em>) &#8211; url to privacy policy page</li>
-<li><strong>pluginVersion</strong> (<em>string</em>) &#8211; plugin version (current: v1)</li>
+<li><strong>apiKey</strong> (<em>string</em>) &#8211; api key retrieved from the <a class="reference internal" href="#portal">Portal</a> (see &lt;<a class="reference external" href="https://buyexpressly.com/#/install">https://buyexpressly.com/#/install</a>&gt;)</li>
 </ul>
 </td>
 </tr>
@@ -262,89 +256,11 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </dd></dl>
 
 </div>
-<div class="section" id="update-merchant">
-<span id="request-merchant-update"></span><h2>Update Merchant<a class="headerlink" href="#update-merchant" title="Permalink to this headline">¶</a></h2>
-<dl class="post">
-<dt id="post--api-v1-merchant-(string-uuid)-update">
-<code class="descname">POST </code><code class="descname">/api/v1/merchant/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/update</code><a class="headerlink" href="#post--api-v1-merchant-(string-uuid)-update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update details for an existing store.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\PasswordedEvent;</span>
-<span class="x">use Expressly\Subscriber\MerchantSubscriber;</span>
-
-<span class="x">$event = new PasswordedEvent(...);</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(MerchantSubscriber::MERCHANT_UPDATE, $event);</span>
-
-<span class="x">if ($event-&gt;isSuccessful()) {</span>
-
-<span class="x">}</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>uuid</strong> &#8211; Unique merchant uuid</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Request JSON Object:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>shopName</strong> (<em>string</em>) &#8211; shop name</li>
-<li><strong>shopUrl</strong> (<em>string</em>) &#8211; shop url (<a class="reference external" href="https://www.example.com">https://www.example.com</a>)</li>
-<li><strong>apiBaseUrl</strong> (<em>string</em>) &#8211; see <a class="reference internal" href="#merchant-url">merchant_url</a>; if there isn&#8217;t any special base routing the value should be the exact same as the shop url</li>
-<li><strong>shopImageUrl</strong> (<em>string</em>) &#8211; logo url</li>
-<li><strong>termsAndConditionsUrl</strong> (<em>string</em>) &#8211; url to terms, and conditions page</li>
-<li><strong>policyUrl</strong> (<em>string</em>) &#8211; url to privacy policy page</li>
-<li><strong>pluginVersion</strong> (<em>string</em>) &#8211; plugin version (current: v1)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>merchantUuid</strong> (<em>string</em>) &#8211; unique identifier for your installation</li>
-<li><strong>shopName</strong> (<em>string</em>) &#8211; shop name</li>
-<li><strong>shopUrl</strong> (<em>string</em>) &#8211; shop url (<a class="reference external" href="https://www.example.com">https://www.example.com</a>)</li>
-<li><strong>apiBaseUrl</strong> (<em>string</em>) &#8211; see <a class="reference internal" href="#merchant-url">merchant_url</a>; if there isn&#8217;t any special base routing the value should be the exact same as the shop url</li>
-<li><strong>shopImageUrl</strong> (<em>string</em>) &#8211; logo url</li>
-<li><strong>termsAndConditionsUrl</strong> (<em>string</em>) &#8211; url to terms, and conditions page</li>
-<li><strong>policyUrl</strong> (<em>string</em>) &#8211; url to privacy policy page</li>
-<li><strong>pluginVersion</strong> (<em>string</em>) &#8211; plugin version (current: v1)</li>
-<li><strong>lastPingTime</strong> (<em>string</em>) &#8211; ISO 8601 timestamp of last time the server tried to ping the store</li>
-<li><strong>lastSuccessPingTime</strong> (<em>string</em>) &#8211; ISO 8601 timestamp of last time the server pinged the store successfully</li>
-<li><strong>lastPingSuccessful</strong> (<em>boolean</em>) &#8211; If the above (lastPingTime) was successful, or not</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
 <div class="section" id="remove-merchant">
 <span id="request-merchant-remove"></span><h2>Remove Merchant<a class="headerlink" href="#remove-merchant" title="Permalink to this headline">¶</a></h2>
-<dl class="post">
-<dt id="post--api-v1-merchant-(string-uuid)-uninstall">
-<code class="descname">POST </code><code class="descname">/api/v1/merchant/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/uninstall</code><a class="headerlink" href="#post--api-v1-merchant-(string-uuid)-uninstall" title="Permalink to this definition">¶</a></dt>
+<dl class="delete">
+<dt id="delete--api-v2-plugin-merchant-(string-uuid)">
+<code class="descname">DELETE </code><code class="descname">/api/v2/plugin/merchant/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-v2-plugin-merchant-(string-uuid)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove store from the expressly system.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\PasswordedEvent;</span>
 <span class="x">use Expressly\Subscriber\MerchantSubscriber;</span>
@@ -394,8 +310,8 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <div class="section" id="get-campaign-migration-popup">
 <span id="request-migration-popup"></span><h2>Get Campaign Migration Popup<a class="headerlink" href="#get-campaign-migration-popup" title="Permalink to this headline">¶</a></h2>
 <dl class="get">
-<dt id="get--api-v1-migration-(string-uuid)">
-<code class="descname">GET </code><code class="descname">/api/v1/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v1-migration-(string-uuid)" title="Permalink to this definition">¶</a></dt>
+<dt id="get--api-v2-migration-(string-uuid)">
+<code class="descname">GET </code><code class="descname">/api/v2/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v2-migration-(string-uuid)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request the popup to start a campaign migration for the unique user.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
 <span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
@@ -444,8 +360,8 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <div class="section" id="get-campaign-migration-data">
 <span id="request-migration-data"></span><h2>Get Campaign Migration Data<a class="headerlink" href="#get-campaign-migration-data" title="Permalink to this headline">¶</a></h2>
 <dl class="get">
-<dt id="get--api-v1-migration-(string-uuid)-user">
-<code class="descname">GET </code><code class="descname">/api/v1/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/user</code><a class="headerlink" href="#get--api-v1-migration-(string-uuid)-user" title="Permalink to this definition">¶</a></dt>
+<dt id="get--api-v2-migration-(string-uuid)-user">
+<code class="descname">GET </code><code class="descname">/api/v2/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/user</code><a class="headerlink" href="#get--api-v2-migration-(string-uuid)-user" title="Permalink to this definition">¶</a></dt>
 <dd><p>User has accepted popup, or been forced here directly; request, and start data migration.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
 <span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
@@ -576,8 +492,8 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <div class="section" id="migration-success">
 <span id="request-migration-success"></span><h2>Migration Success<a class="headerlink" href="#migration-success" title="Permalink to this headline">¶</a></h2>
 <dl class="post">
-<dt id="post--api-v1-migration-(string-uuid)-success">
-<code class="descname">POST </code><code class="descname">/api/v1/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/success</code><a class="headerlink" href="#post--api-v1-migration-(string-uuid)-success" title="Permalink to this definition">¶</a></dt>
+<dt id="post--api-v2-migration-(string-uuid)-success">
+<code class="descname">POST </code><code class="descname">/api/v2/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/success</code><a class="headerlink" href="#post--api-v2-migration-(string-uuid)-success" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tells the server if the migration was successful, or if the user already existed on this store.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
 <span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
@@ -639,8 +555,8 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <div class="section" id="get-campaign-banner">
 <span id="request-banner-get"></span><h2>Get Campaign Banner<a class="headerlink" href="#get-campaign-banner" title="Permalink to this headline">¶</a></h2>
 <dl class="get">
-<dt id="get--api-v1-banner-(string-uuid)?email=(string-email)">
-<code class="descname">GET </code><code class="descname">/api/v1/banner/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">?email=</code><span class="sig-paren">(</span><em class="property">string: </em><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v1-banner-(string-uuid)?email=(string-email)" title="Permalink to this definition">¶</a></dt>
+<dt id="get--api-v2-banner-(string-uuid)?email=(string-email)">
+<code class="descname">GET </code><code class="descname">/api/v2/banner/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">?email=</code><span class="sig-paren">(</span><em class="property">string: </em><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v2-banner-(string-uuid)?email=(string-email)" title="Permalink to this definition">¶</a></dt>
 <dd><p>If banner campaign is setup, get banner for a specified store, and email combination.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\BannerEvent;</span>
 <span class="x">use Expressly\Subscriber\BannerSubscriber;</span>
@@ -722,7 +638,7 @@ example: <a class="reference external" href="https://www.example.com/route?actio
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="responses.html" class="btn btn-neutral float-right" title="Responses/Endpoints" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="routes.html" class="btn btn-neutral float-right" title="Routes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="overview.html" class="btn btn-neutral" title="Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

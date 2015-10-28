@@ -84,7 +84,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="requests.html">Requests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="responses.html">Responses/Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="routes.html">Routes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Flows</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#merchant-registration">Merchant Registration</a></li>
@@ -155,17 +155,16 @@
 </dl>
 <div class="section" id="merchant-registration">
 <span id="flow-merchant-registration"></span><h2>Merchant Registration<a class="headerlink" href="#merchant-registration" title="Permalink to this headline">¶</a></h2>
-<p><strong>IMPORTANT: Registration is due to change next version release; there will still be backwards compatibility.</strong></p>
 <p><strong>Pre-conditions:</strong></p>
 <ul class="simple">
 <li>Expressly plugin has been integrated, ticking all boxes of <a class="reference internal" href="overview.html#overview-checklist"><span>Checklist</span></a>.</li>
+<li>API key exists, and has been created on the <a class="reference internal" href="#portal">Portal</a> (see &lt;<a class="reference external" href="https://buyexpressly.com/#/install">https://buyexpressly.com/#/install</a>&gt;).</li>
 </ul>
 <p><strong>Main Flow:</strong></p>
 <ol class="arabic simple">
-<li>STORE calls <a class="reference internal" href="requests.html#request-merchant-register"><span>Register Merchant</span></a> with appropriate body.</li>
+<li>STORE calls <a class="reference internal" href="requests.html#request-merchant-register"><span>Register Merchant</span></a> with appropriate body, and header.</li>
 <li>SERVER pings store to make sure you have the plugin installed correctly.</li>
-<li>SERVER returns uuid, and token.</li>
-<li>STORE saves uuid, and token.</li>
+<li>SERVER returns successfully to STORE</li>
 </ol>
 <p><strong>Alternate Flows:</strong></p>
 <p>3-1. SERVER cannot ping STORE, returns error message.</p>
@@ -178,7 +177,7 @@
 </ul>
 <p><strong>Main Flow:</strong></p>
 <ol class="arabic simple">
-<li>STORE calls <a class="reference internal" href="requests.html#request-merchant-update"><span>Update Merchant</span></a> with appropriate body.</li>
+<li>STORE calls <span class="xref std std-ref">request-merchant-update</span> with appropriate body.</li>
 <li>SERVER stores updated values, and returns success body.</li>
 </ol>
 <p><strong>Alternate Flows:</strong></p>
@@ -193,12 +192,12 @@
 </ul>
 <p><strong>Main Flow:</strong></p>
 <ol class="arabic simple">
-<li>CUSTOMER navigates to provided link with unique uuid attached (<a class="reference internal" href="responses.html#response-popup"><span>Show Popup</span></a>).</li>
+<li>CUSTOMER navigates to provided link with unique uuid attached (<a class="reference internal" href="routes.html#response-popup"><span>Show Popup</span></a>).</li>
 <li>STORE requests popup for unique uuid (<a class="reference internal" href="requests.html#request-migration-popup"><span>Get Campaign Migration Popup</span></a>).</li>
 <li>SERVER returns popup html rendered for the given campaign, and CUSTOMER.</li>
 <li>STORE renders html atop any given store page (e.g. homepage).</li>
 <li>CUSTOMER accepts terms &amp; conditions, and privacy policy provided by pressing &#8216;ok&#8217;.</li>
-<li>STORE navigates to <a class="reference internal" href="responses.html#response-migrate"><span>Migrate User</span></a>, and requests information.</li>
+<li>STORE navigates to <a class="reference internal" href="routes.html#response-migrate"><span>Migrate User</span></a>, and requests information.</li>
 <li>SERVER returns information associated with CUSTOMER.</li>
 <li>STORE adds customer to their store; adds product, and coupon (if provided, and supported) to cart.</li>
 <li>STORE tells SERVER that CUSTOMER has been migrated correctly (<a class="reference internal" href="requests.html#request-migration-success"><span>Migration Success</span></a>).</li>
@@ -217,7 +216,7 @@
 </ul>
 <p><strong>Main Flow:</strong></p>
 <ol class="arabic simple">
-<li>SERVER requests endpoint (<a class="reference internal" href="responses.html#response-batch-invoice"><span>Get Invoices for Customer Purchases</span></a>) with JSON of emails, and date period to STORE.</li>
+<li>SERVER requests endpoint (<a class="reference internal" href="routes.html#response-batch-invoice"><span>Invoices for Customer Purchases</span></a>) with JSON of emails, and date period to STORE.</li>
 <li>STORE compares emails, and period to gather purchase information for given CUSTOMERs&#8217;.</li>
 <li>STORE returns compiled data to SERVER.</li>
 </ol>
@@ -230,7 +229,7 @@
 </ul>
 <p><strong>Main Flow:</strong></p>
 <ol class="arabic simple">
-<li>SERVER requests endpoint (<a class="reference internal" href="responses.html#response-batch-customer"><span>Get Customers on Store</span></a>) with JSON of emails to STORE.</li>
+<li>SERVER requests endpoint (<a class="reference internal" href="routes.html#response-batch-customer"><span>Customers on Store</span></a>) with JSON of emails to STORE.</li>
 <li>STORE compares emails to determine whether CUSTOMER has been migrated.</li>
 <li>STORE returns compiled data to SERVER.</li>
 </ol>

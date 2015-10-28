@@ -92,6 +92,11 @@ For a working Expressly integration, using this library, the following need to b
         return new MyMerchantProvider();
     });
 
+Roadmap
+-------
+- Dependency drill down: restructure so Pimple_ is the base product instead of Silex_.
+- Offer resolver data handling as a closure pass-through.
+
 .. [composer] PHP package manager: https://getcomposer.org/
 .. [config.yml] src/Resources/config/config.yml
 .. [Silex] Silex PHP Microframework: http://silex.sensiolabs.org/

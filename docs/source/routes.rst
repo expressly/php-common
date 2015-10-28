@@ -1,5 +1,13 @@
-Responses/Endpoints
-===================
+Routes
+======
+
+All routes are dispatched using the included RouteResolver_. If you platform has a built in parser, the associated regex is attached (statically) to each route in the Expressly\\Routes namespace.
+The RouteResolver_ will check if the required header(s), method, and route were passed through, and return the valid data (if any) inside a matched Route_ object, or null.
+
+.. code-block:: php
+
+    $query = '/expressly/api/*';
+    $route = $app['route.resolver']->process($query);
 
 Every single expected endpoint will be prefixed with the registered merchant_url_.
 All Endpoints that must have hooks created in the mother system have a corresponding Presenter_.
@@ -9,6 +17,9 @@ All Endpoints that must have hooks created in the mother system have a correspon
 Ping Store
 ----------
 .. http:get:: /expressly/api/ping
+
+    :Route class:
+        Expressly\\Route\\Ping
 
     Simple response message to note that the plugin has been installed.
 
@@ -22,6 +33,9 @@ Show Popup
 ----------
 .. http:get:: /expressly/api/(string:uuid)
 
+    :Route class:
+        Expressly\\Route\\CampaignPopup
+
     Start the user migration process. This uri should invoke the :ref:`request-migration-popup` request.
     The Popup can be shown over any page you wish, we recommend appending the html to your homepage.
 
@@ -33,6 +47,9 @@ Show Popup
 Migrate User
 ------------
 .. http:get:: /expressly/api/(string:uuid)/migrate
+
+    :Route class:
+        Expressly\\Route\\CampaignMigration
 
     End of the user migration process. This uri should invoke the :ref:`request-migration-data` request.
     The method should add all data for the provided user to the store, and if provided, add a product and/or coupon to the users' cart.
@@ -46,6 +63,9 @@ Migrate User
 Get User
 --------
 .. http:get:: /expressly/api/user/(string:email)
+
+    :Route class:
+        Expressly\\Route\\UserData
 
     Returns user, via your application facilities, conforming to our defined entities_.
 
@@ -159,6 +179,9 @@ Invoices for Customer Purchases
 -------------------------------
 .. http:post:: /expressly/api/batch/invoice
 
+    :Route class:
+        Expressly\\Route\\BatchInvoice
+
     Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.
 
     .. code-block:: php
@@ -250,6 +273,9 @@ Customers on Store
 ------------------
 .. http:post:: /expressly/api/batch/customer
 
+    :Route class:
+        Expressly\\Route\\BatchCustomer
+
     Given a list of emails, checks to see if a user has completed the migration process.
 
     .. code-block:: php
@@ -303,7 +329,9 @@ Customers on Store
     :reqheader Content-Type: application/json
     :resheader Content-Type: application/json
 
+.. [RouteResolver] src/Resolver/RouteResolver (namespace Expressly\Resolver\RouteResolver)
 .. [merchant_url] the location to execute/catch our paths;
     example: https://www.example.com/route?action=/expressly/api/ping
+.. [Route] src/Entity/Route (namespace Expressly\Entity\Route)
 .. [Presenter] src/Presenter (namespace Expressly\Presenter)
 .. [entities] src/Entity (namespace Expressly\Entity)

@@ -8,7 +8,7 @@ Contents:
 
     overview
     requests
-    responses
+    routes
     exceptions
     flows
     integrations

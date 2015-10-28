@@ -40,7 +40,7 @@ Ping
 
 Register Merchant
 -----------------
-.. http:post:: /api/v1/register
+.. http:post:: /api/v2/plugin/merchant
 
     Register a store with the server.
 
@@ -56,13 +56,8 @@ Register Merchant
 
         }
 
-    :reqjson string shopName: shop name
-    :reqjson string shopUrl: shop url (https://www.example.com)
     :reqjson string apiBaseUrl: see merchant_url_; if there isn't any special base routing the value should be the exact same as the shop url
-    :reqjson string shopImageUrl: logo url
-    :reqjson string termsAndConditionsUrl: url to terms, and conditions page
-    :reqjson string policyUrl: url to privacy policy page
-    :reqjson string pluginVersion: plugin version (current: v1)
+    :reqjson string apiKey: api key retrieved from the Portal_ (see <https://buyexpressly.com/#/install>)
     :reqheader Content-Type: application/json
     :resheader Content-Type: application/json
     :resjson string merchantUuid: the unique identifier for your installation
@@ -70,56 +65,11 @@ Register Merchant
     :status 200:
     :status 400:
 
-.. _request-merchant-update:
-
-Update Merchant
----------------
-.. http:post:: /api/v1/merchant/(string:uuid)/update
-
-    Update details for an existing store.
-
-    .. code-block:: php
-
-        use Expressly\Event\PasswordedEvent;
-        use Expressly\Subscriber\MerchantSubscriber;
-
-        $event = new PasswordedEvent(...);
-        $app['dispatcher']->dispatch(MerchantSubscriber::MERCHANT_UPDATE, $event);
-
-        if ($event->isSuccessful()) {
-
-        }
-
-    :param uuid: Unique merchant uuid
-    :reqjson string shopName: shop name
-    :reqjson string shopUrl: shop url (https://www.example.com)
-    :reqjson string apiBaseUrl: see merchant_url_; if there isn't any special base routing the value should be the exact same as the shop url
-    :reqjson string shopImageUrl: logo url
-    :reqjson string termsAndConditionsUrl: url to terms, and conditions page
-    :reqjson string policyUrl: url to privacy policy page
-    :reqjson string pluginVersion: plugin version (current: v1)
-    :reqheader Content-Type: application/json
-    :reqheader Authorization: Basic token
-    :resheader Content-Type: application/json
-    :resjson string merchantUuid: unique identifier for your installation
-    :resjson string shopName: shop name
-    :resjson string shopUrl: shop url (https://www.example.com)
-    :resjson string apiBaseUrl: see merchant_url_; if there isn't any special base routing the value should be the exact same as the shop url
-    :resjson string shopImageUrl: logo url
-    :resjson string termsAndConditionsUrl: url to terms, and conditions page
-    :resjson string policyUrl: url to privacy policy page
-    :resjson string pluginVersion: plugin version (current: v1)
-    :resjson string lastPingTime: ISO 8601 timestamp of last time the server tried to ping the store
-    :resjson string lastSuccessPingTime: ISO 8601 timestamp of last time the server pinged the store successfully
-    :resjson boolean lastPingSuccessful: If the above (lastPingTime) was successful, or not
-    :status 200:
-    :status 400:
-
 .. _request-merchant-remove:
 
 Remove Merchant
 ---------------
-.. http:post:: /api/v1/merchant/(string:uuid)/uninstall
+.. http:delete:: /api/v2/plugin/merchant/(string:uuid)
 
     Remove store from the expressly system.
 
@@ -147,7 +97,7 @@ Remove Merchant
 
 Get Campaign Migration Popup
 ----------------------------
-.. http:get:: /api/v1/migration/(string:uuid)
+.. http:get:: /api/v2/migration/(string:uuid)
 
     Request the popup to start a campaign migration for the unique user.
 
@@ -174,7 +124,7 @@ Get Campaign Migration Popup
 
 Get Campaign Migration Data
 ---------------------------
-.. http:get:: /api/v1/migration/(string:uuid)/user
+.. http:get:: /api/v2/migration/(string:uuid)/user
 
     User has accepted popup, or been forced here directly; request, and start data migration.
 
@@ -285,7 +235,7 @@ Get Campaign Migration Data
 
 Migration Success
 -----------------
-.. http:post:: /api/v1/migration/(string:uuid)/success
+.. http:post:: /api/v2/migration/(string:uuid)/success
 
     Tells the server if the migration was successful, or if the user already existed on this store.
 
@@ -315,7 +265,7 @@ Migration Success
 
 Get Campaign Banner
 -------------------
-.. http:get:: /api/v1/banner/(string:uuid)?email=(string:email)
+.. http:get:: /api/v2/banner/(string:uuid)?email=(string:email)
 
     If banner campaign is setup, get banner for a specified store, and email combination.
 
