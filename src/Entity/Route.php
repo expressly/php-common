@@ -17,6 +17,11 @@ class Route
         $this->data = $data;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function getMethod()
     {
         return $this->method;
