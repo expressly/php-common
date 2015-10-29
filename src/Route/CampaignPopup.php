@@ -25,6 +25,6 @@ class CampaignPopup implements RouteInterface
 
     public static function isAuthenticated()
     {
-        return true;
+        return false;
     }
 }
