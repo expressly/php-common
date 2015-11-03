@@ -14,6 +14,8 @@ class CampaignMigration implements RouteInterface
         if (self::$method === $_SERVER['REQUEST_METHOD'] && preg_match(self::$regex, $route, $matches)) {
             return new Route(self::getName(), self::$method, self::$regex, array('uuid' => $matches[1]));
         }
+
+        return null;
     }
 
     public static function getName()

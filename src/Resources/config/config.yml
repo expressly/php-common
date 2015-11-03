@@ -4,6 +4,7 @@ validators:
 
 routes:
     - Expressly\Route\Ping
+    - Expressly\Route\Registered
     - Expressly\Route\UserData
     - Expressly\Route\BatchCustomer
     - Expressly\Route\BatchInvoice

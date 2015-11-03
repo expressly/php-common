@@ -2,18 +2,18 @@
 
 namespace Expressly\Route;
 
-class Ping extends AbstractRoute
+class Registered extends AbstractRoute
 {
-    protected static $regex = '/^\/?expressly\/api\/ping\/?$/';
+    protected static $regex = '/^\/?expressly\/api\/registered\/?$/';
     protected static $method = 'GET';
 
     public static function getName()
     {
-        return 'ping';
+        return 'registered';
     }
 
     public static function isAuthenticated()
     {
-        return false;
+        return true;
     }
 }
