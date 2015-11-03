@@ -6,13 +6,10 @@ use Expressly\Entity\Route;
 
 abstract class AbstractRoute implements RouteInterface
 {
-    protected static $regex;
-    protected static $method;
-
     public static function match($route)
     {
-        if (self::$method === $_SERVER['REQUEST_METHOD'] && preg_match(self::$regex, $route)) {
-            return new Route(self::getName(), self::$method, self::$regex);
+        if (static::getMethod() === $_SERVER['REQUEST_METHOD'] && preg_match(static::getRegex(), $route)) {
+            return new Route(static::getName(), static::getMethod(), static::getRegex());
         }
 
         return null;
