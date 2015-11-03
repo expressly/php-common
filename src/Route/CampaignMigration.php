@@ -6,7 +6,7 @@ use Expressly\Entity\Route;
 
 class CampaignMigration implements RouteInterface
 {
-    protected static $regex = '/^\/?expressly\/api\/([0-9a-zA-Z\-]+)\/migrate\/?$/';
+    protected static $regex = '/^\/?expressly\/api\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/migrate\/?$/';
     protected static $method = 'GET';
 
     public static function match($route)

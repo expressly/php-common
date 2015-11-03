@@ -6,7 +6,7 @@ use Expressly\Entity\Route;
 
 class CampaignPopup implements RouteInterface
 {
-    protected static $regex = '/^\/?expressly\/api\/([0-9a-zA-Z\-]+)\/?$/';
+    protected static $regex = '/^\/?expressly\/api\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/?$/';
     protected static $method = 'GET';
 
     public static function match($route)
