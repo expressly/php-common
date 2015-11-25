@@ -3,17 +3,13 @@
 namespace Expressly\ServiceProvider;
 
 use Expressly\Provider\CountryCodeProvider;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class CountryCodeServiceProvider implements ServiceProviderInterface
 {
-    public function register(Application $app)
+    public function register(Container $container)
     {
-        $app['country_code.provider'] = new CountryCodeProvider($app['config']['country_code']);
-    }
-
-    public function boot(Application $app)
-    {
+        $container['country_code.provider'] = new CountryCodeProvider($container['config']['country_code']);
     }
 }

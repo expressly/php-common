@@ -3,20 +3,20 @@
 namespace Expressly\Subscriber;
 
 use Expressly\Event\ResponseEvent;
-use Silex\Application;
+use Pimple\Container;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UtilitySubscriber implements EventSubscriberInterface
 {
-    private $app;
+    private $container;
     private $routeProvider;
 
     const UTILITY_PING = 'utility.ping';
 
-    public function __construct(Application $app)
+    public function __construct(Container $container)
     {
-        $this->app = $app;
-        $this->routeProvider = $app['external_route.provider'];
+        $this->container = $container;
+        $this->routeProvider = $container['external_route.provider'];
     }
 
     public static function getSubscribedEvents()

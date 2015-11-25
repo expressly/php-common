@@ -3,22 +3,22 @@
 namespace Expressly\Subscriber;
 
 use Expressly\Event\CustomerMigrateEvent;
-use Silex\Application;
+use Pimple\Container;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CustomerMigrationSubscriber implements EventSubscriberInterface
 {
-    private $app;
+    private $container;
     private $routeProvider;
 
     const CUSTOMER_MIGRATE_POPUP = 'customer.migrate.popup';
     const CUSTOMER_MIGRATE_DATA = 'customer.migrate.data';
     const CUSTOMER_MIGRATE_SUCCESS = 'customer.migrate.success';
 
-    public function __construct(Application $app)
+    public function __construct(Container $container)
     {
-        $this->app = $app;
-        $this->routeProvider = $this->app['external_route.provider'];
+        $this->container = $container;
+        $this->routeProvider = $this->container['external_route.provider'];
     }
 
     public static function getSubscribedEvents()

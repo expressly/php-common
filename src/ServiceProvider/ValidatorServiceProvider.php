@@ -2,23 +2,19 @@
 
 namespace Expressly\ServiceProvider;
 
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class ValidatorServiceProvider implements ServiceProviderInterface
 {
-    public function register(Application $app)
+    public function register(Container $container)
     {
-        foreach ($app['config']['validators'] as $definition) {
+        foreach ($container['config']['validators'] as $definition) {
             $validator = new $definition['class']($definition['message']);
 
-            $app["{$validator->getType()}.validator"] = $app->share(function () use ($validator) {
+            $container["{$validator->getType()}.validator"] = function () use ($validator) {
                 return $validator;
-            });
+            };
         }
-    }
-
-    public function boot(Application $app)
-    {
     }
 }

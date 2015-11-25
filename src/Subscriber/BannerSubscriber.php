@@ -3,20 +3,20 @@
 namespace Expressly\Subscriber;
 
 use Expressly\Event\BannerEvent;
-use Silex\Application;
+use Pimple\Container;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class BannerSubscriber implements EventSubscriberInterface
 {
-    private $app;
+    private $container;
     private $routeProvider;
 
     const BANNER_REQUEST = 'banner.request';
 
-    public function __construct(Application $app)
+    public function __construct(Container $container)
     {
-        $this->app = $app;
-        $this->routeProvider = $app['external_route.provider'];
+        $this->container = $container;
+        $this->routeProvider = $container['external_route.provider'];
     }
 
     public static function getSubscribedEvents()
@@ -33,7 +33,7 @@ class BannerSubscriber implements EventSubscriberInterface
             'uuid' => $event->getUuid(),
             'email' => $event->getEmail()
         ));
-        $version = $this->app['version'];
+        $version = $this->container['version'];
 
         $response = $route->process(function ($request) use ($event, $version) {
             $request->addHeader($event->getBasicHeader());
