@@ -13,7 +13,7 @@ class BatchInvoice extends AbstractRoute
 
     public static function getRegex()
     {
-        return '/^\/?expressly\/api\/batch\/customer\/?$/';
+        return '/^\/?expressly\/api\/batch\/invoice\/?$/';
     }
 
     public static function getMethod()
