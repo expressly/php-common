@@ -59,11 +59,8 @@ Register Merchant
     :reqjson string apiBaseUrl: see merchant_url_; if there isn't any special base routing the value should be the exact same as the shop url
     :reqjson string apiKey: api key retrieved from the Portal_ (see <https://buyexpressly.com/#/install>)
     :reqheader Content-Type: application/json
-    :resheader Content-Type: application/json
-    :resjson string merchantUuid: the unique identifier for your installation
-    :resjson string secretKey: the token associated with your installation
-    :status 200:
-    :status 400:
+    :status 204: Registered successfully
+    :status 400: Data invalid, or missing
 
 .. _request-merchant-remove:
 
