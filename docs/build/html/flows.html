@@ -88,7 +88,6 @@
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Flows</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#merchant-registration">Merchant Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#merchant-update">Merchant Update</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#user-campaign-migration">User Campaign Migration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-purchases">Check Purchases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-customer-migration">Check Customer Migration</a></li>
@@ -164,27 +163,14 @@
 <ol class="arabic simple">
 <li>STORE calls <a class="reference internal" href="requests.html#request-merchant-register"><span>Register Merchant</span></a> with appropriate body, and header.</li>
 <li>SERVER pings store to make sure you have the plugin installed correctly.</li>
-<li>SERVER returns successfully to STORE</li>
+<li>SERVER returns response successfully to STORE</li>
 </ol>
 <p><strong>Alternate Flows:</strong></p>
 <p>3-1. SERVER cannot ping STORE, returns error message.</p>
-</div>
-<div class="section" id="merchant-update">
-<span id="flow-merchant-update"></span><h2>Merchant Update<a class="headerlink" href="#merchant-update" title="Permalink to this headline">¶</a></h2>
-<p><strong>Pre-conditions:</strong></p>
-<ul class="simple">
-<li><a class="reference internal" href="#flow-merchant-registration"><span>Merchant Registration</span></a>.</li>
-</ul>
-<p><strong>Main Flow:</strong></p>
-<ol class="arabic simple">
-<li>STORE calls <span class="xref std std-ref">request-merchant-update</span> with appropriate body.</li>
-<li>SERVER stores updated values, and returns success body.</li>
-</ol>
-<p><strong>Alternate Flows:</strong></p>
-<p>2-1. Data does not conform to validation, SERVER returns appropriate error body.</p>
+<p>2-2. SERVER received invalid credentials, returns error message.</p>
 </div>
 <div class="section" id="user-campaign-migration">
-<span id="flow-migration"></span><h2>User Campaign Migration<a class="headerlink" href="#user-campaign-migration" title="Permalink to this headline">¶</a></h2>
+<h2>User Campaign Migration<a class="headerlink" href="#user-campaign-migration" title="Permalink to this headline">¶</a></h2>
 <p><strong>Pre-conditions:</strong></p>
 <ul class="simple">
 <li><a class="reference internal" href="#flow-merchant-registration"><span>Merchant Registration</span></a>.</li>
@@ -206,7 +192,8 @@
 <p><strong>Alternate Flows:</strong></p>
 <p>7-1. CUSTOMER already exists, STORE tells SERVER that customer has been migrated previously (<a class="reference internal" href="requests.html#request-migration-success"><span>Migration Success</span></a>).
 8-1. STORE adds product, and coupon (if provided, and supported) to cart.
-9-1. STORE shows CUSTOMER message that they already exist, asking if they want to go to the login page.</p>
+9-1. STORE shows CUSTOMER message that they already exist, asking if they want to go to the login page.
+10-1. CUSTOMER accepts confirm message, and is redirected to the STORE login page.</p>
 </div>
 <div class="section" id="check-purchases">
 <span id="flow-bulk-invoice"></span><h2>Check Purchases<a class="headerlink" href="#check-purchases" title="Permalink to this headline">¶</a></h2>
@@ -247,7 +234,7 @@
 <li>STORE requests banner from SERVER (<a class="reference internal" href="requests.html#request-banner-get"><span>Get Campaign Banner</span></a>).</li>
 <li>SERVER returns image, and url.</li>
 <li>STORE displays banner on page (in the location it was called from) on page render.</li>
-<li>Banner clicked on, redirecting to associated route starting <a class="reference internal" href="#flow-migration"><span>User Campaign Migration</span></a> off-site.</li>
+<li>Banner clicked on, redirecting to associated route starting <span class="xref std std-ref">flow-migration</span> off-site.</li>
 </ol>
 <table class="docutils citation" frame="void" id="portal" rules="none">
 <colgroup><col class="label" /><col /></colgroup>

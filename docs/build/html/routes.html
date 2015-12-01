@@ -147,6 +147,7 @@
 <p>All routes are dispatched using the included <a class="reference internal" href="#routeresolver">RouteResolver</a>. If you platform has a built in parser, the associated regex is attached (statically) to each route in the Expressly\Routes namespace.
 The <a class="reference internal" href="#routeresolver">RouteResolver</a> will check if the required header(s), method, and route were passed through, and return the valid data (if any) inside a matched <a class="reference internal" href="#route">Route</a> object, or null.</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="x">$query = &#39;/expressly/api/*&#39;;</span>
+<span class="x">// @type Expressly\Entity\Route|null</span>
 <span class="x">$route = $app[&#39;route.resolver&#39;]-&gt;process($query);</span>
 </pre></div>
 </div>
@@ -176,20 +177,23 @@ All Endpoints that must have hooks created in the mother system have a correspon
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>expressly</strong> &#8211; Stuff is happening!</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;expressly&quot;</span><span class="p">:</span> <span class="s2">&quot;Stuff is happening!&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -280,18 +284,25 @@ The user should be logged in directly after this migration, and a welcome email 
 </tbody>
 </table>
 <p>Returns user, via your application facilities, conforming to our defined <a class="reference internal" href="#entities">entities</a>.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$customer = new Customer();</span>
-<span class="x">/*</span>
-<span class="x"> * fill in as many applicable setters as possible</span>
-<span class="x"> * $customer</span>
-<span class="x"> *      -&gt;setFirstName(&#39;John&#39;)</span>
-<span class="x"> *      -&gt;setLastName(&#39;Smith&#39;);</span>
-<span class="x"> */</span>
-<span class="x">$response = new CustomerMigratePresenter($merchant, $customer, $email, $id);</span>
-<span class="x">// display content however your application prefers</span>
-<span class="x">echo json_encode($response-&gt;toArray());</span>
-</pre></div>
-</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Example Response:</strong></p>
 <div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -377,6 +388,36 @@ The user should be logged in directly after this migration, and a welcome email 
 <span class="p">}</span>
 </pre></div>
 </div>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$customer = new Customer();</span>
+<span class="x">/*</span>
+<span class="x"> * fill in as many applicable setters as possible</span>
+<span class="x"> * $customer</span>
+<span class="x"> *      -&gt;setFirstName(&#39;John&#39;)</span>
+<span class="x"> *      -&gt;setLastName(&#39;Smith&#39;);</span>
+<span class="x"> */</span>
+<span class="x">$response = new CustomerMigratePresenter($merchant, $customer, $email, $id);</span>
+<span class="x">// display content however your application prefers</span>
+<span class="x">echo json_encode($response-&gt;toArray());</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="invoices-for-customer-purchases">
+<span id="response-batch-invoice"></span><h2>Invoices for Customer Purchases<a class="headerlink" href="#invoices-for-customer-purchases" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--expressly-api-batch-invoice">
+<code class="descname">POST </code><code class="descname">/expressly/api/batch/invoice</code><a class="headerlink" href="#post--expressly-api-batch-invoice" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\BatchInvoice</td>
+</tr>
+</tbody>
+</table>
+<p>Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -396,53 +437,6 @@ The user should be logged in directly after this migration, and a welcome email 
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-</div>
-<div class="section" id="invoices-for-customer-purchases">
-<span id="response-batch-invoice"></span><h2>Invoices for Customer Purchases<a class="headerlink" href="#invoices-for-customer-purchases" title="Permalink to this headline">¶</a></h2>
-<dl class="post">
-<dt id="post--expressly-api-batch-invoice">
-<code class="descname">POST </code><code class="descname">/expressly/api/batch/invoice</code><a class="headerlink" href="#post--expressly-api-batch-invoice" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\BatchInvoice</td>
-</tr>
-</tbody>
-</table>
-<p>Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Entity\Invoice;</span>
-<span class="x">use Expressly\Entity\Order;</span>
-<span class="x">use Expressly\Presenter\BatchInvoicePresenter;</span>
-
-<span class="x">$invoices = array();</span>
-
-<span class="x">foreach ($json-&gt;customers as $customer) {</span>
-<span class="x">    $invoice = new Invoice();</span>
-<span class="x">    $invoice-&gt;setEmail($customer-&gt;email);</span>
-
-<span class="x">    foreach ($userOrders as $userOrder) {</span>
-<span class="x">        $order = new Order();</span>
-<span class="x">        $order</span>
-<span class="x">            -&gt;setId($userOrder-&gt;getId())</span>
-<span class="x">            -&gt;setDate(new \DateTime($userOrder-&gt;getOrderDate())</span>
-<span class="x">            -&gt;setItemCount($userOrder-&gt;getQuantity())</span>
-<span class="x">            -&gt;setTotal($userOrder-&gt;getTotalPreTax(), $userOrder-&gt;getTax())</span>
-<span class="x">            -&gt;setCoupon($userOrder-&gt;getCoupon());</span>
-
-<span class="x">        $invoice-&gt;addOrder($order);</span>
-<span class="x">    }</span>
-
-<span class="x">    $invoices[] = $invoice;</span>
-<span class="x">}</span>
-
-<span class="x">$presenter = new BatchInvoicePresenter($invoices);</span>
-<span class="x">// display content however your application prefers</span>
-<span class="x">echo json_encode($presenter-&gt;toArray());</span>
-</pre></div>
-</div>
 <p><strong>Example Request:</strong></p>
 <div class="highlight-http"><div class="highlight"><pre>POST /expressly/api/batch/invoice
 Host: prod.expresslyapp.com
@@ -487,6 +481,54 @@ Authorization: Basic token
 <span class="p">}</span>
 </pre></div>
 </div>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Entity\Invoice;</span>
+<span class="x">use Expressly\Entity\Order;</span>
+<span class="x">use Expressly\Presenter\BatchInvoicePresenter;</span>
+
+<span class="x">$invoices = array();</span>
+
+<span class="x">foreach ($json-&gt;customers as $customer) {</span>
+<span class="x">    $invoice = new Invoice();</span>
+<span class="x">    $invoice-&gt;setEmail($customer-&gt;email);</span>
+
+<span class="x">    foreach ($userOrders as $userOrder) {</span>
+<span class="x">        $order = new Order();</span>
+<span class="x">        $order</span>
+<span class="x">            -&gt;setId($userOrder-&gt;getId())</span>
+<span class="x">            -&gt;setDate(new \DateTime($userOrder-&gt;getOrderDate())</span>
+<span class="x">            -&gt;setItemCount($userOrder-&gt;getQuantity())</span>
+<span class="x">            -&gt;setTotal($userOrder-&gt;getTotalPreTax(), $userOrder-&gt;getTax())</span>
+<span class="x">            -&gt;setCoupon($userOrder-&gt;getCoupon());</span>
+
+<span class="x">        $invoice-&gt;addOrder($order);</span>
+<span class="x">    }</span>
+
+<span class="x">    $invoices[] = $invoice;</span>
+<span class="x">}</span>
+
+<span class="x">$presenter = new BatchInvoicePresenter($invoices);</span>
+<span class="x">// display content however your application prefers</span>
+<span class="x">echo json_encode($presenter-&gt;toArray());</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="customers-on-store">
+<span id="response-batch-customer"></span><h2>Customers on Store<a class="headerlink" href="#customers-on-store" title="Permalink to this headline">¶</a></h2>
+<dl class="post">
+<dt id="post--expressly-api-batch-customer">
+<code class="descname">POST </code><code class="descname">/expressly/api/batch/customer</code><a class="headerlink" href="#post--expressly-api-batch-customer" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\BatchCustomer</td>
+</tr>
+</tbody>
+</table>
+<p>Given a list of emails, checks to see if a user has completed the migration process.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -506,40 +548,6 @@ Authorization: Basic token
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-</div>
-<div class="section" id="customers-on-store">
-<span id="response-batch-customer"></span><h2>Customers on Store<a class="headerlink" href="#customers-on-store" title="Permalink to this headline">¶</a></h2>
-<dl class="post">
-<dt id="post--expressly-api-batch-customer">
-<code class="descname">POST </code><code class="descname">/expressly/api/batch/customer</code><a class="headerlink" href="#post--expressly-api-batch-customer" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Route class:</th><td class="field-body">Expressly\Route\BatchCustomer</td>
-</tr>
-</tbody>
-</table>
-<p>Given a list of emails, checks to see if a user has completed the migration process.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Presenter\BatchCustomerPresenter;</span>
-
-<span class="x">$users = array(</span>
-<span class="x">    &#39;existing&#39; =&gt; array(),</span>
-<span class="x">    &#39;deleted&#39; =&gt; array(),</span>
-<span class="x">    &#39;pending&#39; =&gt; array()</span>
-<span class="x">);</span>
-
-<span class="x">foreach ($json-&gt;emails as $email) {</span>
-<span class="x">    // add user to certain sector of array, depending on state</span>
-<span class="x">}</span>
-
-<span class="x">$presenter = new BatchCustomerPresenter($users);</span>
-<span class="x">// display content however your application prefers</span>
-<span class="x">echo json_encode($presenter-&gt;toArray());</span>
-</pre></div>
-</div>
 <p><strong>Example Request:</strong></p>
 <div class="highlight-http"><div class="highlight"><pre>POST /expressly/api/batch/customer
 Host: prod.expresslyapp.com
@@ -565,25 +573,22 @@ Authorization: Basic token
 <span class="p">}</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Presenter\BatchCustomerPresenter;</span>
+
+<span class="x">$existingUsers = array();</span>
+<span class="x">$deletedUsers = array();</span>
+<span class="x">$pendingUsers = array();</span>
+
+<span class="x">foreach ($json-&gt;emails as $email) {</span>
+<span class="x">    // add user to certain sector of array, depending on state</span>
+<span class="x">}</span>
+
+<span class="x">$presenter = new BatchCustomerPresenter($existingUsers, $deletedUsers, $pendingUsers);</span>
+<span class="x">// display content however your application prefers</span>
+<span class="x">echo json_encode($presenter-&gt;toArray());</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <table class="docutils citation" frame="void" id="routeresolver" rules="none">

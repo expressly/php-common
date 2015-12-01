@@ -85,8 +85,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#include">Include</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-a-client">Create a Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#checklist">Checklist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#roadmap">Roadmap</a></li>
 </ul>
@@ -155,33 +155,13 @@
 <div class="section" id="include">
 <span id="overview-include"></span><h2>Include<a class="headerlink" href="#include" title="Permalink to this headline">¶</a></h2>
 <p>Inside your composer.json, you need to include:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="s2">&quot;require&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;expressly/php-common&quot;</span><span class="o">:</span> <span class="s2">&quot;1.1.6&quot;</span>
-<span class="p">},</span>
-<span class="s2">&quot;repositories&quot;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;vcs&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://github.com/expressly/php-common&quot;</span>
-    <span class="p">}</span>
-<span class="p">]</span>
+<div class="highlight-javascript"><div class="highlight"><pre>&quot;require&quot;: {
+    &quot;expressly/php-common&quot;: &quot;2.3.2&quot;&quot;
+}
 </pre></div>
 </div>
-</div>
-<div class="section" id="configuration">
-<span id="overview-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>All configuration values associated with the repository are contained within <a class="reference internal" href="#config-yml">config.yml</a>.</p>
-<p>To act in development mode, the following block inside the <a class="reference internal" href="#config-yml">config.yml</a> should be changed from:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">external</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span>
-        <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://prod.expresslyapp.com/api/v1</span>
-        <span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://prod.expresslyapp.com/api/admin</span>
-</pre></div>
-</div>
-<p>to</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">external</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span>
-        <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://dev.expresslyapp.com/api/v1</span>
-        <span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://dev.expresslyapp.com/api/admin</span>
+<p>Or, run the command:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">composer</span> <span class="nx">require</span> <span class="nx">expressly</span><span class="o">/</span><span class="nx">php</span><span class="o">-</span><span class="nx">common</span><span class="o">:</span><span class="mf">2.3</span><span class="p">.</span><span class="mi">2</span>
 </pre></div>
 </div>
 </div>
@@ -198,6 +178,25 @@
 <span class="x">$app = $client-&gt;getApp();</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="configuration">
+<span id="overview-configuration"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>All configuration values associated with the repository are contained within <a class="reference internal" href="#config-yml">config.yml</a>.</p>
+<p>To run the application in development mode, you can override the Expressly\Client parameters:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$client = new Expressly\Client(</span>
+<span class="x">    $merchantType,</span>
+<span class="x">    array(</span>
+<span class="x">        &#39;external&#39; =&gt; array(</span>
+<span class="x">            &#39;hosts&#39; =&gt; array(</span>
+<span class="x">                &#39;default&#39; =&gt; &#39;http://dev.expresslyapp.com/api/v2&#39;,</span>
+<span class="x">                &#39;admin&#39; =&gt; &#39;http://dev.expresslyapp.com/api/admin&#39;</span>
+<span class="x">            )</span>
+<span class="x">        )</span>
+<span class="x">    )</span>
+<span class="x">);</span>
+</pre></div>
+</div>
+<p>You can override any part of the container configuration defined in <a class="reference internal" href="#config-yml">config.yml</a> using the above method.</p>
 </div>
 <div class="section" id="checklist">
 <span id="overview-checklist"></span><h2>Checklist<a class="headerlink" href="#checklist" title="Permalink to this headline">¶</a></h2>
@@ -224,7 +223,6 @@
 <h2>Roadmap<a class="headerlink" href="#roadmap" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Dependency drill down: restructure so <a class="reference internal" href="#pimple">Pimple</a> is the base product instead of <a class="reference internal" href="#silex">Silex</a>.</li>
-<li>Offer resolver data handling as a closure pass-through.</li>
 </ul>
 <table class="docutils citation" frame="void" id="composer" rules="none">
 <colgroup><col class="label" /><col /></colgroup>

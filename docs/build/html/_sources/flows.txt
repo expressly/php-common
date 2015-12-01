@@ -24,31 +24,13 @@ Merchant Registration
 
 1. STORE calls :ref:`request-merchant-register` with appropriate body, and header.
 2. SERVER pings store to make sure you have the plugin installed correctly.
-3. SERVER returns successfully to STORE
+3. SERVER returns response successfully to STORE
 
 **Alternate Flows:**
 
 3-1. SERVER cannot ping STORE, returns error message.
 
-.. _flow-merchant-update:
-
-Merchant Update
----------------
-
-**Pre-conditions:**
-
-- :ref:`flow-merchant-registration`.
-
-**Main Flow:**
-
-1. STORE calls :ref:`request-merchant-update` with appropriate body.
-2. SERVER stores updated values, and returns success body.
-
-**Alternate Flows:**
-
-2-1. Data does not conform to validation, SERVER returns appropriate error body.
-
-.. _flow-migration:
+2-2. SERVER received invalid credentials, returns error message.
 
 User Campaign Migration
 -----------------------
@@ -76,6 +58,7 @@ User Campaign Migration
 7-1. CUSTOMER already exists, STORE tells SERVER that customer has been migrated previously (:ref:`request-migration-success`).
 8-1. STORE adds product, and coupon (if provided, and supported) to cart.
 9-1. STORE shows CUSTOMER message that they already exist, asking if they want to go to the login page.
+10-1. CUSTOMER accepts confirm message, and is redirected to the STORE login page.
 
 .. _flow-bulk-invoice:
 

@@ -7,6 +7,7 @@ The RouteResolver_ will check if the required header(s), method, and route were 
 .. code-block:: php
 
     $query = '/expressly/api/*';
+    // @type Expressly\Entity\Route|null
     $route = $app['route.resolver']->process($query);
 
 Every single expected endpoint will be prefixed with the registered merchant_url_.
@@ -24,8 +25,18 @@ Ping Store
     Simple response message to note that the plugin has been installed.
 
     :reqheader Content-Type: application/json
-    :resjson expressly: Stuff is happening!
     :resheader Content-Type: application/json
+
+    **Example Response:**
+
+    .. sourcecode:: http
+
+        HTTP/1.1 200 OK
+        Content-Type: application/json
+
+        {
+            "expressly": "Stuff is happening!"
+        }
 
 .. _response-popup:
 
@@ -69,18 +80,9 @@ Get User
 
     Returns user, via your application facilities, conforming to our defined entities_.
 
-    .. code-block:: php
-
-        $customer = new Customer();
-        /*
-         * fill in as many applicable setters as possible
-         * $customer
-         *      ->setFirstName('John')
-         *      ->setLastName('Smith');
-         */
-        $response = new CustomerMigratePresenter($merchant, $customer, $email, $id);
-        // display content however your application prefers
-        echo json_encode($response->toArray());
+    :reqheader Authorization: Basic token
+    :reqheader Content-Type: application/json
+    :resheader Content-Type: application/json
 
     **Example Response:**
 
@@ -169,9 +171,20 @@ Get User
             }
         }
 
-    :reqheader Authorization: Basic token
-    :reqheader Content-Type: application/json
-    :resheader Content-Type: application/json
+    **PHP Implementation Example:**
+
+    .. code-block:: php
+
+        $customer = new Customer();
+        /*
+         * fill in as many applicable setters as possible
+         * $customer
+         *      ->setFirstName('John')
+         *      ->setLastName('Smith');
+         */
+        $response = new CustomerMigratePresenter($merchant, $customer, $email, $id);
+        // display content however your application prefers
+        echo json_encode($response->toArray());
 
 .. _response-batch-invoice:
 
@@ -184,36 +197,9 @@ Invoices for Customer Purchases
 
     Given a list of date ranges, and emails checks to see if the associated campaign users have had any transactions during the specified period.
 
-    .. code-block:: php
-
-        use Expressly\Entity\Invoice;
-        use Expressly\Entity\Order;
-        use Expressly\Presenter\BatchInvoicePresenter;
-
-        $invoices = array();
-
-        foreach ($json->customers as $customer) {
-            $invoice = new Invoice();
-            $invoice->setEmail($customer->email);
-
-            foreach ($userOrders as $userOrder) {
-                $order = new Order();
-                $order
-                    ->setId($userOrder->getId())
-                    ->setDate(new \DateTime($userOrder->getOrderDate())
-                    ->setItemCount($userOrder->getQuantity())
-                    ->setTotal($userOrder->getTotalPreTax(), $userOrder->getTax())
-                    ->setCoupon($userOrder->getCoupon());
-
-                $invoice->addOrder($order);
-            }
-
-            $invoices[] = $invoice;
-        }
-
-        $presenter = new BatchInvoicePresenter($invoices);
-        // display content however your application prefers
-        echo json_encode($presenter->toArray());
+    :reqheader Authorization: Basic token
+    :reqheader Content-Type: application/json
+    :resheader Content-Type: application/json
 
     **Example Request:**
 
@@ -263,9 +249,38 @@ Invoices for Customer Purchases
             ]
         }
 
-    :reqheader Authorization: Basic token
-    :reqheader Content-Type: application/json
-    :resheader Content-Type: application/json
+    **PHP Implementation Example:**
+
+    .. code-block:: php
+
+        use Expressly\Entity\Invoice;
+        use Expressly\Entity\Order;
+        use Expressly\Presenter\BatchInvoicePresenter;
+
+        $invoices = array();
+
+        foreach ($json->customers as $customer) {
+            $invoice = new Invoice();
+            $invoice->setEmail($customer->email);
+
+            foreach ($userOrders as $userOrder) {
+                $order = new Order();
+                $order
+                    ->setId($userOrder->getId())
+                    ->setDate(new \DateTime($userOrder->getOrderDate())
+                    ->setItemCount($userOrder->getQuantity())
+                    ->setTotal($userOrder->getTotalPreTax(), $userOrder->getTax())
+                    ->setCoupon($userOrder->getCoupon());
+
+                $invoice->addOrder($order);
+            }
+
+            $invoices[] = $invoice;
+        }
+
+        $presenter = new BatchInvoicePresenter($invoices);
+        // display content however your application prefers
+        echo json_encode($presenter->toArray());
 
 .. _response-batch-customer:
 
@@ -278,23 +293,9 @@ Customers on Store
 
     Given a list of emails, checks to see if a user has completed the migration process.
 
-    .. code-block:: php
-
-        use Expressly\Presenter\BatchCustomerPresenter;
-
-        $users = array(
-            'existing' => array(),
-            'deleted' => array(),
-            'pending' => array()
-        );
-
-        foreach ($json->emails as $email) {
-            // add user to certain sector of array, depending on state
-        }
-
-        $presenter = new BatchCustomerPresenter($users);
-        // display content however your application prefers
-        echo json_encode($presenter->toArray());
+    :reqheader Authorization: Basic token
+    :reqheader Content-Type: application/json
+    :resheader Content-Type: application/json
 
     **Example Request:**
 
@@ -325,9 +326,23 @@ Customers on Store
             "pending": []
         }
 
-    :reqheader Authorization: Basic token
-    :reqheader Content-Type: application/json
-    :resheader Content-Type: application/json
+    **PHP Implementation Example:**
+
+    .. code-block:: php
+
+        use Expressly\Presenter\BatchCustomerPresenter;
+
+        $existingUsers = array();
+        $deletedUsers = array();
+        $pendingUsers = array();
+
+        foreach ($json->emails as $email) {
+            // add user to certain sector of array, depending on state
+        }
+
+        $presenter = new BatchCustomerPresenter($existingUsers, $deletedUsers, $pendingUsers);
+        // display content however your application prefers
+        echo json_encode($presenter->toArray());
 
 .. [RouteResolver] src/Resolver/RouteResolver (namespace Expressly\Resolver\RouteResolver)
 .. [merchant_url] the location to execute/catch our paths;

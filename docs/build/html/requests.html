@@ -86,7 +86,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Requests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#ping">Ping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#register-merchant">Register Merchant</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#remove-merchant">Remove Merchant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-campaign-migration-popup">Get Campaign Migration Popup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-campaign-migration-data">Get Campaign Migration Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#migration-success">Migration Success</a></li>
@@ -147,29 +146,12 @@
 <h1>Requests<a class="headerlink" href="#requests" title="Permalink to this headline">¶</a></h1>
 <p>All dispatchable requests will use one of the following external hosts.
 Routing, and host definitions are defined in <a class="reference internal" href="#config-yml">config.yml</a>.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">external</span><span class="p-Indicator">:</span>
-    <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span>
-        <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://prod.expresslyapp.com/api/v1</span>
-        <span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://prod.expresslyapp.com/api/admin</span>
-</pre></div>
-</div>
 <div class="section" id="ping">
 <span id="request-ping"></span><h2>Ping<a class="headerlink" href="#ping" title="Permalink to this headline">¶</a></h2>
 <dl class="get">
 <dt id="get--api-admin-ping">
 <code class="descname">GET </code><code class="descname">/api/admin/ping</code><a class="headerlink" href="#get--api-admin-ping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ping the API to see if the server is currently running.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\ResponseEvent;</span>
-<span class="x">use Expressly\Subscriber\UtilitySubscriber;</span>
-
-<span class="x">$event = new ResponseEvent();</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(UtilitySubscriber::UTILITY_PING, $event);</span>
-
-<span class="x">if ($event-&gt;isSuccessful()) {</span>
-
-<span class="x">}</span>
-</pre></div>
-</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -181,20 +163,35 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first last simple">
-<li><strong>Server</strong> (<em>string</em>) &#8211; If server is running, or not.</li>
-<li><strong>DB Status</strong> (<em>string</em>) &#8211; Status of the current state of the database.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;Server&quot;</span><span class="p">:</span> <span class="s2">&quot;Live&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;DB Status&quot;</span><span class="p">:</span> <span class="s2">&quot;Live&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\ResponseEvent;</span>
+<span class="x">use Expressly\Subscriber\UtilitySubscriber;</span>
+
+<span class="x">$event = new ResponseEvent();</span>
+<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(UtilitySubscriber::UTILITY_PING, $event);</span>
+
+<span class="x">if ($event-&gt;isSuccessful()) {</span>
+
+<span class="x">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -204,17 +201,6 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <dt id="post--api-v2-plugin-merchant">
 <code class="descname">POST </code><code class="descname">/api/v2/plugin/merchant</code><a class="headerlink" href="#post--api-v2-plugin-merchant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a store with the server.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\MerchantEvent;</span>
-<span class="x">use Expressly\Subscriber\MerchantSubscriber;</span>
-
-<span class="x">$event = new MerchantEvent(...);</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(MerchantSubscriber::MERCHANT_REGISTER, $event);</span>
-
-<span class="x">if ($event-&gt;isSuccessful()) {</span>
-
-<span class="x">}</span>
-</pre></div>
-</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -234,63 +220,24 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </tr>
 <tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> &#8211; Registered successfully</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; Data invalid, or missing</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; Invalid data/request</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-</div>
-<div class="section" id="remove-merchant">
-<span id="request-merchant-remove"></span><h2>Remove Merchant<a class="headerlink" href="#remove-merchant" title="Permalink to this headline">¶</a></h2>
-<dl class="delete">
-<dt id="delete--api-v2-plugin-merchant-(string-uuid)">
-<code class="descname">DELETE </code><code class="descname">/api/v2/plugin/merchant/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#delete--api-v2-plugin-merchant-(string-uuid)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove store from the expressly system.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\PasswordedEvent;</span>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\MerchantEvent;</span>
 <span class="x">use Expressly\Subscriber\MerchantSubscriber;</span>
 
-<span class="x">$event = new PasswordedEvent(...);</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(MerchantSubscriber::MERCHANT_DELETE, $event);</span>
+<span class="x">$event = new MerchantEvent(...);</span>
+<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(MerchantSubscriber::MERCHANT_REGISTER, $event);</span>
 
 <span class="x">if ($event-&gt;isSuccessful()) {</span>
 
 <span class="x">}</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>uuid</strong> &#8211; Unique merchant uuid</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Request Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>success</strong> (<em>boolean</em>) &#8211; </li>
-<li><strong>msg</strong> (<em>string</em>) &#8211; Associated message</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -300,17 +247,6 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <dt id="get--api-v2-migration-(string-uuid)">
 <code class="descname">GET </code><code class="descname">/api/v2/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v2-migration-(string-uuid)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Request the popup to start a campaign migration for the unique user.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
-<span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
-
-<span class="x">$event = new CustomerMigrateEvent(...);</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(CustomerMigrationSubscriber::CUSTOMER_MIGRATE_POPUP, $event);</span>
-
-<span class="x">if ($event-&gt;isSuccessful()) {</span>
-
-<span class="x">}</span>
-</pre></div>
-</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -335,12 +271,24 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </tr>
 <tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; campaign migration found, html for popup returned</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; Invalid data/request</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
+<span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
+
+<span class="x">$event = new CustomerMigrateEvent(...);</span>
+<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(CustomerMigrationSubscriber::CUSTOMER_MIGRATE_POPUP, $event);</span>
+
+<span class="x">if ($event-&gt;isSuccessful()) {</span>
+
+<span class="x">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -350,17 +298,31 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <dt id="get--api-v2-migration-(string-uuid)-user">
 <code class="descname">GET </code><code class="descname">/api/v2/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/user</code><a class="headerlink" href="#get--api-v2-migration-(string-uuid)-user" title="Permalink to this definition">¶</a></dt>
 <dd><p>User has accepted popup, or been forced here directly; request, and start data migration.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
-<span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
-
-<span class="x">$event = new CustomerMigrateEvent(...);</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(CustomerMigrationSubscriber::CUSTOMER_MIGRATE_DATA, $event);</span>
-
-<span class="x">if ($event-&gt;isSuccessful()) {</span>
-
-<span class="x">}</span>
-</pre></div>
-</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Request Headers:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; Successfully returns user information</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; Invalid data/request</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Example Response:</strong></p>
 <div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -438,41 +400,27 @@ Routing, and host definitions are defined in <a class="reference internal" href=
                     <span class="nt">&quot;countryID&quot;</span><span class="p">:</span> <span class="s2">&quot;GBR&quot;</span>
                 <span class="p">}</span>
             <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;cart&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;productId&quot;</span><span class="p">:</span> <span class="s2">&quot;491&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;couponCode&quot;</span><span class="p">:</span> <span class="s2">&quot;20OFF&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>uuid</strong> &#8211; Unique campaign migration uuid</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Request Headers:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.8">Authorization</a> &#8211; Basic token</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> &#8211; application/json</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
+<span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
+
+<span class="x">$event = new CustomerMigrateEvent(...);</span>
+<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(CustomerMigrationSubscriber::CUSTOMER_MIGRATE_DATA, $event);</span>
+
+<span class="x">if ($event-&gt;isSuccessful()) {</span>
+
+<span class="x">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -482,17 +430,6 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <dt id="post--api-v2-migration-(string-uuid)-success">
 <code class="descname">POST </code><code class="descname">/api/v2/migration/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">/success</code><a class="headerlink" href="#post--api-v2-migration-(string-uuid)-success" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tells the server if the migration was successful, or if the user already existed on this store.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
-<span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
-
-<span class="x">$event = new CustomerMigrateEvent(...);</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(CustomerMigrationSubscriber::CUSTOMER_MIGRATE_SUCCESS, $event);</span>
-
-<span class="x">if ($event-&gt;isSuccessful()) {</span>
-
-<span class="x">}</span>
-</pre></div>
-</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -521,21 +458,36 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>success</strong> (<em>boolean</em>) &#8211; </li>
-<li><strong>msg</strong> (<em>string</em>) &#8211; Associated message</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; Migration status acknowledged</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; Invalid data/request</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+    <span class="nt">&quot;success&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\CustomerMigrateEvent;</span>
+<span class="x">use Expressly\Subscriber\CustomerMigrationSubscriber;</span>
+
+<span class="x">$event = new CustomerMigrateEvent(...);</span>
+<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(CustomerMigrationSubscriber::CUSTOMER_MIGRATE_SUCCESS, $event);</span>
+
+<span class="x">if ($event-&gt;isSuccessful()) {</span>
+
+<span class="x">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -545,17 +497,6 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 <dt id="get--api-v2-banner-(string-uuid)?email=(string-email)">
 <code class="descname">GET </code><code class="descname">/api/v2/banner/</code><span class="sig-paren">(</span><em class="property">string: </em><em>uuid</em><span class="sig-paren">)</span><code class="descname">?email=</code><span class="sig-paren">(</span><em class="property">string: </em><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#get--api-v2-banner-(string-uuid)?email=(string-email)" title="Permalink to this definition">¶</a></dt>
 <dd><p>If banner campaign is setup, get banner for a specified store, and email combination.</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\BannerEvent;</span>
-<span class="x">use Expressly\Subscriber\BannerSubscriber;</span>
-
-<span class="x">$event = new BannerEvent(...);</span>
-<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(BannerSubscriber::BANNER_REQUEST, $event);</span>
-
-<span class="x">if ($event-&gt;isSuccessful()) {</span>
-
-<span class="x">}</span>
-</pre></div>
-</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -579,21 +520,36 @@ Routing, and host definitions are defined in <a class="reference internal" href=
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Response JSON Object:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><ul class="first simple">
-<li><strong>bannerImageUrl</strong> (<em>string</em>) &#8211; url of the image; set in the <a class="reference internal" href="#portal">Portal</a></li>
-<li><strong>migrationLink</strong> (<em>string</em>) &#8211; url to populate the banner</li>
-</ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; </li>
-<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; </li>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> &#8211; Successfully found valid data for campaign banner</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> &#8211; Invalid data/request</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p><strong>Example Response:</strong></p>
+<div class="highlight-http"><div class="highlight"><pre>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    &quot;bannerImageUrl&quot;: &quot;https://buyexpressly.com/assets/banner/awesome-banner.jpg&quot;,
+    &quot;migrationLink&quot;: &quot;https://www.myblog.com/expressly/api/3aff1880-b0f5-45bd-8f33-247f55981f2c
+}
+</pre></div>
+</div>
+<p><strong>PHP Implementation Example:</strong></p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Expressly\Event\BannerEvent;</span>
+<span class="x">use Expressly\Subscriber\BannerSubscriber;</span>
+
+<span class="x">$event = new BannerEvent(...);</span>
+<span class="x">$app[&#39;dispatcher&#39;]-&gt;dispatch(BannerSubscriber::BANNER_REQUEST, $event);</span>
+
+<span class="x">if ($event-&gt;isSuccessful()) {</span>
+
+<span class="x">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <table class="docutils citation" frame="void" id="config-yml" rules="none">

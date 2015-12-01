@@ -13,6 +13,10 @@ Magento
 -------
 `Magento repository <https://github.com/expressly/magento>`_
 
+Magento 2
+---------
+`Magento 2 repository <https://github.com/expressly/magento2>`_
+
 OpenCart 1.5
 ------------
 `OpenCart 1.5 repository <https://github.com/expressly/opencart15>`_

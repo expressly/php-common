@@ -19,38 +19,14 @@ Inside your composer.json, you need to include:
 .. code-block:: javascript
 
     "require": {
-        "expressly/php-common": "1.1.6"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/expressly/php-common"
-        }
-    ]
+        "expressly/php-common": "2.3.2""
+    }
 
-.. _overview-configuration:
+Or, run the command:
 
-Configuration
--------------
-All configuration values associated with the repository are contained within config.yml_.
+.. code-block:: javascript
 
-To act in development mode, the following block inside the config.yml_ should be changed from:
-
-.. code-block:: yaml
-
-    external:
-        hosts:
-            default: http://prod.expresslyapp.com/api/v1
-            admin: http://prod.expresslyapp.com/api/admin
-
-to
-
-.. code-block:: yaml
-
-    external:
-        hosts:
-            default: http://dev.expresslyapp.com/api/v1
-            admin: http://dev.expresslyapp.com/api/admin
+    composer require expressly/php-common:2.3.2
 
 .. _overview-client:
 
@@ -68,6 +44,31 @@ In order to make use of the DI_ container, to include, override, or extend any c
      */
     $client = new Client($merchantType, array());
     $app = $client->getApp();
+
+
+.. _overview-configuration:
+
+Configuration
+-------------
+All configuration values associated with the repository are contained within config.yml_.
+
+To run the application in development mode, you can override the Expressly\\Client parameters:
+
+.. code-block:: php
+
+    $client = new Expressly\Client(
+        $merchantType,
+        array(
+            'external' => array(
+                'hosts' => array(
+                    'default' => 'http://dev.expresslyapp.com/api/v2',
+                    'admin' => 'http://dev.expresslyapp.com/api/admin'
+                )
+            )
+        )
+    );
+
+You can override any part of the container configuration defined in config.yml_ using the above method.
 
 .. _overview-checklist:
 
@@ -95,7 +96,6 @@ For a working Expressly integration, using this library, the following need to b
 Roadmap
 -------
 - Dependency drill down: restructure so Pimple_ is the base product instead of Silex_.
-- Offer resolver data handling as a closure pass-through.
 
 .. [composer] PHP package manager: https://getcomposer.org/
 .. [config.yml] src/Resources/config/config.yml
