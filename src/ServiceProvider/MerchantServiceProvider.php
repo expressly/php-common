@@ -3,19 +3,15 @@
 namespace Expressly\ServiceProvider;
 
 use Expressly\Provider\MockMerchantProvider;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class MerchantServiceProvider implements ServiceProviderInterface
 {
-    public function register(Application $app)
+    public function register(Container $container)
     {
-        $app['merchant.provider'] = $app->share(function () {
+        $container['merchant.provider'] = function () {
             return new MockMerchantProvider();
-        });
-    }
-
-    public function boot(Application $app)
-    {
+        };
     }
 }

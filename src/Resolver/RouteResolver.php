@@ -3,16 +3,16 @@
 namespace Expressly\Resolver;
 
 use Expressly\Route\RouteInterface;
-use Silex\Application;
+use Pimple\Container;
 
 class RouteResolver implements ResolverInterface
 {
     private $merchant;
     private $routes = array();
 
-    public function __construct(Application $app, Array $routes)
+    public function __construct(Container $container, Array $routes)
     {
-        $this->merchant = $app['merchant.provider']->getMerchant();
+        $this->merchant = $container['merchant.provider']->getMerchant();
 
         foreach ($routes as $class) {
             $this->routes[] = new $class();

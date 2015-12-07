@@ -8,33 +8,18 @@ if (file_exists($package)) {
 }
 
 use Expressly\Logger\DummyLogger;
-use Monolog\Handler\RedisHandler;
-use Monolog\Logger;
-use Predis\Client;
-use Silex\Provider\MonologServiceProvider;
+use Expressly\ServiceProvider\MonologServiceProvider;
 
-$app = new Silex\Application();
+$app = new Pimple\Container();
 
 require_once __DIR__ . '/config.php';
 
 try {
-    $app->register(new MonologServiceProvider(), array(
-        'monolog.level' => Logger::WARNING,
-        'monolog.name' => $merchantType,
-        'monolog.handler' => $app->share(function () {
-            // Configuration not being accessible anymore from $app directly after being instantiated.
-            return new RedisHandler(
-                new Client('tcp://internal.expresslyapp.com:6379'),
-                $_SERVER['HTTP_HOST'],
-                Logger::WARNING,
-                true
-            );
-        })
-    ));
+    $app->register(new MonologServiceProvider($app), array('monolog.name' => $merchantType));
 } catch (\Exception $e) {
-    $app['logger'] = $app->share(function () {
+    $app['logger'] = function () {
         return new DummyLogger();
-    });
+    };
 }
 
 require_once __DIR__ . '/services.php';

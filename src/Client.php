@@ -2,8 +2,6 @@
 
 namespace Expressly;
 
-use Silex\Application;
-
 class Client
 {
     private $app;

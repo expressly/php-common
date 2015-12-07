@@ -3,7 +3,7 @@
 namespace Expressly\Provider;
 
 use Expressly\Entity\Merchant;
-use Silex\Application;
+//use Silex\Application;
 
 class MockMerchantProvider implements MerchantProviderInterface
 {
