@@ -24,5 +24,5 @@ ratings:
   - "**.module"
   - "**.inc"
 exclude_paths:
-  - doc/**/*
+  - docs/**/*
   - .codeclimate.yml
