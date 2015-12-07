@@ -70,7 +70,7 @@ class BannerHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             BannerHelper::toHtml($bannerEvent),
             sprintf(
-                '<div class="expressly-banner"><a href="%s"><img src="%s"/></a>',
+                '<div class="expressly-banner"><a href="%s"><img src="%s"/></a></div>',
                 $migrationUrl,
                 $imageUrl
             )

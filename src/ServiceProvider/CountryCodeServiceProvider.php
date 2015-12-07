@@ -10,6 +10,8 @@ class CountryCodeServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
-        $container['country_code.provider'] = new CountryCodeProvider($container['config']['country_code']);
+        $container['country_code.provider'] = $container->protect(function () use ($container) {
+            return new CountryCodeProvider($container['config']['country_code']);
+        });
     }
 }

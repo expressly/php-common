@@ -2,9 +2,8 @@
 
 namespace Expressly\Test\Subscriber;
 
-use Expressly\Client;
 use Expressly\Entity\Merchant;
-use Expressly\Provider\ExternalRouteProvider;
+use Expressly\ServiceProvider\ExternalRouteServiceProvider;
 use Expressly\Subscriber\BannerSubscriber;
 
 class BannerSubscriberTest extends \PHPUnit_Framework_TestCase
@@ -13,25 +12,10 @@ class BannerSubscriberTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        require_once __DIR__ . '/../../../vendor/autoload.php';
+        require __DIR__ . '/../bootstrap.php';
 
-        $client = new Client('phpunit', array('debug' => true));
-        $app = $client->getApp();
-        $app['external_route.provider'] = new ExternalRouteProvider(
-            $app,
-            array(
-                'default' => 'http://localhost:8080/api/v1'
-            ),
-            array(
-                'banner_request' => array(
-                    'host' => 'default',
-                    'method' => 'GET',
-                    'uri' => '/banner/<uuid>?email=<email>'
-                )
-            )
-        );
-
-        $this->app = $app;
+        $this->app = $app->getApp();
+        $this->app->register(new ExternalRouteServiceProvider());
     }
 
     public function tearDown()
@@ -52,9 +36,7 @@ class BannerSubscriberTest extends \PHPUnit_Framework_TestCase
     public function testRequest()
     {
         $merchant = new Merchant();
-        $merchant
-            ->setUuid('50602095-c390-4a8f-bc88-728d725b1410')
-            ->setPassword('password');
+        $merchant->setApiKey('NTA2MDIwOTUtYzM5MC00YThmLWJjODgtNzI4ZDcyNWIxNDEwOnBhc3N3b3Jk');
 
         $subscriber = $this->getMockBuilder('Expressly\Subscriber\BannerSubscriber')
             ->setConstructorArgs(array($this->app))
