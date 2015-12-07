@@ -175,9 +175,9 @@ Get Campaign Migration Data
                             "companyName": "WorkHard Ltd",
                             "zip": "W1C 34U",
                             "phone": 1,
-                            "addressAlias": "Work address",
-                            "stateProvinceID": "LND",
-                            "countryID": "GBR"
+                            "alias": "Work address",
+                            "stateProvince": "LND",
+                            "country": "GBR"
                         },
                         {
                             "firstName": "John C.",
@@ -189,8 +189,8 @@ Get Campaign Migration Data
                             "zip": "NW3 4HG",
                             "phone": 0,
                             "alias": "Home address",
-                            "stateProvinceID": "LND",
-                            "countryID": "GBR"
+                            "stateProvince": "LND",
+                            "country": "GBR"
                         }
                     ]
                 },
