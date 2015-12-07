@@ -16,4 +16,7 @@
     <php>
         <server name='HTTP_HOST' value='http://localhost' />
     </php>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
 </phpunit>
