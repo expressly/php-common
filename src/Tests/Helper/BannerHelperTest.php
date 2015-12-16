@@ -1,17 +1,12 @@
 <?php
 
-namespace Expressly\Test\Helper;
+namespace Expressly\Tests\Helper;
 
 use Expressly\Entity\Merchant;
 use Expressly\Helper\BannerHelper;
 
 class BannerHelperTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
-    {
-        require_once __DIR__ . '/../../../vendor/autoload.php';
-    }
-
     public function testFailedEvent()
     {
         $bannerEvent = $this->getMockBuilder('Expressly\Event\BannerEvent')
