@@ -38,6 +38,11 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->validator->validate('a@ok'));
     }
 
+    public function testInvalidInput()
+    {
+        $this->assertFalse($this->validator->validate(array()));
+    }
+
     public function testMessage()
     {
         $this->assertEquals('email', $this->validator->getMessage());

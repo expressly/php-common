@@ -31,6 +31,11 @@ class UuidValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->validator->validate('38192283139981'));
     }
 
+    public function testInvalidInput()
+    {
+        $this->assertFalse($this->validator->validate(array()));
+    }
+
     public function testMessage()
     {
         $this->assertEquals('uuid', $this->validator->getMessage());
