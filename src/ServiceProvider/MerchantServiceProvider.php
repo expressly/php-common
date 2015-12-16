@@ -10,8 +10,8 @@ class MerchantServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
-        $container['merchant.provider'] = $container->protect(function () {
+        $container['merchant.provider'] = function () {
             return new MockMerchantProvider();
-        });
+        };
     }
 }

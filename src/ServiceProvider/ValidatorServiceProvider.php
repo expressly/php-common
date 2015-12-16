@@ -12,9 +12,9 @@ class ValidatorServiceProvider implements ServiceProviderInterface
         foreach ($container['config']['validators'] as $definition) {
             $validator = new $definition['class']($definition['message']);
 
-            $container["{$validator->getType()}.validator"] = $container->protect(function () use ($validator) {
+            $container["{$validator::getType()}.validator"] = function () use ($validator) {
                 return $validator;
-            });
+            };
         }
     }
 }
