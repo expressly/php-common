@@ -43,7 +43,9 @@ class RegisteredRouteTest extends AbstractRouteTest
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $route = $this->routeResolver->process('/expressly/api/registered');
 
-        $this->assertEquals(401, http_response_code());
+        if (function_exists('http_response_code')) {
+            $this->assertEquals(401, http_response_code());
+        }
         $this->assertNull($route);
     }
 }

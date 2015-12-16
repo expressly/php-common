@@ -43,7 +43,9 @@ class BatchInvoiceRouteTest extends AbstractRouteTest
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $route = $this->routeResolver->process('/expressly/api/batch/invoice');
 
-        $this->assertEquals(401, http_response_code());
+        if (function_exists('http_response_code')) {
+            $this->assertEquals(401, http_response_code());
+        }
         $this->assertNull($route);
     }
 }

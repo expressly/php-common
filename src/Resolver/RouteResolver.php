@@ -43,7 +43,7 @@ class RouteResolver implements ResolverInterface
                 return true;
             }
 
-            http_response_code(401);
+            header('HTTP/1.1 401 Unauthorized', true, 401);
 
             return false;
         }
