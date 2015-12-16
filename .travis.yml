@@ -3,7 +3,7 @@ php:
 - 5.3
 - 5.6
 install: composer install
-script: phpunit --bootstrap src/Tests/bootstrap.php -v
+script: phpunit --bootstrap tests/bootstrap.php -v
 notifications:
   hipchat:
     rooms:

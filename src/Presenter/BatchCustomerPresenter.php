@@ -6,7 +6,7 @@ class BatchCustomerPresenter implements PresenterInterface
 {
     private $emails = array();
 
-    public function __construct(Array $existing = array(), Array $deleted = array(), Array $pending = array())
+    public function __construct(array $existing = array(), array $deleted = array(), array $pending = array())
     {
         $this->emails = array(
             'existing' => $existing,

@@ -26,6 +26,9 @@ class BannerSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function onRequest(BannerEvent $event)
     {
         $route = $this->routeProvider->banner_request;

@@ -8,7 +8,7 @@ class BatchInvoicePresenter implements PresenterInterface
 {
     private $invoices = array();
 
-    public function __construct(Array $invoices)
+    public function __construct(array $invoices)
     {
         foreach ($invoices as $invoice) {
             if ($invoice instanceof Invoice) {

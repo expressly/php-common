@@ -28,6 +28,9 @@ class MerchantSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function onRegister(PasswordedEvent $event)
     {
         $route = $this->routeProvider->merchant_register;
@@ -45,6 +48,9 @@ class MerchantSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function onDelete(PasswordedEvent $event)
     {
         $route = $this->routeProvider->merchant_delete;

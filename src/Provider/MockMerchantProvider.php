@@ -3,8 +3,10 @@
 namespace Expressly\Provider;
 
 use Expressly\Entity\Merchant;
-//use Silex\Application;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MockMerchantProvider implements MerchantProviderInterface
 {
     private $merchant;

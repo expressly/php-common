@@ -26,6 +26,9 @@ class UtilitySubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function onPing(ResponseEvent $event)
     {
         $route = $this->routeProvider->ping;

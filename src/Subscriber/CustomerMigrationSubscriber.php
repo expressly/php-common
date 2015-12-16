@@ -30,9 +30,10 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         );
     }
 
-    /*
+    /**
      * Initial request of migrate customer request flow
-     * Returns JSON structured HTML to display to the user; requires user action to continue
+     * Response filled with HTML to display to the user; requires user action to continue
+     * @codeCoverageIgnore
      */
     public function getPopup(CustomerMigrateEvent $event)
     {
@@ -48,9 +49,10 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    /*
+    /**
      * Secondary request of migrate customer request flow
      * If user agrees to conditions: request cart, and coupon information
+     * @codeCoverageIgnore
      */
     public function getData(CustomerMigrateEvent $event)
     {
@@ -66,8 +68,9 @@ class CustomerMigrationSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    /*
+    /**
      * Additional third request to notify the application that we've added the user successfully
+     * @codeCoverageIgnore
      */
     public function onSuccess(CustomerMigrateEvent $event)
     {
