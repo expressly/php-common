@@ -1,6 +1,9 @@
 <?php
 
-$app = new Expressly\Client('phpunit', array(
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+global $client;
+$client = new Expressly\Client('phpunit', array(
     'external' => array(
         'hosts' => array(
             'default' => 'https://dev.expresslyapp.com/api/v2',

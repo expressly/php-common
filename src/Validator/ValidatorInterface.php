@@ -8,5 +8,5 @@ interface ValidatorInterface
 
     public function getMessage();
 
-    public function getType();
+    public static function getType();
 }

@@ -17,7 +17,7 @@ class UuidValidator implements ValidatorInterface
             return false;
         }
 
-        if (preg_match('/^([\w]{8}-([\w]{4}-){3}[\w]{12})$/', $data) != false) {
+        if (preg_match('/^([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/', $data) != false) {
             return true;
         }
 
@@ -29,7 +29,7 @@ class UuidValidator implements ValidatorInterface
         return $this->message;
     }
 
-    public function getType()
+    public static function getType()
     {
         return 'uuid_string';
     }

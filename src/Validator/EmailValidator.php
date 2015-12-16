@@ -29,7 +29,7 @@ class EmailValidator implements ValidatorInterface
         return $this->message;
     }
 
-    public function getType()
+    public static function getType()
     {
         return 'email';
     }
