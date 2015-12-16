@@ -1,13 +1,6 @@
 language: php
 php:
-  - 5.4
+  - 5.3
   - 5.6
-
-install: composer install --dev
-
-after_script:
-  - vendor/bin/test-reporter
-
-addons:
-    code_climate:
-        repo_token: $CODECLIMATE_REPO_TOKEN
+install: composer install
+script: phpunit --bootstrap src/Tests/bootstrap.php -v

@@ -1,4 +1,3 @@
----
 engines:
   csslint:
     enabled: true
@@ -16,14 +15,10 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "**.css"
-  - "**.js"
-  - "**.jsx"
-  - "**.py"
   - "**.php"
-  - "**.module"
-  - "**.inc"
+  - "**.yml"
 exclude_paths:
   - docs/**/*
   - build/**/*
+  - vendor/**/*
   - .codeclimate.yml
