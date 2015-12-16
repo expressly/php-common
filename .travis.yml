@@ -1,6 +1,10 @@
 language: php
 php:
-  - 5.3
-  - 5.6
+- 5.3
+- 5.6
 install: composer install
 script: phpunit --bootstrap src/Tests/bootstrap.php -v
+notifications:
+  hipchat:
+    rooms:
+      secure: W3/mm7lngNxRdWpWHhtv2pFbevy7p0lt2/HB21duDtjjgULV3uwG4r5Pr4C0ni8XJo8APdE+06K7SlCMYXP9HWceKVvIau6YNQ8L8/zBFa2GRxPFtbJnz/2jetWyiKnmC7Ld+TGae+Kpj68SGhuiYASg2utKV2b9dL6evAbWv3Pv8XN+vRz5mxsvS0eLrCRgaOMCrQDYwcJQXCDGUj59Ftno7O/tphPJpnpSCvP96eXGVncX4EhlQ0gi3W/QKP8LY0rVHbg/vndWgpnBSkKYmi25AM0bTN4u2wJ6YGqoSo37j3wKaXSh/Id/EpTjCcprI7kcztK/nEO1HuFtDDOoDJ6klOa/dqPTWcPqc652x41s5RhToB2BY3Kht/KanY1nGZIdDVXeYEpYPx3meUQWSA08I8Pe/wVrmzNh2pa5Ar2bGfgtB2bEHUXmxh96pcjGu6PEoAtSCNJhL5IN7UFHM7e8eadOInj/oRbJaYBfcAngxjLSXDL+b/ny7NDl9k6gf4/0w7eb1ttQAJ/B/Unjm7NPpfaM8hTdVWGvRoxFV1SveEBZmX/vTKQw/YHpf67K94FmhhfOb+2mZqIKLckVfd57qNRY9yTeYADb33nEljsiriaKdnlkSNUJ2H5gn3uUaW7qOYIlb1QtbxijAkeEKKfUNevPuwhFnvlVzy9akVA=
