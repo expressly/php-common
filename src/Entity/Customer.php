@@ -126,17 +126,7 @@ class Customer extends ArraySerializeable
 
     public function getEmailIndex(Email $email)
     {
-        $index = $this->emails->indexOf($email);
-
-        if (is_null($index)) {
-            $this->emails->map(function ($key, $el) use ($email, &$index) {
-                if ($el->toArray() == $email->toArray()) {
-                    $index = $key;
-                }
-            });
-        }
-
-        return $index;
+        return $this->emails->indexOf($email);
     }
 
     public function addPhone(Phone $phone)
@@ -159,22 +149,23 @@ class Customer extends ArraySerializeable
 
     public function getPhoneIndex(Phone $phone)
     {
-        $index = $this->phones->indexOf($phone);
-
-        if (is_null($index)) {
-            $this->phones->map(function ($key, $el) use ($phone, &$index) {
-                if ($el->toArray() == $phone->toArray()) {
-                    $index = $key;
-                }
-            });
-        }
-
-        return $index;
+        return $this->phones->indexOf($phone);
     }
 
     public function addAddress(Address $address, $primary = false, $type = null)
     {
-        $this->addresses->add($address);
+        $addresses = $this->addresses;
+        $exists = function ($index, $el) use ($addresses, $address) {
+            if ($el->toArray() == $address->toArray()) {
+                return true;
+            }
+
+            return false;
+        };
+
+        if (!$this->addresses->exists($exists)) {
+            $this->addresses->add($address);
+        }
 
         if (!$primary) {
             return $this;
