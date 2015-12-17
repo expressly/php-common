@@ -10,7 +10,6 @@ abstract class AbstractRouteTest extends \PHPUnit_Framework_TestCase
         global $client;
         $this->app = $client->getApp();
 
-
         $this->routeResolver = $this->app['route.resolver'];
     }
 

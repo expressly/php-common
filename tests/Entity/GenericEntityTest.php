@@ -7,9 +7,12 @@ class GenericEntityTest extends \PHPUnit_Framework_TestCase
     public function testBuildingEntity()
     {
         $entity = new Generic();
-        $entity
-            ->setField('field')
-            ->setValue('value');
+
+        $this->assertInstanceOf('Expressly\Entity\Generic', $entity->setField('field'));
+        $this->assertInstanceOf('Expressly\Entity\Generic', $entity->setValue('value'));
+
+        $this->assertEquals('field', $entity->getField());
+        $this->assertEquals('value', $entity->getValue());
 
         $this->assertJson(json_encode($entity->toArray()));
         $this->assertJsonStringEqualsJsonString(

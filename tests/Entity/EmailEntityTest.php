@@ -7,9 +7,12 @@ class EmailEntityTest extends \PHPUnit_Framework_TestCase
     public function testBuildingEntity()
     {
         $entity = new Email();
-        $entity
-            ->setEmail('test@test.com')
-            ->setAlias('default');
+
+        $this->assertInstanceOf('Expressly\Entity\Email', $entity->setEmail('test@test.com'));
+        $this->assertInstanceOf('Expressly\Entity\Email', $entity->setAlias('default'));
+
+        $this->assertEquals('test@test.com', $entity->getEmail());
+        $this->assertEquals('default', $entity->getAlias());
 
         $this->assertJson(json_encode($entity->toArray()));
         $this->assertJsonStringEqualsJsonString(

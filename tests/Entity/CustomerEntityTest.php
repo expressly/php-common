@@ -41,20 +41,29 @@ class CustomerEntityTest extends \PHPUnit_Framework_TestCase
             ->setCountry('GBR');
 
         $entity = new Customer();
-        $entity
-            ->setFirstName('Sam')
-            ->setLastName('Pratt')
-            ->setGender(Customer::GENDER_MALE)
-            ->setCompany('Expressly')
-            ->setBirthday(new \DateTime('1990-01-01'))
-            ->setTaxNumber('tax')
-            ->setDateUpdated(new \DateTime('2015-12-12 05:00:00'))
-            ->setDateLastOrder(new \DateTime('2015-12-12 05:00:00'))
-            ->setNumberOrdered(1)
-            ->addSocial($social)
-            ->addEmail($email)
-            ->addPhone($phone)
-            ->addAddress($address, true, Address::ADDRESS_BOTH);
+
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->setFirstName('Sam'));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->setLastName('Pratt'));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->setGender(Customer::GENDER_MALE));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->setCompany('Expressly'));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->setBirthday(new \DateTime('1990-01-01')));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->setTaxNumber('tax'));
+        $this->assertInstanceOf(
+            'Expressly\Entity\Customer',
+            $entity->setDateUpdated(new \DateTime('2015-12-12 05:00:00'))
+        );
+        $this->assertInstanceOf(
+            'Expressly\Entity\Customer',
+            $entity->setDateLastOrder(new \DateTime('2015-12-12 05:00:00'))
+        );
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->setNumberOrdered(1));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->addSocial($social));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->addEmail($email));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->addPhone($phone));
+        $this->assertInstanceOf(
+            'Expressly\Entity\Customer',
+            $entity->addAddress($address, true, Address::ADDRESS_BOTH)
+        );
 
         $this->assertJson(json_encode($entity->toArray()));
         $this->assertJsonStringEqualsJsonString(
@@ -111,21 +120,104 @@ class CustomerEntityTest extends \PHPUnit_Framework_TestCase
 
     public function testNoDuplicateEmails()
     {
+        $emailA = new Email();
+        $emailA
+            ->setAlias('default')
+            ->setEmail('test@test.com');
 
+        $emailB = new Email();
+        $emailB
+            ->setAlias('backup')
+            ->setEmail('test@backup.com');
+
+        $entity = new Customer();
+        $entity
+            ->addEmail($emailA)
+            ->addEmail($emailA)
+            ->addEmail($emailB);
+
+        $this->assertEquals(0, $entity->getEmailIndex($emailA));
+        $this->assertEquals(1, $entity->getEmailIndex($emailB));
+    }
+
+    public function testEmailDoesNotExist()
+    {
+        $email = new Email();
+        $email
+            ->setAlias('similar')
+            ->setEmail('test@test.com');
+
+        $entity = new Customer();
+
+        $this->assertFalse($entity->getEmailIndex($email));
     }
 
     public function testNoDuplicatePhones()
     {
+        $phoneA = new Phone();
+        $phoneA
+            ->setCountryCode(44)
+            ->setNumber('07951234567')
+            ->setType(Phone::PHONE_TYPE_MOBILE);
 
+        $phoneB = new Phone();
+        $phoneB
+            ->setCountryCode(44)
+            ->setNumber('07957654321')
+            ->setType(Phone::PHONE_TYPE_MOBILE);
+
+        $entity = new Customer();
+        $entity
+            ->addPhone($phoneA)
+            ->addPhone($phoneA)
+            ->addPhone($phoneB);
+
+        $this->assertEquals(0, $entity->getPhoneIndex($phoneA));
+        $this->assertEquals(1, $entity->getPhoneIndex($phoneB));
+    }
+
+    public function testPhoneDoesNotExist()
+    {
+        $phone = new Phone();
+        $phone
+            ->setCountryCode(1)
+            ->setNumber('6127701999')
+            ->setType(Phone::PHONE_TYPE_HOME);
+
+        $entity = new Customer();
+
+        $this->assertFalse($entity->getPhoneIndex($phone));
     }
 
     public function testNoDuplicateAddresses()
     {
+        $addressA = new Address();
+        $addressA
+            ->setFirstName('Sam')
+            ->setLastName('Pratt')
+            ->setAddress1('Address1')
+            ->setAddress2('Address2')
+            ->setCity('London')
+            ->setCompanyName('Expressly')
+            ->setZip('W2 6LG')
+            ->setPhonePosition(0)
+            ->setAlias('billing')
+            ->setStateProvince('England')
+            ->setCountry('GBR');
 
-    }
+        $addressB = new Address();
+        $addressB
+            ->setFirstName('Bob')
+            ->setLastName('TheBuilder')
+            ->setCompanyName('Builders Inc');
 
-    public function testCorrectPhoneForAddress()
-    {
+        $entity = new Customer();
 
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->addAddress($addressA, true));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->addAddress($addressA, true));
+        $this->assertInstanceOf('Expressly\Entity\Customer', $entity->addAddress($addressB, false));
+
+        $entityArray = $entity->toArray();
+        $this->assertCount(2, $entityArray['addresses']);
     }
 }

@@ -13,9 +13,14 @@ class MetaEntityTest extends \PHPUnit_Framework_TestCase
             ->setValue('value');
 
         $entity = new Meta();
-        $entity
-            ->addIssuerData($generic)
-            ->setLocale('en');
+
+        $this->assertInstanceOf('Expressly\Entity\Meta', $entity->addIssuerData($generic));
+        $this->assertInstanceOf('Expressly\Entity\Meta', $entity->setLocale('en'));
+
+        $this->assertEquals('en', $entity->getLocale());
+        $this->assertEquals('phpunit', $entity->getSender());
+        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $entity->getIssuerData());
+        $this->assertEquals(1, $entity->getIssuerData()->count());
 
         $this->assertJson(json_encode($entity->toArray()));
         $this->assertJsonStringEqualsJsonString(
@@ -31,5 +36,20 @@ class MetaEntityTest extends \PHPUnit_Framework_TestCase
                 )
             ))
         );
+    }
+
+    public function testRemoveEntity()
+    {
+        $generic = new Generic();
+        $generic
+            ->setField('field')
+            ->setValue('value');
+
+        $entity = new Meta();
+
+        $this->assertInstanceOf('Expressly\Entity\Meta', $entity->addIssuerData($generic));
+        $this->assertEquals(1, $entity->getIssuerData()->count());
+        $this->assertInstanceOf('Expressly\Entity\Meta', $entity->removeIssuerData($generic));
+        $this->assertEquals(0, $entity->getIssuerData()->count());
     }
 }

@@ -4,6 +4,9 @@ namespace Expressly\Logger;
 
 use Psr\Log\LoggerInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DummyLogger implements LoggerInterface
 {
     public function emergency($message, array $context = array())

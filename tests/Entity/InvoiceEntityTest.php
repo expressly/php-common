@@ -25,10 +25,10 @@ class InvoiceEntityTest extends \PHPUnit_Framework_TestCase
             ->setTotal(65.00, 8.00);
 
         $entity = new Invoice();
-        $entity
-            ->setEmail('test@test.com')
-            ->addOrder($orderWithCoupon)
-            ->addOrder($orderWithoutCoupon);
+
+        $this->assertInstanceOf('Expressly\Entity\Invoice', $entity->setEmail('test@test.com'));
+        $this->assertInstanceOf('Expressly\Entity\Invoice', $entity->addOrder($orderWithCoupon));
+        $this->assertInstanceOf('Expressly\Entity\Invoice', $entity->addOrder($orderWithoutCoupon));
 
         $this->assertJson(json_encode($entity->toArray()));
         $this->assertJsonStringEqualsJsonString(

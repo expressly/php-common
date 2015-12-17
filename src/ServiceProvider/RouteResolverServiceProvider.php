@@ -10,7 +10,7 @@ class RouteResolverServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
-        $container['route.resolver'] = function ($container) {
+        $container['route.resolver'] = function () use ($container) {
             return new RouteResolver($container, $container['config']['routes']);
         };
     }
