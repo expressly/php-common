@@ -24,8 +24,8 @@ class ExternalRouteEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('https://dev.expresslyapp.com/api/v2/ping', $entity->getURL());
         $this->assertEquals('https://dev.expresslyapp.com/api/v2/ping', (string)$entity);
 
-        $entity->process(function ($request) {
-        });
+//        $entity->process(function ($request) {
+//        });
     }
 
     public function testBuildingEntityWithPlaceholderAndValidation()
