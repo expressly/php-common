@@ -2,6 +2,9 @@
 
 namespace Expressly\Provider;
 
+use Buzz\Client\Curl;
+use Buzz\Message\Request;
+use Buzz\Message\Response;
 use Doctrine\Common\Collections\ArrayCollection;
 use Expressly\Entity\ExternalRoute;
 use Pimple\Container;
@@ -15,8 +18,9 @@ class ExternalRouteProvider implements ConfigProviderInterface
         $this->routes = new ArrayCollection();
 
         foreach ($routes as $key => $definition) {
-            $route = new ExternalRoute();
-            $route->setHost($hosts[$definition['host']])
+            $route = new ExternalRoute(new Response(), new Request(), new Curl());
+            $route
+                ->setHost($hosts[$definition['host']])
                 ->setURI($definition['uri'])
                 ->setMethod($definition['method']);
 

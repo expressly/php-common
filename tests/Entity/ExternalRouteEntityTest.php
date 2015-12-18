@@ -1,5 +1,8 @@
 <?php
 
+use Buzz\Client\Curl;
+use Buzz\Message\Request;
+use Buzz\Message\Response;
 use Expressly\Entity\ExternalRoute;
 use Expressly\Validator\UuidValidator;
 
@@ -7,7 +10,13 @@ class ExternalRouteEntityTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuildingEntityWithoutParameters()
     {
-        $entity = new ExternalRoute();
+        $response = $this->getMockBuilder('Buzz\Message\Response')->getMock();
+
+        $request = $this->getMockBuilder('Buzz\Message\Request')->getMock();
+
+        $client = $this->getMockBuilder('Buzz\Client\Curl')->getMock();
+
+        $entity = new ExternalRoute($response, $request, $client);
 
         $this->assertInstanceOf('Expressly\Entity\ExternalRoute', $entity->setMethod('GET'));
         $this->assertInstanceOf(
@@ -24,13 +33,36 @@ class ExternalRouteEntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('https://dev.expresslyapp.com/api/v2/ping', $entity->getURL());
         $this->assertEquals('https://dev.expresslyapp.com/api/v2/ping', (string)$entity);
 
-//        $entity->process(function ($request) {
-//        });
+        $this->assertInstanceOf(
+            'Buzz\Message\Response',
+            $entity->process(function ($request) {
+            })
+        );
+    }
+
+    public function testMaxRetries()
+    {
+        $response = $this->getMockBuilder('Buzz\Message\Response')->getMock();
+        $response->method('isEmpty')->willReturn(true);
+
+        $request = $this->getMockBuilder('Buzz\Message\Request')->getMock();
+
+        $client = $this->getMockBuilder('Buzz\Client\Curl')->getMock();
+
+        $entity = new ExternalRoute($response, $request, $client);
+
+        $this->assertInstanceOf(
+            'Buzz\Message\Response',
+            $entity->process(function ($request) {
+            })
+        );
+
+        $this->assertTrue($entity->isDone());
     }
 
     public function testBuildingEntityWithPlaceholderAndValidation()
     {
-        $entity = new ExternalRoute();
+        $entity = new ExternalRoute(new Response(), new Request(), new Curl());
         $entity
             ->setMethod('GET')
             ->setHost('https://dev.expresslyapp.com/api/v2')
@@ -53,7 +85,7 @@ class ExternalRouteEntityTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildingEntityWithNoPlaceholderData()
     {
-        $entity = new ExternalRoute();
+        $entity = new ExternalRoute(new Response(), new Request(), new Curl());
         $entity
             ->setMethod('GET')
             ->setHost('https://dev.expresslyapp.com/api/v2')
@@ -71,7 +103,7 @@ class ExternalRouteEntityTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildingEntityWithPlaceholderAndInvalidData()
     {
-        $entity = new ExternalRoute();
+        $entity = new ExternalRoute(new Response(), new Request(), new Curl());
         $entity
             ->setMethod('GET')
             ->setHost('https://dev.expresslyapp.com/api/v2')

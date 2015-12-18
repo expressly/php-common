@@ -15,9 +15,22 @@ class ExternalRoute
     private $method;
     private $parameters = array();
     private $rules = array();
-    private $retries = 1;
+    public $retry = 0;
 
     const MAX_RETRIES = 3;
+
+    public function __construct(Response $response, Request $request, Curl $client)
+    {
+        $this->response = $response;
+
+        $request->setProtocolVersion(1.1);
+        $request->addHeader('Content-Type: application/json');
+        $this->request = $request;
+
+        $client->setTimeout(5);
+        $client->setIgnoreErrors(true);
+        $this->client = $client;
+    }
 
     public function setParameters(Array $parameters)
     {
@@ -28,30 +41,35 @@ class ExternalRoute
 
     public function process($callback = null)
     {
-        $response = new Response();
-        $request = new Request($this->getMethod(), '/', $this->getURL());
-        $request->setProtocolVersion(1.1);
-        $request->addHeader('Content-Type: application/json');
-        $client = new Curl();
-        $client->setTimeout(5);
-        $client->setIgnoreErrors(true);
+        $this->request->setMethod($this->getMethod());
+        $this->request->setResource('/');
+        $this->request->setHost($this->getURL());
 
         if (is_callable($callback)) {
             // Add any additions to the Response
-            $callback($request);
+            $callback($this->request);
         }
 
-        $request->setContent(json_encode($request->getContent()));
-        $client->send($request, $response);
+        $this->request->setContent(json_encode($this->request->getContent()));
+        $this->client->send($this->request, $this->response);
 
         // To account for timeouts, retry up to MAX_RETRIES
-        $content = $response->getContent();
-        if ($response->isEmpty() && empty($content) && $this->retries <= self::MAX_RETRIES) {
-            $this->retries++;
+        $content = $this->response->getContent();
+        if ($this->response->isEmpty() && empty($content) && $this->retry < self::MAX_RETRIES) {
+            $this->retry++;
             $this->process($callback);
         }
 
-        return $response;
+        return $this->response;
+    }
+
+    public function isDone()
+    {
+        if ($this->response->isEmpty() && $this->retry <= self::MAX_RETRIES) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getMethod()
