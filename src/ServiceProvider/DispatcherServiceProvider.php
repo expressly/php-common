@@ -10,6 +10,9 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DispatcherServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)

@@ -6,9 +6,10 @@ use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use Symfony\Component\Yaml\Yaml;
 
-/*
+/**
  * reimplementation of:
  * https://github.com/deralex/YamlConfigServiceProvider/blob/master/src/DerAlex/Silex/YamlConfigServiceProvider.php
+ * @codeCoverageIgnore
  */
 class YamlConfigServiceProvider implements ServiceProviderInterface
 {

@@ -6,6 +6,9 @@ use Expressly\Resolver\RouteResolver;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class RouteResolverServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)

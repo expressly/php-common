@@ -6,6 +6,9 @@ use Expressly\Provider\MockMerchantProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MerchantServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)

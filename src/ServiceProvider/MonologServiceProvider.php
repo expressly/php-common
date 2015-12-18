@@ -9,6 +9,9 @@ use Pimple\ServiceProviderInterface;
 use Predis\Client;
 use Symfony\Bridge\Monolog\Handler\DebugHandler;
 
+/**
+ * @codeCoverageIgnore
+ */
 class MonologServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)

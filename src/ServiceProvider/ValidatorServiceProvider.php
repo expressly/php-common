@@ -5,6 +5,9 @@ namespace Expressly\ServiceProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ValidatorServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)

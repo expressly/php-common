@@ -6,6 +6,9 @@ use Expressly\Provider\CountryCodeProvider;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CountryCodeServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $container)
