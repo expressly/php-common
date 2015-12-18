@@ -63,13 +63,13 @@ class ExternalRoute
         return $this->response;
     }
 
-    public function isDone()
+    public function isSuccessful()
     {
         if ($this->response->isEmpty() && $this->retry <= self::MAX_RETRIES) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public function getMethod()

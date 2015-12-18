@@ -38,6 +38,8 @@ class ExternalRouteEntityTest extends \PHPUnit_Framework_TestCase
             $entity->process(function ($request) {
             })
         );
+
+        $this->assertTrue($entity->isSuccessful());
     }
 
     public function testMaxRetries()
@@ -57,7 +59,7 @@ class ExternalRouteEntityTest extends \PHPUnit_Framework_TestCase
             })
         );
 
-        $this->assertTrue($entity->isDone());
+        $this->assertFalse($entity->isSuccessful());
     }
 
     public function testBuildingEntityWithPlaceholderAndValidation()
