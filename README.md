@@ -1,4 +1,4 @@
-[![Expressly](https://buyexpressly.com/assets/img/expressly-logo-sm-gray.png)](https://buyexpressly.com)
+[![Expressly](http://developer.buyexpressly.com/img/expressly-logo-sm-gray.png)](https://buyexpressly.com)
 # Expressly Plug-in PHP SDK
 
 [![Latest Stable Version](https://poser.pugx.org/expressly/php-common/version)](https://packagist.org/packages/expressly/php-common)
