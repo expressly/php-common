@@ -36,9 +36,8 @@ class BannerSubscriber implements EventSubscriberInterface
             'uuid' => $event->getUuid(),
             'email' => $event->getEmail()
         ));
-        $version = $this->container['version'];
 
-        $response = $route->process(function ($request) use ($event, $version) {
+        $response = $route->process(function ($request) use ($event) {
             $request->addHeader($event->getBasicHeader());
         });
 
