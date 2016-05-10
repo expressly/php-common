@@ -2,7 +2,7 @@
 
 namespace Expressly\ServiceProvider;
 
-use Monolog\Handler\RedisHandler;
+use Monolog\Handler\ErrorLogHandler;
 use Monolog\Logger;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -41,13 +41,7 @@ class MonologServiceProvider implements ServiceProviderInterface
         };
 
         $container['monolog.handler'] = function () use ($container) {
-            return new RedisHandler(
-                new Client('tcp://internal.expresslyapp.com:6379'),
-                $_SERVER['HTTP_HOST'],
-                Logger::WARNING,
-                true
-            );
-            //return new StreamHandler($container['monolog.logfile'], $container['monolog.level']);
+            return new ErrorLogHandler(ErrorLogHandler::SAPI , $container['monolog.level']);
         };
 
         $container['monolog.level'] = function () {
