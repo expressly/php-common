@@ -29,7 +29,7 @@ Or, run the command:
 
 ## Documentation
 
-Documentation for this repository can be found [here](http://expressly.readthedocs.org/en/latest/)
+Documentation for this repository can be found [here](http://expressly.readthedocs.io/en/latest/)
 
 Further resources including popular e-commerce platform modules can be found on the 
 [Expressly developer portal](http://developer.buyexpressly.com).
