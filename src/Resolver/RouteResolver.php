@@ -35,6 +35,13 @@ class RouteResolver implements ResolverInterface
     private function authenticate($restricted)
     {
         if ($restricted) {
+            if (!empty($_SERVER['HTTP_X_XLY_TOKEN']) &&
+                empty($_SERVER['PHP_AUTH_USER']) &&
+                empty($_SERVER['PHP_AUTH_PW'])
+            ) {
+                list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':', base64_decode($_SERVER['HTTP_X_XLY_TOKEN']));
+            }
+
             if (!empty($_SERVER['PHP_AUTH_USER']) &&
                 !empty($_SERVER['PHP_AUTH_PW']) &&
                 $this->merchant->getUuid() === $_SERVER['PHP_AUTH_USER'] &&
