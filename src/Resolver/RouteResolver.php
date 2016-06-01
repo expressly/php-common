@@ -23,12 +23,11 @@ class RouteResolver implements ResolverInterface
     {
         foreach ($this->routes as $route) {
             if ($route instanceof RouteInterface) {
-                if (($result = $route::match($key)) && $this->authenticate($route::isAuthenticated())) {
+                if (($result = $route::match(preg_replace('/.*(expressly\/.*)/i', '/${1}', $key))) && $this->authenticate($route::isAuthenticated())) {
                     return $result;
                 }
             }
         }
-
         return null;
     }
 

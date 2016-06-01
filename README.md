@@ -1,7 +1,7 @@
 [![Expressly](http://developer.buyexpressly.com/img/expressly-logo-sm-gray.png)](https://buyexpressly.com)
 # Expressly Plug-in PHP SDK
 
-[![Latest Stable Version](https://poser.pugx.org/expressly/php-common/version)](https://packagist.org/packages/expressly/php-common)
+[![Latest Stable Version](https://poser.pugx.org/expressly/php-common/version)]( https://packagist.org/packages/expressly/php-common)
 [![Build Status](https://api.travis-ci.org/expressly/php-common.png)](https://travis-ci.org/expressly/php-common)
 [![Code Climate](https://codeclimate.com/github/expressly/php-common/badges/gpa.svg)](https://codeclimate.com/github/expressly/php-common)
 [![Test Coverage](https://codeclimate.com/github/expressly/php-common/badges/coverage.svg)](https://codeclimate.com/github/expressly/php-common/coverage)
@@ -20,12 +20,12 @@ Include
 Inside your composer.json, you need to include:
 
     "require": {
-        "expressly/php-common": "2.3.2""
+        "expressly/php-common": "2.3.12""
     }
 
 Or, run the command:
 
-    composer require expressly/php-common:2.3.2
+    composer require expressly/php-common:2.3.12
 
 ## Documentation
 

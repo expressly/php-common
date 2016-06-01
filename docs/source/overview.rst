@@ -19,14 +19,14 @@ Inside your composer.json, you need to include:
 .. code-block:: javascript
 
     "require": {
-        "expressly/php-common": "2.3.2""
+        "expressly/php-common": "2.3.12""
     }
 
 Or, run the command:
 
 .. code-block:: javascript
 
-    composer require expressly/php-common:2.3.2
+    composer require expressly/php-common:2.3.12
 
 .. _overview-client:
 

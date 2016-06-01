@@ -23,7 +23,7 @@ class UserData implements RouteInterface
 
     public static function getRegex()
     {
-        return '/^\/?expressly\/api\/user\/([0-9a-zA-Z\-\_]+\@[0-9a-zA-Z\-\_\.]+)\/?$/';
+        return '/^\/?expressly\/api\/user\/([^\s]+@[^\s\/]++)\/?$/';
     }
 
     public static function getMethod()
