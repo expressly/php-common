@@ -1,4 +1,3 @@
-[![Expressly](http://developer.buyexpressly.com/img/expressly-logo-sm-gray.png)](https://buyexpressly.com)
 # Expressly Plug-in PHP SDK
 
 [![Latest Stable Version](https://poser.pugx.org/expressly/php-common/version)]( https://packagist.org/packages/expressly/php-common)
@@ -36,7 +35,7 @@ Further resources including popular e-commerce platform modules can be found on 
 
 ## License
 
-Copyright (c) 2015 Expressly. See LICENSE for further details.
+Copyright (c) 2016 Expressly. See LICENSE for further details.
 
 ## One-click customer acquisition
 
