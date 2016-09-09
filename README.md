@@ -26,6 +26,7 @@ Or, run the command:
 
     composer require expressly/php-common:2.3.12
 
+<!--
 ## Documentation
 
 Documentation for this repository can be found [here](http://expressly.readthedocs.io/en/latest/)
@@ -33,6 +34,7 @@ Documentation for this repository can be found [here](http://expressly.readthedo
 Further resources including popular e-commerce platform modules can be found on the 
 [Expressly developer portal](http://developer.buyexpressly.com).
 
+-->
 ## License
 
 Copyright (c) 2016 Expressly. See LICENSE for further details.
