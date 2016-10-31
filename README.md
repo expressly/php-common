@@ -19,12 +19,12 @@ Include
 Inside your composer.json, you need to include:
 
     "require": {
-        "expressly/php-common": "2.3.12""
+        "expressly/php-common": "2.4.1""
     }
 
 Or, run the command:
 
-    composer require expressly/php-common:2.3.12
+    composer require expressly/php-common:2.4.1
 
 <!--
 ## Documentation

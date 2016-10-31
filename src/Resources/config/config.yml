@@ -13,8 +13,8 @@ routes:
 
 external:
     hosts:
-        default: http://prod.expresslyapp.com/api/v2
-        admin: http://prod.expresslyapp.com/api/admin
+        default: https://prod.expresslyapp.com/api/v2
+        admin: https://prod.expresslyapp.com/api/admin
     routes:
         ping:
             host: admin
