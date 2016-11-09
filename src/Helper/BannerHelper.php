@@ -19,7 +19,7 @@ class BannerHelper
         }
 
         return sprintf(
-            '<div class="expressly-banner"><a href="%s"><img src="%s"/></a></div>',
+            '<div class="expressly-banner" style="padding:10px;text-align:center;"><a href="%s"><img style="display:inline;" src="%s"/></a></div>',
             $content['migrationLink'],
             $content['bannerImageUrl']
         );

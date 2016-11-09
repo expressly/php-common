@@ -14,10 +14,9 @@ routes:
 external:
     hosts:
         default: https://prod.expresslyapp.com/api/v2
-        admin: https://prod.expresslyapp.com/api/admin
     routes:
         ping:
-            host: admin
+            host: default
             method: GET
             uri: /ping
         customer_migrate_popup:
