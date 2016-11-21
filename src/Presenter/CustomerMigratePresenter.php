@@ -3,6 +3,7 @@
 namespace Expressly\Presenter;
 
 use Expressly\Entity\Customer;
+use Expressly\Entity\EventDetails;
 use Expressly\Entity\Merchant;
 
 class CustomerMigratePresenter implements PresenterInterface
@@ -10,16 +11,18 @@ class CustomerMigratePresenter implements PresenterInterface
     private $merchant;
     private $customer;
     private $email;
+    private $eventDetails;
     private $reference;
     private $locale;
 
-    public function __construct(Merchant $merchant, Customer $customer, $email, $reference, $locale = 'en')
+    public function __construct(Merchant $merchant, Customer $customer, $email, $reference, $locale = 'en', EventDetails $eventDetails = null)
     {
         $this->merchant = $merchant;
         $this->customer = $customer;
         $this->email = $email;
         $this->reference = $reference;
         $this->locale = $locale;
+        $this->eventDetails = $eventDetails;
     }
 
     public function toArray()
@@ -34,11 +37,12 @@ class CustomerMigratePresenter implements PresenterInterface
                     )
                 )
             ),
-            'data' => array(
+            'data' => array_filter(array(
                 'email' => $this->email,
                 'userReference' => $this->reference,
-                'customerData' => $this->customer->toArray()
-            )
+                'customerData' => $this->customer->toArray(),
+                'eventData' => $this->eventDetails == null ? null : $this->eventDetails->toArray()
+            ))
         );
     }
 }
