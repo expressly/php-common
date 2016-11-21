@@ -4,6 +4,7 @@ namespace Expressly\Entity;
 
 class EventDetails extends ArraySerializeable
 {
+    protected $eventName;
     protected $startTime;
     protected $endTime;
     protected $address1;
@@ -13,13 +14,21 @@ class EventDetails extends ArraySerializeable
     protected $stateProvince;
     protected $country;
 
-    public static function compare(Address $a, Address $b)
+    public static function compare(EventDetails $a, EventDetails $b)
     {
-        if ($a->toArray() == $b->toArray()) {
-            return true;
-        }
+        return $a->toArray() == $b->toArray();
+    }
 
-        return false;
+    public function getEventName()
+    {
+        return $this->eventName;
+    }
+
+    public function setEventName($eventName)
+    {
+        $this->eventName = $eventName;
+
+        return $this;
     }
 
     public function getStartTime()
