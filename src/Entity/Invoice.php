@@ -18,6 +18,10 @@ class Invoice extends ArraySerializeable
         return $this;
     }
 
+    public function hasOrders() {
+        return $this->orderCount > 0;
+    }
+
     public function addOrder(Order $order)
     {
         $this->orders[] = $order;
