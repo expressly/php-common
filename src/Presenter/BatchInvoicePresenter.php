@@ -11,7 +11,7 @@ class BatchInvoicePresenter implements PresenterInterface
     public function __construct(array $invoices)
     {
         foreach ($invoices as $invoice) {
-            if ($invoice instanceof Invoice && $invoice->hasOrders() > 0) {
+            if ($invoice instanceof Invoice && $invoice->hasOrders()) {
                 $this->invoices[] = $invoice->toArray();
             }
         }
