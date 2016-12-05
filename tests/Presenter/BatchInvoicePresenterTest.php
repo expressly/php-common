@@ -7,6 +7,7 @@ class BatchInvoicePresenterTest extends \PHPUnit_Framework_TestCase
     public function testConstruction()
     {
         $invoice = $this->getMockBuilder('Expressly\Entity\Invoice')->getMock();
+        $invoice->method('hasOrders')->willReturn(true);
         $invoice->method('toArray')->willReturn(array(
             'email' => 'test@test.com',
             'orderCount' => 2,
