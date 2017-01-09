@@ -25,6 +25,7 @@ class Customer extends ArraySerializeable
     protected $emails;
     protected $phones;
     protected $addresses;
+    protected $paymentMethods;
 
     public function __construct()
     {
@@ -32,6 +33,7 @@ class Customer extends ArraySerializeable
         $this->emails = new ArrayCollection();
         $this->phones = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->paymentMethods = new ArrayCollection();
     }
 
     public function setFirstName($firstName)
@@ -183,5 +185,11 @@ class Customer extends ArraySerializeable
         }
 
         return $this;
+    }
+
+    public function addPaymentMethod($expresslyToken) {
+        $paymentMethod = new PaymentMethod();
+        $paymentMethod->setExpresslyToken($expresslyToken);
+        $this->paymentMethods->add($expresslyToken);
     }
 }
