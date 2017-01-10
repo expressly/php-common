@@ -113,7 +113,8 @@ class CustomerEntityTest extends \PHPUnit_Framework_TestCase
                         'stateProvince' => 'England',
                         'country' => 'GBR'
                     )
-                )
+                ),
+                'paymentMethods' => array ()
             ))
         );
     }

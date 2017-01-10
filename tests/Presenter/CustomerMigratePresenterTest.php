@@ -45,7 +45,8 @@ class CustomerMigratePresenterTest extends \PHPUnit_Framework_TestCase
                         'onlinePresence' => array(),
                         'emails' => array(),
                         'phones' => array(),
-                        'addresses' => array()
+                        'addresses' => array(),
+                        'paymentMethods' => array ()
                     )
                 )
             ),
