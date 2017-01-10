@@ -190,6 +190,6 @@ class Customer extends ArraySerializeable
     public function addPaymentMethod($expresslyToken) {
         $paymentMethod = new PaymentMethod();
         $paymentMethod->setExpresslyToken($expresslyToken);
-        $this->paymentMethods->add($expresslyToken);
+        $this->paymentMethods->add($paymentMethod);
     }
 }
