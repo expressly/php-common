@@ -9,7 +9,7 @@ class PingPresenterTest extends \PHPUnit_Framework_TestCase
         $presenter = new PingPresenter();
 
         $this->assertEquals(
-            array('expressly' => 'Stuff is happening!'),
+            array('installed' => 'v2'),
             $presenter->toArray()
         );
 
