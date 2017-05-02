@@ -7,7 +7,9 @@ class RegisteredPresenter implements PresenterInterface
     public function toArray()
     {
         return array(
-            'registered' => true
+            'registered' => true,
+            'lightbox' => 'javascript',
+            'version' => 'V2'
         );
     }
 }
