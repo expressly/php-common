@@ -9,7 +9,11 @@ class RegisteredPresenterTest extends \PHPUnit_Framework_TestCase
         $presenter = new RegisteredPresenter();
 
         $this->assertEquals(
-            array('registered' => true),
+            array(
+                'registered' => true,
+                'lightbox' => 'javascript',
+                'version' => 'V2'
+            ),
             $presenter->toArray()
         );
 
